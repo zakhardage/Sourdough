@@ -1,0 +1,23 @@
+{{page.title}}
+
+{% paginate blog.articles by 10 %}
+
+	{% for article in blog.articles  %}
+		<a href="{{article.url}}">{{ article.title }}</a>
+		<span class="author">by {{ article.author }}</span>
+		<span class="date">Posted on {{ article.created_at | date: "%B %d, '%y" }}</span>
+       	{{ article.content }}
+
+		{% if blog.comments_enabled? %}
+			{% if article.comments_count == 0 %}
+				<a href="{{article.url}}#comments">Leave a comment</a>
+			{% else %}
+				<a href="{{article.url}}#comments">{{ article.comments_count }} comments</a>
+			{% endif %}
+			</div>
+       	{% endif %}
+		
+    {% endfor %}
+    
+   	{{ paginate | default_pagination }}
+{% endpaginate %}

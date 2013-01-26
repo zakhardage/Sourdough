@@ -1,0 +1,26 @@
+{% paginate collection.products by 12 %}
+
+	{% if collection.products.size == 0 %}
+		No products in this collection.
+	{% else %}
+
+		{{ collection.title }}
+		{{ collection.description }}
+	
+		<table>
+			{% tablerow product in collection.products cols: 4 %}
+				<a href="{{ product.url | within: collection }}">
+					{{ product.featured_image | product_img_url: 'medium' | img_tag: product.title }}
+					{{ product.title }}
+					{{ product.price }}
+				</a>
+			{% endtablerow %}
+		</table>
+
+		{% if paginate.pages > 1 %}
+		    {{ paginate | default_pagination }}
+		{% endif %}
+
+	{% endif %}
+
+{% endpaginate %}

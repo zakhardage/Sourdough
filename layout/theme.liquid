@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.1//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-2.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" version="XHTML+RDFa 1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3.org/1999/xhtml http://www.w3.org/MarkUp/SCHEMA/xhtml-rdfa-2.xsd" lang="de" xml:lang="de" dir="ltr" xmlns:og="http://ogp.me/ns#">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		{{ content_for_header }}
+		{% case template %}
+			{% when 'index' %} <title>{{ shop.name }} | {{ page_title }}</title>
+			{% when '404' %} <title>Page Not Found | {{ shop.name }}</title>
+			{% else %} <title>{{ page_title }} | {{ shop.name }}</title>
+		{% endcase %}
+		{% if page_description != '' %}<meta name="description" content="{{ page_description }}" />{% endif %}
+		<link rel="canonical" href="{{ canonical_url }}" />
+		<meta name="author" content="Zak Hardage" />
+		<link rel="icon" type="image/png" href="{{ 'favicon.png | asset_url }}" />
+		{{ 'javascript.js' | asset_url | script_tag }}
+		{{ 'stylesheet.css' | asset_url | stylesheet_tag }}
+		<!-- WEBFONTS -->
+		<!-- FACEBOOK OG PROTOCOL -->
+			<meta property="og:title" content="{{ shop.name }}" />
+			<meta property="og:type" content="website" />
+			<meta property="og:url" content="{{ shop.url }}" />
+			<meta property="og:image" content="{{ 'logo.png | asset_url }}" />
+			<meta property="og:site_name" content="{{ shop.name }}" />
+			<meta property="og:description" content="{{ shop.description }}" />
+		<!-- ENDFACEBOOK -->
+		{% if template == 'index' %}
+			<script type="text/javascript">$.noConflict();</script>	
+			<!-- Google Ajax Libraries API CDN -->
+			{{ 'https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js' | script_tag }}
+			<!-- bxslider -->
+			{{ 'jquery.bxSlider.js' | asset_url | script_tag }}
+			<script type="text/javascript">
+			    $(document).ready(function(){
+				  	jQuery('.bxslider').bxSlider({
+						auto: true,
+						mode: 'fade',
+						pause: {{ settings.duration }}000,
+						pager: false,
+						controls: false
+					});
+				});
+		    </script>
+		{% endif %}
+		{% if template == 'product' %}
+			<!-- lightbox http://lokeshdhakar.com/projects/lightbox2 -->
+			{{ 'lightbox.css' | asset_url | stylesheet_tag }}
+			{{ 'lightbox.js' | asset_url | script_tag }}
+			{{ 'jquery-1.7.2.min.js' | asset_url | script_tag }}
+			<!-- share this http://sharethis.com -->
+			<!-- tabbify http://www.barelyfitz.com/projects/tabber -->
+			<!-- shopify optionselector http://wiki.shopify.com/Tutorial_on_editing_existing_theme_to_use_products_with_multiple_options -->
+		{% endif %}
+		{% if template contains 'customers' %}
+		    {{ "shopify_common.js" | shopify_asset_url | script_tag }}
+		    {{ "customer_area.js"  | shopify_asset_url | script_tag }}
+		{% endif %}
+	</head>
+	<body>
+			{% include 'minicart' %}
+			<a href="/"><img id="logo" src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }} home" /></a>
+			{% include 'navigation' %}
+			{% include 'sidebar' %}
+			{% if template == 'list-collections' %}
+				{% include '404' %}
+			{% else %}
+				{{ content_for_layout }}
+			{% endif %}
+			{% include 'footer' %}
+	</body>
+
+</html>

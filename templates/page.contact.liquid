@@ -1,0 +1,18 @@
+{{page.title}}
+
+{{page.content}}
+
+{% form 'contact' %}
+	{% if form.posted_successfully? %}
+  		Thanks for contacting us! We&rsquo;ll get back to you soon.
+	{% endif %}
+	{% if form.errors %}
+  		{% for field in form.errors %}
+    		{{ field }} - {{ form.errors.messages[field] }}
+  		{% endfor %}
+	{% endif %}
+	<input type="text" id="contact_name" name="contact[name]" value="Name" onfocus="this.value='';" />
+    <input type="text" id="contact_email" name="contact[email]" value="Email Address" onfocus="this.value='';" />
+    <textarea id="contact_question" name="contact[question]" rows="20" cols="20" onfocus="this.value='';">Message</textarea>
+    <input type='submit' value="send" />
+{% endform %}

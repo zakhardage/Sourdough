@@ -1,0 +1,40 @@
+{{ product.title }}
+
+<img id="featured_img" rel="lightbox" src="{{ product.featured_image | product_img_url: 'grande' }}" alt="{{ product.title | escape }}" />
+
+{% for image in product.images %}
+	<a href="#{{ forloop.index }}" onclick="alt_images('{{ product.featured_image | product_img_url: 'grande' }}');">{{ image | product_img_url: 'small' | img_tag: product.title }}</a>
+{% endfor %}
+
+{{ product.description }}
+{{ product.price | money }}
+
+<form action="/cart/add" method="post">
+	<select id="product-select" name="id">
+		{% for variant in product.variants %}
+			<option value="{{ variant.id }}">{{ variant.title }}</option>
+		{% endfor %}
+	</select>
+	<input type="submit" value="add to cart" />
+</form>
+
+<span class='st_facebook_large' displayText='Facebook'></span>
+<span class='st_twitter_large' displayText='Tweet'></span>
+<span class='st_pinterest_large' displayText='Pinterest'></span>
+
+{% assign collectionSize = collection.handle | size %}
+{% unless collection.all_products_count == 1 or collectionSize == 0 %}
+	Related Products
+	{% assign curProduct = product.handle %}
+	{% assign loopCount = 0 %}
+	{% for products in collection.products limit: 3 %}
+		{% unless product.handle == curProduct or loopCount == 3 %}
+			<a href="{{ product.url | within: collection}}">{{ product.featured_image | product_img_url: 'medium' }}</a>
+			{% assign loopCount = loopCount | plus: 1 %}
+		{% endunless %}
+	{% endfor %}
+{% endunless %}
+
+or
+
+Browse more {{ 'products like this' | link_to_type }} or more products by {{ product.vendor | link_to_vendor }}.

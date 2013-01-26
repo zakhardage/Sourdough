@@ -1,0 +1,28 @@
+Cart
+{% if cart.item_count == 0 %}
+	You have nothing in your cart.
+{% else %}
+	<form action="/cart" method="post" id="cartform">
+		<table>
+		    <tr>
+				<th>Item</th>
+				<th>Price</th>
+				<th>Quantity</th>
+				<th>Remove</th>
+				<th>Total</th>
+		    </tr>
+			{% for item in cart.items %}
+				<tr>
+					<td><a href="{{ item.product.url }}">{{ item.product.images.first | product_img_url: 'thumb' | img_tag: item.title }}{{ item.title }}</a></td>
+					<td>{{ item.price | money }}</td>
+					<td><input type="text" size="4" name="updates[{{item.variant.id}}]" id="updates_{{ item.variant.id }}" value="{{ item.quantity }}" /></td>
+					<td><a href="/cart/change?line={{ forloop.index }}&quantity=0" title="remove">Remove</a></td>
+					<td>{{ item.line_price | money }}</td>
+				</tr>
+			{% endfor %}
+		</table>
+		Cart Total: {{ cart.total_price | money }}
+		<input type="submit" id="update-cart" name="update" value="Update" />
+		<input type="submit" name="checkout" value="Checkout" />
+	{% endform %}
+{% endif %}

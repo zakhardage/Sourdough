@@ -1,0 +1,42 @@
+{% layout settings.customer_layout %}
+
+Account Details and Order History
+
+{{ customer.name }}
+{{ customer.email }}
+{% if customer.default_address != nil %}
+	<p>{{ customer.default_address.address1 }}</p>
+	{% if customer.default_address.address2 != "" %}
+		<p>{{ customer.default_address.address2 }}</p>
+	{% endif %}
+	<p>{{ customer.default_address.city}}, {% if address.province_code %}{{customer.default_address.province_code}}, {% endif %}{{customer.default_address.country}}</p>
+	<p>{{ customer.default_address.zip}}</p>
+	<p>{{ customer.default_address.phone }}</p>
+{% endif %}
+
+{% if customer.orders.size > 0 %}
+	<table>
+		<thead>
+			<tr>
+				<th>Order</th>
+				<th>Date</th>
+				<th>Payment Status</th>
+				<th>Fulfillment Status</th>
+				<th>Total</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for order in customer.orders %}
+				<tr class="{% cycle 'odd', 'even' %} {% if order.cancelled %}cancelled_order{% endif %}">
+					<td>{{ order.name | link_to: order.customer_url }}</td>
+					<td>{{ order.created_at | date: "%b %d, %Y" }}</td>
+					<td>{{ order.financial_status }}</td>
+					<td>{{ order.fulfillment_status }}</td>
+					<td>{{ order.total_price | money }}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% else %}
+	<p>You haven't placed any orders yet.</p>
+{% endif %}

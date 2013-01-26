@@ -1,0 +1,10 @@
+{% if customer %}
+	<a href="/account/logout">sign out</a> | <a href="/account">my account</a>
+{% else %}
+	<a href="/account/login">sign in</a> | {{ 'sign up' | customer_register_link }}
+{% endif %}
+<a href="/cart">Cart: {{ cart.item_count }} {{ cart.item_count | pluralize:'item','items' }}</a>
+<form action="/search" method="get">
+	<input type="text" name="q" value="{% if search.performed %}{{ search.terms | escape | downcase }}{% else %}FIND...{% endif %}" onclick="this.value='';" />
+	<input type="submit" id="search_submit" value="" />
+</form>
