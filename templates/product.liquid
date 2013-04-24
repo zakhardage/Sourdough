@@ -3,24 +3,29 @@
 <img id="featured_img" rel="lightbox" src="{{ product.featured_image | product_img_url: 'grande' }}" alt="{{ product.title | escape }}" />
 
 {% for image in product.images %}
-	<a href="#{{ forloop.index }}" onclick="alt_images('{{ product.featured_image | product_img_url: 'grande' }}');">{{ image | product_img_url: 'small' | img_tag: product.title }}</a>
+	<a href="#{{ forloop.index }}" onclick="alt_images('{{ image | product_img_url: 'grande' }}');">{{ image | product_img_url: 'small' | img_tag: product.title }}</a>
 {% endfor %}
 
 {{ product.description }}
 {{ product.price | money }}
 
 <form action="/cart/add" method="post">
-	<select id="product-select" name="id">
-		{% for variant in product.variants %}
-			<option value="{{ variant.id }}">{{ variant.title }}</option>
-		{% endfor %}
-	</select>
-	<input type="submit" value="add to cart" />
+	{% if product.variants.size > 1 %}
+		<select id="product-select" name="id">
+			{% for variant in product.variants %}
+				<option value="{{ variant.id }}">{{ variant.title }}</option>
+			{% endfor %}
+		</select>
+	{% else %}
+		<input type="hidden" value="{{ product.variants.first.id }}" name="id" />
+	{% endif %}
+	<button type="submit">add to cart</button>
 </form>
 
-<span class='st_facebook_large' displayText='Facebook'></span>
-<span class='st_twitter_large' displayText='Tweet'></span>
-<span class='st_pinterest_large' displayText='Pinterest'></span>
+<!-- share this icons -->
+<span class='st_facebook_custom'></span>
+<span class='st_twitter_custom'></span>
+<span class='st_pinterest_custom'></span>
 
 {% assign collectionSize = collection.handle | size %}
 {% unless collection.all_products_count == 1 or collectionSize == 0 %}
@@ -34,7 +39,3 @@
 		{% endunless %}
 	{% endfor %}
 {% endunless %}
-
-or
-
-Browse more {{ 'products like this' | link_to_type }} or more products by {{ product.vendor | link_to_vendor }}.

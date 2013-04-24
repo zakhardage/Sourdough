@@ -1,10 +1,4 @@
-<ul class="bxslider">
-	{% if settings.show1 == true %}<li>{% if settings.link1 == "" %}{{ 'slide1.jpg' | asset_url | img_tag }}{% else %}{{ 'slide1.jpg' | asset_url | img_tag | link_to: settings.link1 }}{% endif %}</li>{% endif %}
-	{% if settings.show2 == true %}<li class="hide">{% if settings.link2 == "" %}{{ 'slide2.jpg' | asset_url | img_tag: shop.name }}{% else %}{{ 'slide2.jpg' | asset_url | img_tag: shop.name | link_to: settings.link2 }}{% endif %}</li>{% endif %}
-	{% if settings.show3 == true %}<li class="hide">{% if settings.link3 == "" %}{{ 'slide3.jpg' | asset_url | img_tag: shop.name }}{% else %}{{ 'slide3.jpg' | asset_url | img_tag: shop.name | link_to: settings.link3 }}{% endif %}</li>{% endif %}
-	{% if settings.show4 == true %}<li class="hide">{% if settings.link4 == "" %}{{ 'slide4.jpg' | asset_url | img_tag: shop.name }}{% else %}{{ 'slide4.jpg' | asset_url | img_tag: shop.name | link_to: settings.link4 }}{% endif %}</li>{% endif %}
-	{% if settings.show5 == true %}<li class="hide">{% if settings.link5 == "" %}{{ 'slide5.jpg' | asset_url | img_tag: shop.name }}{% else %}{{ 'slide5.jpg' | asset_url | img_tag: shop.name | link_to: settings.link5 }}{% endif %}</li>{% endif %}
-</ul>
+{% include 'slideshow' %}
 
 {% assign article = pages.frontpage %}
 {% unless article.content == "" %}	

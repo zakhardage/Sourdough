@@ -6,6 +6,7 @@ Cart
 		<table>
 		    <tr>
 				<th>Item</th>
+				<th></th>
 				<th>Price</th>
 				<th>Quantity</th>
 				<th>Remove</th>
@@ -13,7 +14,21 @@ Cart
 		    </tr>
 			{% for item in cart.items %}
 				<tr>
-					<td><a href="{{ item.product.url }}">{{ item.product.images.first | product_img_url: 'thumb' | img_tag: item.title }}{{ item.title }}</a></td>
+					<td><a href="{{ item.product.url }}">{{ item.product.images.first | product_img_url: 'thumb' | img_tag: item.title }}</a></td>
+					<td>
+						<a href="{{ item.product.url }}">{{ item.title }}</a>
+						{% for p in item.properties %}
+							{% unless p.last == blank %}
+								<br />
+								{{ p.first }}:
+								{% if p.last contains '/uploads/' %}
+									<a class="lightbox" href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+								{% else %}
+									{{ p.last }}
+								{% endif %}
+							{% endunless %}
+						{% endfor %}
+					</td>
 					<td>{{ item.price | money }}</td>
 					<td><input type="text" size="4" name="updates[{{item.variant.id}}]" id="updates_{{ item.variant.id }}" value="{{ item.quantity }}" /></td>
 					<td><a href="/cart/change?line={{ forloop.index }}&quantity=0" title="remove">Remove</a></td>
