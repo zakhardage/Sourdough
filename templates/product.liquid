@@ -27,15 +27,16 @@
 <span class='st_twitter_custom'></span>
 <span class='st_pinterest_custom'></span>
 
-{% assign collectionSize = collection.handle | size %}
-{% unless collection.all_products_count == 1 or collectionSize == 0 %}
+
+{% if collection.handle.size > 0 and collection.all_products_count > 1 %}
 	Related Products
 	{% assign curProduct = product.handle %}
 	{% assign loopCount = 0 %}
-	{% for products in collection.products limit: 3 %}
+	{% for product in collection.products %}
 		{% unless product.handle == curProduct or loopCount == 3 %}
-			<a href="{{ product.url | within: collection}}">{{ product.featured_image | product_img_url: 'medium' }}</a>
+			<a href="{{ product.url | within: collection}}">{{ product.featured_image | product_img_url: 'medium' | img_tag }}</a>
 			{% assign loopCount = loopCount | plus: 1 %}
 		{% endunless %}
 	{% endfor %}
-{% endunless %}
+{% endif %}
+
