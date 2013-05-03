@@ -1,4 +1,4 @@
-sourdough
+Sourdough
 =========
 
 "Sourdough" starter theme for Shopify -- super simple and ready for your html and css
