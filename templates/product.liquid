@@ -7,7 +7,7 @@
 {% endfor %}
 
 {{ product.description }}
-{{ product.price | money }}
+<p id="price-field">{{ product.price | money }}</p>
 
 <form action="/cart/add" method="post">
 	{% if product.variants.size > 1 %}
