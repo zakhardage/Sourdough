@@ -1,9 +1,14 @@
-{{ article.title }}
+<h1>{{ article.title }}</h1>
 
-<span class="author">by {{ article.author }}</span>
-<span class="date">Posted on {{ article.created_at | date: "%B %d, '%y" }}</span>
+<div itemscope itemtype="http://data-vocabulary.org/Person">
+	by <span itemprop="name">{{ article.author }}</span>
+	{% if gravatar %}<img itemprop="photo" src="http://www.gravatar.com/avatar/{{ settings.gravatar_email | remove: ' ' | strip_newlines | downcase | md5 }}" />{% endif %}
+</div> <!-- end itemscope -->
+Posted on {{ article.created_at | date: "%B %d, '%y" }}
 
-{{ article.content }}
+<div class="rte">
+	{{ article.content }}
+</div> <!-- end .rte -->
 
 <ul>
 	{% for comment in article.comments %}
@@ -14,32 +19,44 @@
 	{% endfor %}
 </ul>
 
-{% form article %}
-	Leave a comment
+{% if article.comments_enabled? %}
+	<div id="comments_div">
+		<h2>{{ article.comments_count }} {{ article.comments_count | pluralize:'Comment','Comments' }}:</h2>
+		{% paginate article.comments by 50 %}
+			{% for comment in article.comments %}
+				<p class="author"><img src="http://www.gravatar.com/avatar/{{ comment.email | remove: ' ' | strip_newlines | downcase | md5 }}" /> {{ comment.author }} says:</p>
+				<div class="comment">{{ comment.created_at | date:"%d %b %Y" }}: {{ comment.content }}</div> <!-- end .comment -->
+			{% endfor %}
+			{% if paginate.pages > 1 %}
+				<div class="rte">{{ paginate | default_pagination }}</div>
+			{% endif %}
+		{% endpaginate %}
 
-	{% if form.posted_successfully? %}
-		{% if blog.moderated? %}
-			Successfully posted your comment.<br />
-			It will have to be approved by the blog owner first before showing up.
-		{% else %}
-			Successfully posted your comment.
-		{% endif %}
-	{% endif %}
-	{% if form.errors %}
-		Not all the fields have been filled out correctly!
-	{% endif %}
-	<dl>
-		<dt class="{% if form.errors contains 'author' %}error{% endif %}"><label for="comment_author">Your name</label></dt>
-		<dd><input type="text" id="comment_author" name="comment[author]" size="40" value="{{form.author}}" class="{% if form.errors contains 'author' %}input-error{% endif %}" /></dd>
-		<dt class="{% if form.errors contains 'email' %}error{% endif %}"><label for="comment_email">Your email</label></dt>
-		<dd><input type="text" id="comment_email" name="comment[email]" size="40" value="{{form.email}}" class="{% if form.errors contains 'email' %}input-error{% endif %}" /></dd>
-		<dt class="{% if form.errors contains 'body' %}error{% endif %}"><label for="comment_body">Your comment</label></dt>
-		<dd><textarea id="comment_body" name="comment[body]" cols="40" rows="5" class="{% if form.errors contains 'body' %}input-error{% endif %}">{{form.body}}</textarea></dd>
-	</dl>
+		{% form article %}
+			<h2>Leave a comment</h2>
+			{% if blog.moderated? %}
+				<h3>note: all comments are reviewed before they are published</h3>
+			{% endif %}
 
-	{% if blog.moderated? %}
-		comments have to be approved before showing up
-	{% endif %}    
-
-	<input type="submit" value="Post comment" />
-{% endform %}
+			{% if form.posted_successfully? %}
+				{% if blog.moderated? %}
+					<div class="comment-note">
+						Successfully posted your comment.<br />
+						It will have to be approved by the blog owner first before showing up.
+					</div> <!-- end .comment-note -->
+				{% else %}
+					<div class="comment-note">Successfully posted your comment.</div> <!-- end .comment-note -->
+				{% endif %}
+			{% endif %}
+			{% if form.errors %}
+				<div class="comment-note">Not all the fields have been filled out correctly!</div> <!-- end .comment-note -->
+			{% endif %}
+			<input type="text" id="comment_author" name="comment[author]" value="{% if form.author %}{{ form.author }}{% else %}name{% endif %}" class="{% if form.errors contains 'author' %}input-error{% endif %}" onfocus="comments('comment_author','name','focus')" onblur="comments('comment_author','name','blur')" />
+			
+			<input type="text" id="comment_email" name="comment[email]" value="{% if form.email %}{{ form.email }}{% else %}email address{% endif %}" class="{% if form.errors contains 'email' %}input-error{% endif %}" onfocus="comments('comment_email','email address','focus')" onblur="comments('comment_email','email address','blur')" />
+			
+			<textarea id="comment_body" name="comment[body]" cols="40" rows="5" class="{% if form.errors contains 'body' %}input-error{% endif %}" onfocus="comments('comment_body','comment','focus')" onblur="comments('comment_body','comment','blur')">{% if form.body %}{{ form.body }}{% else %}comment{% endif %}</textarea>
+			<button type="submit">submit comment</button>
+		{% endform %}
+	</div> <!-- end #comments -->
+{% endif %}

@@ -1,8 +1,21 @@
-function alt_images(src) {
-	document.getElementById("featured_img").src = src;
+// product
+function alt_images(src,href) {
+	document.getElementById("featured-img").src = src;
+	document.getElementById("featured-img-link").href = href;
 }
 
+// cart
 function remove_item(id) {
   document.getElementById('updates_'+id).value = 0;
   document.getElementById('cartform').submit();
+}
+
+// login
+function showRecoverPasswordForm() {
+	document.getElementById('recover-password').style.display = 'block';
+	document.getElementById('customer-login').style.display = 'none';
+}
+function hideRecoverPasswordForm() {
+	document.getElementById('recover-password').style.display = 'none';
+	document.getElementById('customer-login').style.display = 'block';
 }

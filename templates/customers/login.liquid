@@ -1,59 +1,35 @@
 {% layout settings.customer_layout %}
-    
-Customer Login
+<div id="customer-login">
+	Customer Login
+	{% form 'customer_login' %}
+		{{ form.errors | default_errors }}
+		<input type="email" placeholder="email address" name="customer[email]" />
 
-{% form 'customer_login' %}
-
-	{{ form.errors | default_errors }}
-
-	<label for="customer_email" class="login">Email Address</label>
-	<input type="email" value="" name="customer[email]" id="customer_email" size="30" />
-
-	{% if form.password_needed %}
-		<label for="customer_password">Password</label>
-		<input type="password" value="" name="customer[password]" id="customer_password" size="16" />
-		<a href="#" onclick="showRecoverPasswordForm();">Forgot your password?</a>
-	{% endif %}
-	<input class="btn" type="submit" value="Sign In" />
-{% endform %}
+		{% if form.password_needed %}
+			<input type="password" placeholder="password" name="customer[password]" />
+			<a href="#" onclick="showRecoverPasswordForm();">Forgot your password?</a>
+		{% endif %}
+		<button type="submit">Sign In</button>
+	{% endform %}
+</div> <!-- end #customer-login -->
 
 <div id="recover-password">
 	Reset Password
 	<p>We will send you an email to reset your password.</p>
-
 	{% form 'recover_customer_password' %}
 		{{ form.errors | default_errors }}
-
-		<div id="recover_email">
-			<label for="recover-email">Email</label>
-			<input type="email" value="" size="30" name="email" id="recover-email" />
+		<div id="recover-email">
+			<input type="email" placeholder="email address" name="email" />
 		</div>
-        <input type="submit" value="Submit" /> or <a href="#recoveremail" onclick="hideRecoverPasswordForm();">Cancel</a>
+		<button type="submit">Submit</button>
+		or <a href="#recoveremail" onclick="hideRecoverPasswordForm();">Cancel</a>
 	{% endform %}
-</div>
+</div> <!-- end #recover-password -->
 
 {% if shop.checkout.guest_login %}
 	Guest Login
 	<p>Continue checkout as a guest. No sign-up required.</p>
 	{% form 'guest_login' %}
-		<input type="submit" value="Continue as Guest" />
+		<button type="submit">Continue as Guest</button>
 	{% endform %}
 {% endif %}
-
-
-<script type="text/javascript">
-	if (window.location.hash == '#recover') {showRecoverPasswordForm();}
-
-	function showRecoverPasswordForm() {
-		document.getElementById('recover-password').style.display = 'block';
-		document.getElementById('customer-login').style.display='none';
-		window.location.hash = '#recover';
-		return false;
-	}
-
-	function hideRecoverPasswordForm() {
-		document.getElementById('recover-password').style.display = 'none';
-		document.getElementById('customer-login').style.display = 'block';
-		return false;
-	}
-</script>

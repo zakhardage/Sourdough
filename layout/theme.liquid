@@ -2,7 +2,6 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		{{ content_for_header }}
 		{% case template %}
 			{% when 'index' %} <title>{{ shop.name }} | {{ page_title }}</title>
 			{% when '404' %} <title>Page Not Found | {{ shop.name }}</title>
@@ -10,24 +9,14 @@
 		{% endcase %}
 		{% if page_description != '' %}<meta name="description" content="{{ page_description }}" />{% endif %}
 		<link rel="canonical" href="{{ canonical_url }}" />
-		<meta name="author" content="Zak Hardage" />
 		<link rel="icon" type="image/png" href="{{ 'favicon.png' | asset_url }}" />
 		{{ 'javascript.js' | asset_url | script_tag }}
 		{{ 'stylesheet.css' | asset_url | stylesheet_tag }}
-		<!-- WEBFONTS -->
-		<!-- FACEBOOK OG PROTOCOL -->
-			<meta property="og:title" content="{{ shop.name }}" />
-			<meta property="og:type" content="website" />
-			<meta property="og:url" content="{{ shop.url }}" />
-			<meta property="og:image" content="{{ 'logo.png | asset_url }}" />
-			<meta property="og:site_name" content="{{ shop.name }}" />
-			<meta property="og:description" content="{{ shop.description }}" />
-		<!-- ENDFACEBOOK -->
+		{% include 'opengraph' %}
+		<!-- BXSLIDER -->
 		{% if template == 'index' %}
 			<script type="text/javascript">$.noConflict();</script>	
-			<!-- Google Ajax Libraries API CDN -->
 			{{ 'https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js' | script_tag }}
-			<!-- bxslider -->
 			{{ 'jquery.bxslider.min.js' | asset_url | script_tag }}
 			<script type="text/javascript">
 			    $(document).ready(function(){
@@ -39,52 +28,27 @@
 				});
 		    </script>
 		{% endif %}
-		{% if template == 'product' %}
-			<!-- lightbox http://lokeshdhakar.com/projects/lightbox2 -->
-				{{ 'https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js' | script_tag }}
-				{{ 'lightbox.css' | asset_url | stylesheet_tag }}
-				{{ 'lightbox.js' | asset_url | script_tag }}
-			<!-- share this http://sharethis.com -->
-			<!-- tabbify http://www.barelyfitz.com/projects/tabber -->
-			<!-- shopify optionselector http://wiki.shopify.com/Tutorial_on_editing_existing_theme_to_use_products_with_multiple_options -->
-			{{ 'option_selection.js' | shopify_asset_url | script_tag }}
-		{% endif %}
-		{% if template contains 'customers' %}
-		    {{ "shopify_common.js" | shopify_asset_url | script_tag }}
-		    {{ "customer_area.js"  | shopify_asset_url | script_tag }}
-		{% endif %}
+		{{ content_for_header }}
 	</head>
 	<body>
 			{% include 'header' %}
 			{% include 'sidebar' %}
 			{% if template == 'list-collections' %}
-				{% include '404' %}
+				{% include 'list-collections' %}
 			{% else %}
 				{{ content_for_layout }}
 			{% endif %}
 			{% include 'footer' %}
 	</body>
-	{% if template == 'product' %}
-	<script type="text/javascript">
-	// <![CDATA[  
-	var selectCallback = function(variant, selector) {
-	  if (variant && variant.available == true) {
-	    // selected a valid variant
-	    jQuery('#purchase').removeClass('disabled').removeAttr('disabled'); // remove unavailable class from add-to-cart button, and re-enable button
-	    jQuery('#price-field').html(Shopify.formatMoney(variant.price, "{{shop.money_with_currency_format}}"));  // update price field
-	  } else {
-	    // variant doesn't exist
-	    jQuery('#purchase').addClass('disabled').attr('disabled', 'disabled');      // set add-to-cart button to unavailable class and disable button
-	    var message = variant ? "Sold Out" : "Unavailable";    
-	    jQuery('#price-field').text(message); // update price-field message
-	  }
-	};
-
-	// initialize multi selector for product
-	jQuery(function() {
-	  new Shopify.OptionSelectors("product-select", { product: {{ product | json }}, onVariantSelected: selectCallback });
-	});
-	// ]]>
-	</script>
+	{% if template contains 'product' %}
+		<!-- LIGHTBOX http://lokeshdhakar.com/projects/lightbox2 -->
+			{{ 'https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js' | script_tag }}
+			{{ 'lightbox.css' | asset_url | stylesheet_tag }}
+			{{ 'lightbox.js' | asset_url | script_tag }}
+		<!-- SHARE THIS http://sharethis.com -->
+	{% endif %}
+	{% if template contains 'customers' %}
+	    {{ "shopify_common.js" | shopify_asset_url | script_tag }}
+	    {{ "customer_area.js"  | shopify_asset_url | script_tag }}
 	{% endif %}
 </html>

@@ -1,1 +1,12 @@
-{% include '404' %}
+Sorry, we can't find what you're looking for.
+Try searching
+{% include 'advanced-search' %}
+
+Or one of our featured products
+{% for product in collections.frontpage.products limit: 3 %}
+	<a href="{{ product.url | within: collection }}">
+		{{ product.featured_image | product_img_url:'large' | img_tag:product.title }}
+		{{ product.title }}
+		{{ product.price | money }}
+	</a>
+{% endfor %}

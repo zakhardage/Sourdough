@@ -1,7 +1,7 @@
-{{page.title}}
-
-{{page.content}}
-
+<h1>{{page.title}}</h1>
+<div class="rte">
+	{{page.content}}
+</div> <!-- end .rte -->
 {% form 'contact' %}
 	{% if form.posted_successfully? %}
   		Thanks for contacting us! We&rsquo;ll get back to you soon.
@@ -11,8 +11,8 @@
     		{{ field }} - {{ form.errors.messages[field] }}
   		{% endfor %}
 	{% endif %}
-	<input type="text" id="contact_name" name="contact[name]" value="Name" onfocus="this.value='';" />
-    <input type="text" id="contact_email" name="contact[email]" value="Email Address" onfocus="this.value='';" />
-    <textarea id="contact_question" name="contact[question]" rows="20" cols="20" onfocus="this.value='';">Message</textarea>
+	<input type="text" name="contact[name]" placeholder="name" />
+    <input type="text" name="contact[email]" placeholder="email address" class="{% if form.errors contains 'email' %}input-error{% endif %}" />
+    <textarea name="contact[body]" rows="20" cols="20" placeholder="message" class="{% if form.errors contains 'body' %}input-error{% endif %}"></textarea>
     <button type="submit">send</button>
 {% endform %}

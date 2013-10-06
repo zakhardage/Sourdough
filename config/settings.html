@@ -1,48 +1,60 @@
-<fieldset><legend></legend></fieldset>
+<fieldset>
+	<legend>Global</legend>
+	<table class="standard-table">
+		<tr class="odd"><td><input type="checkbox" name="geolocation" /> Add geolocation metatags?</td><td><input type="text" name="latitude" value="latitude" size="23" /> <input type="text" name="longitude" value="longitude" size="23" /></td></tr>
+		<tr class="even">
+			<td><input type="checkbox" name="business_contact_data" /> Add business contact metatags?</td>
+			<td>
+				<p><input type="text" name="address" value="address" size="50" /></p>
+				<p><input type="text" name="city" value="city" size="27" /> <input type="text" name="state" value="state" size="5" /> <input type="text" name="zip" value="zip" size="10" /></p>
+				<p><input type="text" name="country" value="country" size="50" /></p>
+				<p><input type="text" name="phone" value="phone" size="50" /></p>
+			</td>
+		</tr>
+		<tr><td><input type="checkbox" name="gravatar" /> Display <a href="https://en.gravatar.com/">gravatar</a> email address on article page?</td><td><input type="email" name="gravatar_email" /></td></tr>
+	</table>
+</fieldset>
 <fieldset>
 	<legend>Slideshow</legend>
-	<p>Upload images in <strong>.jpg</strong> format.</p>
-	<p>Slideshow images must be uploaded at: [WIDTH] wide by [HEIGHT] tall</p>
-	<p>Leave the "Link to" field empty for no link.</p>  
 	<table class="standard-table">
 		<tr>
-			<td></td>
-			<td>Show?</td>
+			<td><strong>Notes</strong></td>
+			<td>
+				<p>Upload images in <strong>.jpg</strong> format.</p>
+				<p>Upload at: [WIDTH] wide by [HEIGHT] tall</p>
+				<p>Leave the "Link to" field empty for no link.</p>  
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
 			<td>Image</td>
 			<td>Link to</td>
 		</tr>
 		<tr>
-			<td><label for="show1">Slide #1</label></td> 
-			<td><input type="checkbox" id="show1" name="show1" /></td>
-			<td><input type="file" id="slide1" name="slide1.jpg" /></td>
-			<td><input type="text" id="link1" name="link1" /></td>
+			<td><input type="checkbox" name="show1" /> Show slide 1</td> 
+			<td><input type="file" name="slide1.jpg" /></td>
+			<td><input type="text" name="link1" /></td>
 		</tr>
 		<tr>
-			<td><label for="show2">Slide #2</label></td>    
-			<td><input type="checkbox" id="show2" name="show2" /></td>
-			<td><input type="file" id="slide2" name="slide2.jpg" /></td>
-			<td><input type="text" id="link2" name="link2" /></td>
+			<td><input type="checkbox" name="show2" /> Show slide 2</td>    
+			<td><input type="file" name="slide2.jpg" /></td>
+			<td><input type="text" name="link2" /></td>
 		</tr>   
 		<tr>
-			<td><label for="show3">Slide #3</label></td>    
-			<td><input type="checkbox" id="show3" name="show3" /></td>
-			<td><input type="file" id="slide3" name="slide3.jpg" /></td>
-			<td><input type="text" id="link3" name="link3" /></td>
+			<td><input type="checkbox" name="show3" /> Show slide 3</td>    
+			<td><input type="file" name="slide3.jpg" /></td>
+			<td><input type="text" name="link3" /></td>
 		</tr> 
 		<tr>
-			<td><label for="show4">Slide #4</label></td>
-			<td><input type="checkbox" id="show4" name="show4" /></td>
-			<td><input type="file" id="slide4" name="slide4.jpg" /></td>
-			<td><input type="text" id="link4" name="link4" /></td>
+			<td><input type="checkbox" name="show4" /> Show slide 4</td>
+			<td><input type="file" name="slide4.jpg" /></td>
+			<td><input type="text" name="link4" /></td>
 		</tr>   
 		<tr>
-			<td><label for="show5">Slide #5</label></td>    
-			<td><input type="checkbox" id="show5" name="show5" /></td>
-			<td><input type="file" id="slide5" name="slide5.jpg" /></td>
-			<td><input type="text" id="link5" name="link5" /></td>
+			<td><input type="checkbox" name="show5" /> Show slide 5</td>    
+			<td><input type="file" name="slide5.jpg" /></td>
+			<td><input type="text" name="link5" /></td>
 		</tr>
-		<tr>
-			<td><label for="duration">Duration between each slide transition (seconds)</label></td><td><input type="text" id="duration" name="duration" /></td>
-		</tr>
+		<tr><td>&nbsp;</td><td><input type="text" name="duration" size="2" /> Seconds between each slide transition</td><td></td></tr>
 	</table>
 </fieldset>

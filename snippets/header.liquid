@@ -1,20 +1,18 @@
-<a href="/"><img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }} home" /></a>
+<a href="/"><img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" /></a>
 
 {% if customer %}
-	<a href="/account/logout">sign out</a> | <a href="/account">my account</a>
+	<a href="/account/logout">sign out</a> | <a href="/account">account</a>
 {% else %}
-	<a href="/account/login">sign in</a> | {{ 'sign up' | customer_register_link }}
+	<a href="/account/login">sign in</a> | <a href="/account/register">sign up</a>
 {% endif %}
 
-<a href="/cart">Cart: {{ cart.item_count }} {{ cart.item_count | pluralize:'item','items' }}</a>
+<a href="/cart">{{ cart.item_count }} {{ cart.item_count | pluralize:'item','items' }}</a>
 
 <form action="/search" method="get">
-	<input type="text" name="q" value="{% if search.performed %}{{ search.terms | escape | downcase }}{% else %}FIND...{% endif %}" onclick="this.value='';" />
-	<button type="submit" id="search_submit">go</button>
+	<input type="text" name="q" placeholder="{% if search.performed %}{{ search.terms | escape | downcase }}{% endif %}" />
+	<button type="submit" id="search_submit">search</button>
 </form>
 
-<ul>
-	{% for link in linklists.main-menu.links %}
-		<li><a href="{{ link.url }}">{{ link.title }}</a></li>
-	{% endfor %}
-</ul>
+{% for link in linklists.main-menu.links %}
+	<a href="{{ link.url }}">{{ link.title }}</a>
+{% endfor %}

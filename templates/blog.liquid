@@ -1,11 +1,11 @@
-{{page.title}}
+<h1>{{ page.title }}</h1>
 
 {% paginate blog.articles by 10 %}
 
 	{% for article in blog.articles  %}
-		<a href="{{article.url}}">{{ article.title }}</a>
-		<span class="author">by {{ article.author }}</span>
-		<span class="date">Posted on {{ article.created_at | date: "%B %d, '%y" }}</span>
+		<h2><a href="{{article.url}}">{{ article.title }}</a></h2>
+		<span itemscope itemtype="http://data-vocabulary.org/Person">by <span itemprop="name">{{ article.author }}</span></span>
+		Posted on {{ article.created_at | date: "%B %d, '%y" }}
        	{{ article.content }}
 
 		{% if blog.comments_enabled? %}

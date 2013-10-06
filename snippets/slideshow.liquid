@@ -4,23 +4,29 @@
 {% assign s4 = settings.show4 %}
 {% assign s5 = settings.show5 %}
 
+{% assign l1 = settings.link1 %}
+{% assign l2 = settings.link2 %}
+{% assign l3 = settings.link3 %}
+{% assign l4 = settings.link4 %}
+{% assign l5 = settings.link5 %}
+
 {% capture slide1 %}{{ 'slide1.jpg' | asset_url | img_tag }}{% endcapture %}
 {% capture slide2 %}{{ 'slide2.jpg' | asset_url | img_tag }}{% endcapture %}
 {% capture slide3 %}{{ 'slide3.jpg' | asset_url | img_tag }}{% endcapture %}
 {% capture slide4 %}{{ 'slide4.jpg' | asset_url | img_tag }}{% endcapture %}
 {% capture slide5 %}{{ 'slide5.jpg' | asset_url | img_tag }}{% endcapture %}
 
-{% capture slide1link %}{{ 'slide1.jpg' | asset_url | img_tag | link_to: settings.link1 }}{% endcapture %}
-{% capture slide2link %}{{ 'slide2.jpg' | asset_url | img_tag | link_to: settings.link2 }}{% endcapture %}
-{% capture slide3link %}{{ 'slide3.jpg' | asset_url | img_tag | link_to: settings.link3 }}{% endcapture %}
-{% capture slide4link %}{{ 'slide4.jpg' | asset_url | img_tag | link_to: settings.link4 }}{% endcapture %}
-{% capture slide5link %}{{ 'slide5.jpg' | asset_url | img_tag | link_to: settings.link5 }}{% endcapture %}
+{% capture slide1link %}{{ 'slide1.jpg' | asset_url | img_tag | link_to:l1 }}{% endcapture %}
+{% capture slide2link %}{{ 'slide2.jpg' | asset_url | img_tag | link_to:l2 }}{% endcapture %}
+{% capture slide3link %}{{ 'slide3.jpg' | asset_url | img_tag | link_to:l3 }}{% endcapture %}
+{% capture slide4link %}{{ 'slide4.jpg' | asset_url | img_tag | link_to:l4 }}{% endcapture %}
+{% capture slide5link %}{{ 'slide5.jpg' | asset_url | img_tag | link_to:l5 }}{% endcapture %}
 
 <ul class="bxslider">
-	{% if settings.show1 == true %}<li>{% if settings.link1.size > 1 %}{{ slide1link }}{% else %}{{ slide1 }}{% endif %}</li>{% endif %}
-	{% if settings.show2 == true %}<li>{% if settings.link2.size > 1 %}{{ slide2link }}{% else %}{{ slide2 }}{% endif %}</li>{% endif %}
-	{% if settings.show3 == true %}<li>{% if settings.link3.size > 1 %}{{ slide3link }}{% else %}{{ slide3 }}{% endif %}</li>{% endif %}
-	{% if settings.show4 == true %}<li>{% if settings.link4.size > 1 %}{{ slide4link }}{% else %}{{ slide4 }}{% endif %}</li>{% endif %}
-	{% if settings.show5 == true %}<li>{% if settings.link5.size > 1 %}{{ slide5link }}{% else %}{{ slide5 }}{% endif %}</li>{% endif %}
+	{% if s1 %}<li>{% if l1.size > 1 %}{{ slide1link }}{% else %}{{ slide1 }}{% endif %}</li>{% endif %}
+	{% if s2 %}<li>{% if l2.size > 1 %}{{ slide2link }}{% else %}{{ slide2 }}{% endif %}</li>{% endif %}
+	{% if s3 %}<li>{% if l3.size > 1 %}{{ slide3link }}{% else %}{{ slide3 }}{% endif %}</li>{% endif %}
+	{% if s4 %}<li>{% if l4.size > 1 %}{{ slide4link }}{% else %}{{ slide4 }}{% endif %}</li>{% endif %}
+	{% if s5 %}<li>{% if l5.size > 1 %}{{ slide5link }}{% else %}{{ slide5 }}{% endif %}</li>{% endif %}
 </ul>
 	

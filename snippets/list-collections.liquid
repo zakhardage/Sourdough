@@ -1,0 +1,17 @@
+{% paginate collections by settings.pagination %}
+
+<h1>Collections</h1>
+{% tablerow collection in collections cols:3 %}
+	{% if collection.products_count > 0 %}
+		<a href="{{ collection.url }}">
+			<img src="{{ collection.products.first.featured_image | product_img_url:'large' }}" alt="{{ collection.title | escape }}" /><br />
+			{{ collection.title }}
+		</a>
+	{% endif %}
+{% endtablerow %}
+{% if paginate.pages > 1 %}
+	{{ default_paginateion }}
+{% endif %}
+
+{% endpaginate %}
+

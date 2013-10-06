@@ -1,0 +1,57 @@
+<meta property="og:site_name" content="{{ shop.name }}" />
+{% if template contains 'product' %}
+	{% comment %}facebook and global{% endcomment %}
+	<meta property="og:title" content="{{ product.title }}" />
+	<meta property="og:url" content="{{ shop.url }}{{ product.url }}" />
+	<meta property="og:image" content="{{ product.featured_image | product_img_url:'large' }}" />
+	<meta property="og:description" content="{{ product.description | newline_to_br | strip_html | truncatewords:50,'' | escape }}" />
+	<meta property="og:type" content="product" />
+	{% if geolocation %}
+		<meta property="place:location:latitude"  content="{{ settings.latitude }}" /> 
+	    <meta property="place:location:longitude" content="{{ settings.longitude }}" />
+	{% endif %}
+	{% if business_contact_data %}
+		<meta property="business:contact_data:street_address" content="{{ settings.address }}">
+		<meta property="business:contact_data:locality" content="{{ settings.city }}">
+		<meta property="business:contact_data:region" content="{{ settings.state }}">
+		<meta property="business:contact_data:postal_code" content="{{ settings.zip }}">
+		<meta property="business:contact_data:country_name" content="{{ settings.country }}">
+		<meta property="business:contact_data:email" content="{{ shop.email }}">
+		<meta property="business:contact_data:phone_number" content="{{ settings.phone }}">
+		<meta property="business:contact_data:website" content="{{ shop.url }}">
+	{% endif %}
+	{% comment %}pinterest{% endcomment %}
+	<meta property="og:price:amount" content="15.00" />
+	<meta property="og:price:currency" content="USD" />
+	<meta property="og:availability" content="instock" />
+	<meta property="og:type" content="product" />
+	<meta property="og:site_name" content="{{ shop.name }}" />
+	{% comment %}twitter{% endcomment %}
+	<meta name="twitter:card" content="product" />
+	<meta name="twitter:title" content="product" />
+	<meta name="twitter:description" content="{{ product.description | strip_html | truncate:140,'' | escape }}" />
+	<meta name="twitter:image" content="{{ product.featured_image | product_img_url:'large' }}" />
+	<meta name="twitter:data1" content="{{ product.price }}" />
+	<meta name="twitter:label1" content="Price" />
+	<meta name="twitter:data2" content="{% if product.variants.size > 1 %}{% for v in product.variants %}{{ v.title }}{% unless forloop.last %}, {% endunless %}{% endfor %}{% else %} {% endif %}" />
+	<meta name="twitter:label2" content="{% if product.variants.size > 1 %}Options{% endif %}" />
+	{% comment %}google{% endcomment %}
+	{% if collection %}<meta itemprop="category" content="{{ collection.title }}" />{% endif %}
+	<meta itemprop="currency" content="{{ shop.currency }}" />
+	<meta itemprop="price" content="{{ product.price | money_without_currency }}" />
+{% elsif template == 'article' %}
+	<meta property="og:title" content="{{ article.title }}" />
+	<meta property="og:url" content="{{ shop.url }}{{ article.url }}" />
+	<meta property="og:type" content="article" />
+	{% if article.content contains "<img" %}
+		{% assign src = article.excerpt_or_content | split: 'src="' %}
+		{% assign src = src[1] | split:'"' | first | replace:'//cdn','http://cdn' | replace:'http:http://','http://' | remove:'https:'  %}
+		{% if src %}<meta property="og:image" content="{{ src }}" />{% endif %}
+	{% endif %}
+	<meta property="og:description" content="{{ article.content | newline_to_br | strip_html | truncatewords:50,'' | escape  }}" />
+{% else %}
+	<meta property="og:title" content="{{ shop.name }}" />
+	<meta property="og:url" content="{{ shop.url }}" />
+	<meta property="og:image" content="{{ 'logo.png' | asset_url }}" />
+	<meta property="og:description" content="{{ shop.description }}" />
+{% endif %}

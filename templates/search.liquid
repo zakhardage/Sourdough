@@ -1,4 +1,4 @@
-Search Results
+<h1>Search Results</h1>
 search: {{ search.terms }}
 {% if search.results_count > 0 %}
 	<ol>
@@ -9,3 +9,6 @@ search: {{ search.terms }}
 {% else %}
 	No results found.
 {% endif %}
+
+Search again:
+{% include 'advanced-search' %}

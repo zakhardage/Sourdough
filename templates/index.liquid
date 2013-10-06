@@ -2,14 +2,13 @@
 
 {% assign article = pages.frontpage %}
 {% unless article.content == "" %}	
-	Welcome
 	{{ article.content }}
 {% endunless %}
 
 Featured Products
 {% for product in collections.frontpage.products limit: 3 %}
 	<a href="{{ product.url | within: collection }}">
-		{{ product.featured_image | product_img_url: 'large' | img_tag: product.title }}
+		{{ product.featured_image | product_img_url:'large' | img_tag:product.title }}
 		{{ product.title }}
 		{{ product.price | money }}
 	</a>
