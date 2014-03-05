@@ -10,15 +10,6 @@ Posted on {{ article.created_at | date: "%B %d, '%y" }}
 	{{ article.content }}
 </div> <!-- end .rte -->
 
-<ul>
-	{% for comment in article.comments %}
-		<li>
-			{{ comment.content }}
-			Posted by {{ comment.author }} on {{ comment.created_at | date: "%B %d, %Y" }}
-		</li>
-	{% endfor %}
-</ul>
-
 {% if article.comments_enabled? %}
 	<div id="comments_div">
 		<h2>{{ article.comments_count }} {{ article.comments_count | pluralize:'Comment','Comments' }}:</h2>

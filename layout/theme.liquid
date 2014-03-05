@@ -13,40 +13,32 @@
 		{{ 'javascript.js' | asset_url | script_tag }}
 		{{ 'stylesheet.css' | asset_url | stylesheet_tag }}
 		{% include 'opengraph' %}
-		<!-- BXSLIDER -->
-		{% if template == 'index' %}
-			<script type="text/javascript">$.noConflict();</script>	
+		{% if template == 'index' %} {% comment %} BXSLIDER http://bxslider.com/ {% endcomment %}
 			{{ 'https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js' | script_tag }}
 			{{ 'jquery.bxslider.min.js' | asset_url | script_tag }}
 			<script type="text/javascript">
 			    $(document).ready(function(){
 				  	jQuery('.bxslider').bxSlider({
-						pause: {{ settings.duration }}000,
-						pager: false,
-						controls: false
+						pause:{{ settings.duration }}000,
+						pager:false,
+						controls:false
 					});
 				});
 		    </script>
 		{% endif %}
+		{% if template contains 'product' %} {% comment %} LIGHTBOX http://lokeshdhakar.com/projects/lightbox2/ {% endcomment %}
+			{{ 'lightbox.css' | asset_url | stylesheet_tag }}
+			{{ 'jquery-1.10.2.min.js' | asset_url | script_tag }}
+			{{ 'lightbox-2.6.min.js' | asset_url | script_tag }}
+		{% endif %}
 		{{ content_for_header }}
 	</head>
 	<body>
-			{% include 'header' %}
-			{% include 'sidebar' %}
-			{% if template == 'list-collections' %}
-				{% include 'list-collections' %}
-			{% else %}
-				{{ content_for_layout }}
-			{% endif %}
-			{% include 'footer' %}
+		{% include 'header' %}
+		{% include 'sidebar' %}
+		{{ content_for_layout }}
+		{% include 'footer' %}
 	</body>
-	{% if template contains 'product' %}
-		<!-- LIGHTBOX http://lokeshdhakar.com/projects/lightbox2 -->
-			{{ 'https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js' | script_tag }}
-			{{ 'lightbox.css' | asset_url | stylesheet_tag }}
-			{{ 'lightbox.js' | asset_url | script_tag }}
-		<!-- SHARE THIS http://sharethis.com -->
-	{% endif %}
 	{% if template contains 'customers' %}
 	    {{ "shopify_common.js" | shopify_asset_url | script_tag }}
 	    {{ "customer_area.js"  | shopify_asset_url | script_tag }}

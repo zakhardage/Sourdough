@@ -1,10 +1,10 @@
 <div itemscope itemtype="http://data-vocabulary.org/Product">
 	<h1 itemprop="name">{{ product.title }}</h1>
 
-	<a id="featured-img-link" href="{{ product.featured_image | product_img_url:'1024x1024' }}" rel="lightbox"><img itemprop="image" id="featured-img" src="{{ product.featured_image | product_img_url:'grande' }}" alt="{{ product.title | escape }}" /></a>
+	<a id="featured-img-link" href="{{ product.featured_image | product_img_url:'1024x1024' }}" data-lightbox="{{ product.title | handle }}"><img itemprop="image" id="featured-img" src="{{ product.featured_image | product_img_url:'grande' }}" alt="{{ product.title | escape }}" /></a>
 
 	{% for image in product.images %}
-		<a href="#{{ forloop.index }}" onclick="alt_images('{{ image | product_img_url:'grande' }}','{{ image | product_img_url:'1024x1024' }}');">{{ image | product_img_url:'small' | img_tag: product.title }}</a>
+		<a href="#{{ forloop.index }}" onclick="alt_images('{{ image | product_img_url:'grande' }}','{{ image | product_img_url:'1024x1024' }}');">{{ image | product_img_url:'small' | img_tag:product.title }}</a>
 	{% endfor %}
 
 	<div itemprop="description" class="rte">{{ product.description }}</div> <!-- end .rte itemprop="description" -->
