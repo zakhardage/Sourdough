@@ -3,7 +3,7 @@
 	{% comment %}facebook and global{% endcomment %}
 	<meta property="og:title" content="{{ product.title }}" />
 	<meta property="og:url" content="{{ shop.url }}{{ product.url }}" />
-	<meta property="og:image" content="{{ product.featured_image | product_img_url:'large' }}" />
+	<meta property="og:image" content="http:{{ product.featured_image | product_img_url:'large' }}" />
 	<meta property="og:description" content="{{ product.description | newline_to_br | strip_html | truncatewords:50,'' | escape }}" />
 	<meta property="og:type" content="product" />
 	{% if geolocation %}
@@ -52,6 +52,6 @@
 {% else %}
 	<meta property="og:title" content="{{ shop.name }}" />
 	<meta property="og:url" content="{{ shop.url }}" />
-	<meta property="og:image" content="{{ 'logo.png' | asset_url }}" />
+	<meta property="og:image" content="http:{{ 'logo.png' | asset_url }}" />
 	<meta property="og:description" content="{{ shop.description }}" />
 {% endif %}
