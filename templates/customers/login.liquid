@@ -7,7 +7,7 @@
 
 		{% if form.password_needed %}
 			<input type="password" placeholder="password" name="customer[password]" />
-			<a href="#" onclick="showRecoverPasswordForm();">Forgot your password?</a>
+			<a href="#" onclick="show();">Forgot your password?</a>
 		{% endif %}
 		<button type="submit">Sign In</button>
 	{% endform %}
@@ -22,7 +22,7 @@
 			<input type="email" placeholder="email address" name="email" />
 		</div>
 		<button type="submit">Submit</button>
-		or <a href="#recoveremail" onclick="hideRecoverPasswordForm();">Cancel</a>
+		or <a href="#recoveremail" onclick="hide();">Cancel</a>
 	{% endform %}
 </div> <!-- end #recover-password -->
 
@@ -33,3 +33,15 @@
 		<button type="submit">Continue as Guest</button>
 	{% endform %}
 {% endif %}
+
+
+<script type="text/javascript">
+	function show() {
+		document.getElementById('recover-password').style.display = 'block';
+		document.getElementById('customer-login').style.display = 'none';
+	}
+	function hide() {
+		document.getElementById('recover-password').style.display = 'none';
+		document.getElementById('customer-login').style.display = 'block';
+	}
+</script>

@@ -1,7 +1,7 @@
 <div itemscope itemtype="http://data-vocabulary.org/Product">
 	<h1 itemprop="name">{{ product.title }}</h1>
 
-	<a id="featured-img-link" href="{{ product.featured_image | product_img_url:'1024x1024' }}" data-lightbox="{{ product.title | handle }}"><img itemprop="image" id="featured-img" src="{{ product.featured_image | product_img_url:'grande' }}" alt="{{ product.title | escape }}" /></a>
+	<a id="link" href="{{ product.featured_image | product_img_url:'1024x1024' }}" data-lightbox="{{ product.title | handle }}"><img itemprop="image" id="img" src="{{ product.featured_image | product_img_url:'grande' }}" alt="{{ product.title | escape }}" /></a>
 
 	{% for image in product.images %}
 		<a href="#{{ forloop.index }}" onclick="alt_images('{{ image | product_img_url:'grande' }}','{{ image | product_img_url:'1024x1024' }}');">{{ image | product_img_url:'small' | img_tag:product.title }}</a>
@@ -10,60 +10,24 @@
 	<div itemprop="description" class="rte">{{ product.description }}</div> <!-- end .rte itemprop="description" -->
 	<p id="price">{{ product.price | money }}</p>
 
-	<form action="/cart/add" method="post">
-		{% if product.variants.size > 1 %}
-			{% if product.options[0] %}
-				{% assign used = '' %}
-				<label for="select-one">{{ product.options[0] }}</label>
-				<select id='select-one' onchange="optionSelect()">
-					{% for variant in product.variants %}
-						{% unless used contains variant.option1 %}
-							<option value="{{ variant.option1 }}">{{ variant.option1 }}</option>
-							{% capture used %}{{ used }} {{ variant.option1 }}{% endcapture %}
-						{% endunless %}
-					{% endfor %}
-				</select>
-			{% endif %}
-			{% if product.options[1] %}
-				{% assign used = '' %}
-				<label for="select-one">{{ product.options[1] }}</label>
-				<select id='select-two' onchange="optionSelect()">
-					{% for variant in product.variants %}
-						{% unless used contains variant.option2 %}
-							<option value="{{ variant.option2 }}">{{ variant.option2 }}</option>
-							{% capture used %}{{ used }} {{ variant.option2 }}{% endcapture %}
-						{% endunless %}
-					{% endfor %}
-				</select>
-			{% endif %}
-			{% if product.options[2] %}
-				{% assign used = '' %}
-				<label for="select-one">{{ product.options[2] }}</label>
-				<select id='select-three' onchange="optionSelect()">
-					{% for variant in product.variants %}
-						{% unless used contains variant.option3 %}
-							<option value="{{ variant.option3 }}">{{ variant.option3 }}</option>
-							{% capture used %}{{ used }} {{ variant.option3 }}{% endcapture %}
-						{% endunless %}
-					{% endfor %}
-				</select>
-			{% endif %}
-		{% endif %}
-		<input type="hidden"name="id" id="product-select" value="{{ product.variants.first.id }}" />				
-	</form>
-
-	<!-- share this icons -->
+	{% include 'product-form' %}
+	
+	{% comment %}sharethis.com icons{% endcomment %}
 	<span class='st_facebook_custom'></span>
 	<span class='st_twitter_custom' st_via=''></span>
 	<span class='st_pinterest_custom'></span>
 
 	{% include 'cross-sell' %}
 
-	{% comment %}image pre-loader{% endcomment %}
-	{% for image in product.images %}<img src="{{ image | product_img_url:'grande' }}" alt="hidden" style="display:none" />{% endfor %}
 </div> <!-- end itemscope -->
+{% comment %}image pre-loader{% endcomment %}
+{% for image in product.images %}<img src="{{ image | product_img_url:'grande' }}" alt="hidden" style="display:none" />{% endfor %}
 
 <script>
+	function alt_images(src,href) {
+		document.getElementById("img").src = src;
+		document.getElementById("link").href = href;
+	}
 	function optionSelect() {
 		{% if product.options[0] %}var opt1 = document.getElementById('select-one').value;{% endif %}
 		{% if product.options[1] %}var opt2 = document.getElementById('select-two').value;{% endif %}

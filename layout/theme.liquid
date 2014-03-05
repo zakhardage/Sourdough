@@ -26,10 +26,12 @@
 				});
 		    </script>
 		{% endif %}
-		{% if template contains 'product' %} {% comment %} LIGHTBOX http://lokeshdhakar.com/projects/lightbox2/ {% endcomment %}
+		{% if template contains 'product' %} {% comment %} LIGHTBOX http://lokeshdhakar.com/projects/lightbox2/ || SHARETHIS http://www.sharethis.com/{% endcomment %}
 			{{ 'lightbox.css' | asset_url | stylesheet_tag }}
 			{{ 'jquery-1.10.2.min.js' | asset_url | script_tag }}
 			{{ 'lightbox-2.6.min.js' | asset_url | script_tag }}
+			<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+			<script type="text/javascript">stLight.options({publisher: "ur-15b2a5c4-78b0-49-7c4f-4a64e8db32a", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
 		{% endif %}
 		{{ content_for_header }}
 	</head>
