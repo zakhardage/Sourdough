@@ -35,7 +35,7 @@
 		{% endif %}
 		{{ content_for_header }}
 	</head>
-	<body>
+	<body class="{{ template | handle }} {% if template contains 'product' %}product{% endif %} {% if template contains 'collection' %}collection{% endif %} {% if template contains 'customer' %}customer{% endif %} {% if template contains 'page' %}page{% endif %}">
 		{% include 'header' %}
 		{% include 'sidebar' %}
 		{{ content_for_layout }}

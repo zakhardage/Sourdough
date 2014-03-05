@@ -1,4 +1,4 @@
-{% paginate collection.products by 12 %}
+{% paginate collection.products by 100 %}
 	{{ collection.title }}
 	{{ collection.description }}
 	{% if collection.products.size == 0 %}
@@ -13,9 +13,6 @@
 				</a>
 			{% endtablerow %}
 		</table>
-		{% if paginate.pages > 1 %}
-		    {{ paginate | default_pagination }}
-			<a href="/collections/{{ collection.handle }}?view=all">view all</a>
-		{% endif %}
+		<a href="/collections/{{ collection.handle }}">view less</a>
 	{% endif %}
 {% endpaginate %}
