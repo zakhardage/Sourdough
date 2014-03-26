@@ -1,25 +1,34 @@
-<div itemscope itemtype="http://data-vocabulary.org/Product">
-	<h1 itemprop="name">{{ product.title }}</h1>
+<div itemscope itemtype="http://schema.org/Product">
+	<meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
+	<meta itemprop="image" content="{{ product.featured_image.src | product_img_url: 'grande' }}">
 
-	<a id="link" href="{{ product.featured_image | product_img_url:'1024x1024' }}" data-lightbox="{{ product.title | handle }}"><img itemprop="image" id="img" src="{{ product.featured_image | product_img_url:'grande' }}" alt="{{ product.title | escape }}" /></a>
+  	<div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+	    <h1 itemprop="name">{{ product.title }}</h1>
+		<meta itemprop="priceCurrency" content="{{ shop.currency }}">
+        
+		<link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
 
-	{% for image in product.images %}
-		<a href="#{{ forloop.index }}" onclick="alt_images('{{ image | product_img_url:'grande' }}','{{ image | product_img_url:'1024x1024' }}');">{{ image | product_img_url:'small' | img_tag:product.title }}</a>
-	{% endfor %}
+		<a id="link" href="{{ product.featured_image | product_img_url:'1024x1024' }}" data-lightbox="{{ product.title | handle }}"><img itemprop="image" id="img" src="{{ product.featured_image | product_img_url:'grande' }}" alt="{{ product.title | escape }}" /></a>
 
-	<div itemprop="description" class="rte">{{ product.description }}</div> <!-- end .rte itemprop="description" -->
-	<p id="price">{{ product.price | money }}</p>
+		{% for image in product.images %}
+			<a href="#{{ forloop.index }}" onclick="alt_images('{{ image | product_img_url:'grande' }}','{{ image | product_img_url:'1024x1024' }}');">{{ image | product_img_url:'small' | img_tag:product.title }}</a>
+		{% endfor %}
 
-	{% include 'product-form' %}
+		<div itemprop="description" class="rte">{{ product.description }}</div> <!-- end .rte itemprop="description" -->
+
+		<p id="price" itemprop="price">{{ product.price | money }}</p>
+
+		{% include 'product-form' %}
 	
-	{% comment %}sharethis.com icons{% endcomment %}
-	<span class='st_facebook_custom'></span>
-	<span class='st_twitter_custom' st_via=''></span>
-	<span class='st_pinterest_custom'></span>
+		{% comment %}sharethis.com icons{% endcomment %}
+		<span class='st_facebook_custom'></span>
+		<span class='st_twitter_custom' st_via=''></span>
+		<span class='st_pinterest_custom'></span>
 
-	{% include 'cross-sell' %}
+		{% include 'cross-sell' %}
 
 </div> <!-- end itemscope -->
+
 {% comment %}image pre-loader{% endcomment %}
 {% for image in product.images %}<img src="{{ image | product_img_url:'grande' }}" alt="hidden" style="display:none" />{% endfor %}
 
