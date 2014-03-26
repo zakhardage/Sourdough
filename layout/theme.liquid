@@ -12,7 +12,7 @@
 		<meta name="viewport" content="width=device-width">
 		<link rel="icon" type="image/png" href="{{ 'favicon.png' | asset_url }}" />
 		{{ 'javascript.js' | asset_url | script_tag }}
-		{{ 'stylesheet.css' | asset_url | stylesheet_tag }}
+		{{ 'stylesheet.scss.css' | asset_url | stylesheet_tag }}
 		{% include 'fb-opengraph' %}
 		{% include 'twitter-card' %}
 		{% if template == 'index' %} {% comment %} BXSLIDER http://bxslider.com/ {% endcomment %}
