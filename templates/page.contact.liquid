@@ -11,8 +11,8 @@
     		{{ field }} - {{ form.errors.messages[field] }}
   		{% endfor %}
 	{% endif %}
-	<input type="text" name="contact[name]" placeholder="name" />
-    <input type="text" name="contact[email]" placeholder="email address" class="{% if form.errors contains 'email' %}input-error{% endif %}" />
-    <textarea name="contact[body]" rows="20" cols="20" placeholder="message" class="{% if form.errors contains 'body' %}input-error{% endif %}"></textarea>
+	<input type="text" name="contact[name]" placeholder="name" class="{% if form.errors contains 'name' %}input-error{% endif %}" value="{{ contact.fields.name }}" />
+    <input type="text" name="contact[email]" placeholder="email address" class="{% if form.errors contains 'email' %}input-error{% endif %}" value="{{ contact.fields.email }}" />
+    <textarea name="contact[body]" rows="20" cols="20" placeholder="message" class="{% if form.errors contains 'body' %}input-error{% endif %}">{{ contact.fields.body }}</textarea>
     <button type="submit">send</button>
 {% endform %}
