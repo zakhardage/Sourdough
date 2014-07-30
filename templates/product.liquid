@@ -22,12 +22,8 @@
 
 		{% include 'product-form' %}
 	
-		{% comment %}Sharing{% endcomment %}
-		<a href="https://www.facebook.com/sharer/sharer.php?u={{ shop.url }}{{ product.url }}" target="_blank">facebook</a>
-		<a href="http://twitter.com/home?status={{ product.title | escape }} by {{ shop.name }} {{ shop.url }}{{ product.url }}{% if settings.twitter-handle != blank %} @{{ settings.twitter-handle }}{% endif %}" class="twitter" target="_blank">twitter</a>
-		<a href="https://pinterest.com/pin/create/button/?url={{ shop.url }}{{ product.url }}&media=https:{{ product.featured_image | product_img_url:'large' }}&description={{ product.title | escape | replace:' ','%20' }}%20by%20{{ shop.name | replace:' ','%20' }}" class="pinterest" target="_blank">pinterest</a>
-		<a href="mailto:?Subject={{ product.title | replace:' ','%20' }}%20from%20{{ shop.name | replace:' ','%20' }}&body=%0D%0A%0D%0A{{ shop.url }}{{ product.url }}%0D%0A%0D%0A{{ product.description | replace:' ','%20' | strip_html | escape | truncatewords:20 }}" class="mail" target="_blank">email</a>
-
+		{% include 'product-share' %}
+	
 		{% include 'cross-sell' %}
 	</div> <!-- end itemprop offers -->
 </div> <!-- end itemscope -->
