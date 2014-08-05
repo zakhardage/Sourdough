@@ -10,13 +10,17 @@
 		}
 	}
 	var products = new Array();
+	{% assign current = product.url %}
+	{% assign count = 0 %}
+	{% assign display-count = 6 %}
 	{% if collection and collection.all_products_count > 1 %}
-		{% for product in collection.products %}products[{{ forloop.index | minus:1 }}] = "<a href='{{ product.url | within: collection }}'><img src='{{ product.featured_image | product_img_url:'large' }}' alt='{{ shop.name | escape }}' /><br />{{ product.title | escape }}<br />{{ product.price | money }}</a>";{% endfor %}
+		{% for product in collection.products %}{% unless product.url == current %}products[{{ count }}] = "<a href='{{ product.url | within: collection }}'><img src='{{ product.featured_image | product_img_url:'large' }}' alt='{{ shop.name | escape }}' /><br />{{ product.title | escape }}<br />{{ product.price | money }}</a>";{% assign count = count | plus:1 %}{% endunless %}{% endfor %}
 	{% else %}
-		{% for product in collections.all.products %}products[{{ forloop.index | minus:1 }}] = "<a href='{{ product.url }}'><img src='{{ product.featured_image | product_img_url:'large' }}' alt='{{ shop.name | escape }}' /><br />{{ product.title | escape }}<br />{{ product.price | money }}</a>";{% endfor %}
+		{% for product in collections.all.products %}{% unless product.url == current %}products[{{ count }}] = "<a href='{{ product.url }}'><img src='{{ product.featured_image | product_img_url:'large' }}' alt='{{ shop.name | escape }}' /><br />{{ product.title | escape }}<br />{{ product.price | money }}</a>";{% assign count = count | plus:1 %}{% endunless %}{% endfor %}
 	{% endif %}	
+	{% if count > display-count %}{% assign count = display-count %}{% endif %}
 	fisherYates(products);
-	for(var i=0;i<6;i++) {
+	for(var i=0; i<{{ count }}; i++) {
 		document.write(products[i]);	
 	}
 </script>

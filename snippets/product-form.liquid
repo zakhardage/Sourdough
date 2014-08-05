@@ -5,10 +5,13 @@
 			<label for="select-one">{{ product.options[0] }}</label>
 			<select id='select-one' onchange="optionSelect()">
 				{% for variant in product.variants %}
-					{% unless used contains variant.option1 %}
+					{% assign used-gate = true %}
+					{% assign used-check = used | split:'*' %}
+					{% for check in used-check %}{% if check == variant.option1 %}{% assign used-gate = false %}{% endif %}{% endfor %}
+					{% if used-gate %}
 						<option value="{{ variant.option1 }}">{{ variant.option1 }}</option>
-						{% capture used %}{{ used }} {{ variant.option1 }}{% endcapture %}
-					{% endunless %}
+						{% capture used %}{{ used }}*{{ variant.option1 }}{% endcapture %}
+					{% endif %}
 				{% endfor %}
 			</select>
 		{% endif %}
@@ -17,10 +20,13 @@
 			<label for="select-one">{{ product.options[1] }}</label>
 			<select id='select-two' onchange="optionSelect()">
 				{% for variant in product.variants %}
-					{% unless used contains variant.option2 %}
+					{% assign used-gate = true %}
+					{% assign used-check = used | split:'*' %}
+					{% for check in used-check %}{% if check == variant.option2 %}{% assign used-gate = false %}{% endif %}{% endfor %}
+					{% if used-gate %}
 						<option value="{{ variant.option2 }}">{{ variant.option2 }}</option>
-						{% capture used %}{{ used }} {{ variant.option2 }}{% endcapture %}
-					{% endunless %}
+						{% capture used %}{{ used }}*{{ variant.option2 }}{% endcapture %}
+					{% endif %}
 				{% endfor %}
 			</select>
 		{% endif %}
@@ -29,14 +35,19 @@
 			<label for="select-one">{{ product.options[2] }}</label>
 			<select id='select-three' onchange="optionSelect()">
 				{% for variant in product.variants %}
-					{% unless used contains variant.option3 %}
+					{% assign used-gate = true %}
+					{% assign used-check = used | split:'*' %}
+					{% for check in used-check %}{% if check == variant.option3 %}{% assign used-gate = false %}{% endif %}{% endfor %}
+					{% if used-gate %}
 						<option value="{{ variant.option3 }}">{{ variant.option3 }}</option>
-						{% capture used %}{{ used }} {{ variant.option3 }}{% endcapture %}
-					{% endunless %}
+						{% capture used %}{{ used }}*{{ variant.option3 }}{% endcapture %}
+					{% endif %}
 				{% endfor %}
 			</select>
 		{% endif %}
 	{% endif %}
-	<input type="hidden" name="id" id="product-select" value="{{ product.variants.first.id }}" />
+	<input type="hidden" name="id" id="product-select" value="{{ product.variants[0].id }}" />
+	<label>Quantity</label>
+	<input type="text" name="quantity" id="quantity" value="1" onclick="this.select()" />
 	<button type="submit">add to cart</button>
 </form>

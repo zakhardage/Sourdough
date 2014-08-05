@@ -1,13 +1,13 @@
-{% paginate collection.products by 100 %}
+{% paginate collection.products by collection.all_products_count %}
 	{{ collection.title }}
 	{{ collection.description }}
 	{% if collection.products.size == 0 %}
 		No products in this collection.
 	{% else %}
 		<table>
-			{% tablerow product in collection.products cols: 4 %}
-				<a href="{{ product.url | within: collection }}">
-					{{ product.featured_image | product_img_url: 'medium' | img_tag: product.title }}
+			{% tablerow product in collection.products cols:4 %}
+				<a href="{{ product.url | within:collection }}">
+					{{ product.featured_image | product_img_url:'medium' | img_tag:product.title }}
 					{{ product.title }}
 					{{ product.price }}
 				</a>
