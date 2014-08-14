@@ -3,7 +3,7 @@
 {% paginate blog.articles by 10 %}
 
 	{% for article in blog.articles  %}
-		<h2><a href="{{article.url}}">{{ article.title }}</a></h2>
+		<h2><a href="{{ article.url }}">{{ article.title }}</a></h2>
 		<span itemscope itemtype="http://data-vocabulary.org/Person">by <span itemprop="name">{{ article.author }}</span></span>
 		Posted on {{ article.created_at | date: "%B %d, '%y" }}
        	{{ article.content }}

@@ -22,7 +22,7 @@ Cart
 						{% endfor %}
 					</td>
 					<td>{{ item.price | money }}</td>
-					<td><input type="text" name="updates[{{item.variant.id}}]" id="updates_{{ item.variant.id }}" value="{{ item.quantity }}" onclick="this.value=''" /></td>
+					<td><input type="text" name="updates[{{item.variant.id}}]" id="updates_{{ item.variant.id }}" value="{{ item.quantity }}" onclick="this.select()" /></td>
 					<td><a href="/cart/change?line={{ forloop.index }}&quantity=0">remove</a></td>
 					<td>{{ item.line_price | money }}</td>
 				</tr>

@@ -42,11 +42,11 @@ Posted on {{ article.created_at | date: "%B %d, '%y" }}
 			{% if form.errors %}
 				<div class="comment-note">Not all the fields have been filled out correctly!</div> <!-- end .comment-note -->
 			{% endif %}
-			<input type="text" id="comment_author" name="comment[author]" value="{% if form.author %}{{ form.author }}{% else %}name{% endif %}" class="{% if form.errors contains 'author' %}input-error{% endif %}" onfocus="comments('comment_author','name','focus')" onblur="comments('comment_author','name','blur')" />
+			<input type="text" name="comment[author]" placeholder="name" value="{% if form.author %}{{ form.author }}{% endif %}" class="{% if form.errors contains 'author' %}input-error{% endif %}" onclick="this.select()" />
 			
-			<input type="text" id="comment_email" name="comment[email]" value="{% if form.email %}{{ form.email }}{% else %}email address{% endif %}" class="{% if form.errors contains 'email' %}input-error{% endif %}" onfocus="comments('comment_email','email address','focus')" onblur="comments('comment_email','email address','blur')" />
+			<input type="text" name="comment[email]" placeholder="email address" value="{% if form.email %}{{ form.email }}{% endif %}" class="{% if form.errors contains 'email' %}input-error{% endif %}" onclick="this.select()" />
 			
-			<textarea id="comment_body" name="comment[body]" cols="40" rows="5" class="{% if form.errors contains 'body' %}input-error{% endif %}" onfocus="comments('comment_body','comment','focus')" onblur="comments('comment_body','comment','blur')">{% if form.body %}{{ form.body }}{% else %}comment{% endif %}</textarea>
+			<textarea name="comment[body]" cols="40" rows="5" class="{% if form.errors contains 'body' %}input-error{% endif %}" onclick="this.select()" placeholder="comment">{% if form.body != blank %}{{ form.body }}{% endif %}</textarea>
 			<button type="submit">submit comment</button>
 		{% endform %}
 	</div> <!-- end #comments -->
