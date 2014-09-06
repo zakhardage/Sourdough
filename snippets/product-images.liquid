@@ -1,0 +1,15 @@
+{% if product.variants[0].featured_image %}
+	{% assign first-image = product.variants[0].featured_image %}
+{% else %}
+	{% assign first-image = product.featured_image %}
+{% endif %}
+
+<a id="link" href="{{ first-image | product_img_url:'1024x1024' }}" data-lightbox="{{ product.title | handle }}">
+	<img itemprop="image" id="img" src="{{ first-image | product_img_url:'grande' }}" alt="{{ product.title | escape }}" />
+</a>
+
+{% if product.images.size > 1 %}
+	{% for image in product.images %}
+		<a href="javascript:void(0)" onclick="alt_images('{{ image | product_img_url:'grande' }}','{{ image | product_img_url:'1024x1024' }}');">{{ image | product_img_url:'small' | img_tag:product.title }}</a>
+	{% endfor %}
+{% endif %}

@@ -1,29 +1,15 @@
 <div itemscope itemtype="http://schema.org/Product">
 	<meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
 	<meta itemprop="image" content="{{ product.featured_image.src | product_img_url: 'grande' }}">
-
   	<div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 	    <h1 itemprop="name">{{ product.title }}</h1>
-		<meta itemprop="priceCurrency" content="{{ shop.currency }}">
-        
+		<meta itemprop="priceCurrency" content="{{ shop.currency }}">       
 		<link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
-
-		<a id="link" href="{{ product.featured_image | product_img_url:'1024x1024' }}" data-lightbox="{{ product.title | handle }}"><img itemprop="image" id="img" src="{{ product.featured_image | product_img_url:'grande' }}" alt="{{ product.title | escape }}" /></a>
-
-		{% if product.images.size > 1 %}
-			{% for image in product.images %}
-				<a href="#{{ forloop.index }}" onclick="alt_images('{{ image | product_img_url:'grande' }}','{{ image | product_img_url:'1024x1024' }}');">{{ image | product_img_url:'small' | img_tag:product.title }}</a>
-			{% endfor %}
-		{% endif %}
-
+		{% include 'product-images' %}
 		<div itemprop="description" class="rte">{{ product.description }}</div> <!-- end .rte itemprop="description" -->
-
 		<p id="price" itemprop="price">{{ product.price | money }}</p>
-
 		{% include 'product-form' %}
-	
 		{% include 'product-share' %}
-	
 		{% include 'cross-sell' %}
 	</div> <!-- end itemprop offers -->
 </div> <!-- end itemscope -->
@@ -45,6 +31,10 @@
 			if(opt1=="{{ v.option1 }}"{% if product.options[1] %} && opt2=="{{ v.option2 }}"{% endif %}{% if product.options[2] %} && opt3=="{{ v.option3 }}"{% endif %}) {
 				var id = "{{ v.id }}";
 				var price = "{{ v.price | money }}";
+				{% if v.featured_image %}
+					document.getElementById('img').src = "{{ v.featured_image | img_url:'grande' }}";
+					document.getElementById('link').href= "{{ v.featured_image | img_url:'1024x1024' }}";
+				{% endif %}
 			}
 		{% endfor %}
 		if(id!='') {
