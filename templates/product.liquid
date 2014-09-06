@@ -15,7 +15,11 @@
 </div> <!-- end itemscope -->
 
 {% comment %}image pre-loader{% endcomment %}
-{% for image in product.images %}<img src="{{ image | product_img_url:'grande' }}" alt="hidden" style="display:none" />{% endfor %}
+{% for image in product.images offset:1 %}
+	<a href="{{ image | product_img_url:'master' }}" data-lightbox="{{ product.title | handle }}" class="hidden">
+		<img src="{{ image | product_img_url:'grande' }}" alt="{{ shop.name }}" />
+	</a>
+{% endfor %}
 
 <script>
 	function alt_images(src,href) {
