@@ -2,7 +2,7 @@
 
 <div itemscope itemtype="http://data-vocabulary.org/Person">
 	by <span itemprop="name">{{ article.author }}</span>
-	{% if gravatar %}<img itemprop="photo" src="http://www.gravatar.com/avatar/{{ settings.gravatar_email | remove: ' ' | strip_newlines | downcase | md5 }}" />{% endif %}
+	
 </div> <!-- end itemscope -->
 Posted on {{ article.created_at | date: "%B %d, '%y" }}
 
@@ -15,7 +15,7 @@ Posted on {{ article.created_at | date: "%B %d, '%y" }}
 		<h2>{{ article.comments_count }} {{ article.comments_count | pluralize:'Comment','Comments' }}:</h2>
 		{% paginate article.comments by 50 %}
 			{% for comment in article.comments %}
-				<p class="author"><img src="http://www.gravatar.com/avatar/{{ comment.email | remove: ' ' | strip_newlines | downcase | md5 }}" /> {{ comment.author }} says:</p>
+				<p class="author">{{ comment.author }} says:</p>
 				<div class="comment">{{ comment.created_at | date:"%d %b %Y" }}: {{ comment.content }}</div> <!-- end .comment -->
 			{% endfor %}
 			{% if paginate.pages > 1 %}
@@ -32,8 +32,7 @@ Posted on {{ article.created_at | date: "%B %d, '%y" }}
 			{% if form.posted_successfully? %}
 				{% if blog.moderated? %}
 					<div class="comment-note">
-						Successfully posted your comment.<br />
-						It will have to be approved by the blog owner first before showing up.
+						Successfully posted your comment.<br />It will have to be approved by the blog owner first before showing up.
 					</div> <!-- end .comment-note -->
 				{% else %}
 					<div class="comment-note">Successfully posted your comment.</div> <!-- end .comment-note -->

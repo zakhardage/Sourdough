@@ -10,9 +10,9 @@
 
 		{% if blog.comments_enabled? %}
 			{% if article.comments_count == 0 %}
-				<a href="{{article.url}}#comments">Leave a comment</a>
+				<a href="{{ article.url }}#comments">Leave a comment</a>
 			{% else %}
-				<a href="{{article.url}}#comments">{{ article.comments_count }} comments</a>
+				<a href="{{ article.url }}#comments">{{ article.comments_count }} comments</a>
 			{% endif %}
 			</div>
        	{% endif %}
