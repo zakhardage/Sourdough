@@ -13,3 +13,10 @@
 		<a href="javascript:void(0)" onclick="alt_images('{{ image | product_img_url:'grande' }}','{{ image | product_img_url:'1024x1024' }}');">{{ image | product_img_url:'small' | img_tag:product.title }}</a>
 	{% endfor %}
 {% endif %}
+
+<script>
+	function alt_images(src,href) {
+		document.getElementById("img").src = src;
+		document.getElementById("link").href = href;
+	}
+</script>

@@ -51,3 +51,29 @@
 	<input type="text" name="quantity" id="quantity" value="1" onclick="this.select()" />
 	<button type="submit">add to cart</button>
 </form>
+
+<script>
+	function optionSelect() {
+		{% if product.options[0] %}var opt1 = document.getElementById('select-one').value;{% endif %}
+		{% if product.options[1] %}var opt2 = document.getElementById('select-two').value;{% endif %}
+		{% if product.options[2] %}var opt3 = document.getElementById('select-three').value;{% endif %}
+		var id = '';
+		{% for v in product.variants %}
+			if(opt1=="{{ v.option1 }}"{% if product.options[1] %} && opt2=="{{ v.option2 }}"{% endif %}{% if product.options[2] %} && opt3=="{{ v.option3 }}"{% endif %}) {
+				var id = "{{ v.id }}";
+				var price = "{{ v.price | money }}";
+				{% if v.featured_image %}
+					document.getElementById('img').src = "{{ v.featured_image | img_url:'grande' }}";
+					document.getElementById('link').href= "{{ v.featured_image | img_url:'1024x1024' }}";
+				{% endif %}
+			}
+		{% endfor %}
+		if(id!='') {
+			document.getElementById('product-select').value = id;
+			document.getElementById('price').innerHTML = price;
+		} else {
+			document.getElementById('product-select').value = '';
+			document.getElementById('price').innerHTML = 'Unavailable';
+		}
+	}
+</script>

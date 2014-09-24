@@ -1,0 +1,35 @@
+<form action="/cart/add" method="post">
+	{% if product.variants.size > 1 %}
+		<label>{% for option in product.options %}{{ option }}{% unless forloop.last %}/{% endunless %}{% endfor %}</label>
+		<select onchange="optionSelect(this.value)">
+			{% for variant in product.variants %}
+				<option value="{{ variant.id }}">{{ variant.title }}</option>
+			{% endfor %}
+		</select>
+	{% else %}
+		<input type="hidden" name="id" id="product-select" value="{{ product.variants[0].id }}" />
+	{% endif %}
+	<label>Quantity</label>
+	<input type="text" name="quantity" id="quantity" value="1" onclick="this.select()" />
+	<button type="submit">add to cart</button>
+</form>
+
+<script>
+	function optionSelect(id) {
+		{% for v in product.variants %}
+			if(id == {{ v.id }}) {
+				var price = "{{ v.price | money }}";
+				var avail = {{ variant.available }};
+				{% if v.featured_image %}
+					document.getElementById('img').src = "{{ v.featured_image | img_url:'grande' }}";
+					document.getElementById('link').href= "{{ v.featured_image | img_url:'1024x1024' }}";
+				{% endif %}
+			}
+		{% endfor %}
+		if(avail = true) {
+			document.getElementById('price').innerHTML = price;
+		} else {
+			document.getElementById('price').innerHTML = 'Unavailable';
+		}
+	}
+</script>
