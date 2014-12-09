@@ -9,7 +9,7 @@
 				<a href="{{ product.url | within:collection }}">
 					{{ product.featured_image | product_img_url:'medium' | img_tag:product.title }}
 					{{ product.title }}
-					{{ product.price }}
+					{{ product.price | money }}
 				</a>
 			{% endtablerow %}
 		</table>
