@@ -1,19 +1,7 @@
-{% capture slide1 %}{{ 'slide1.jpg' | asset_url | img_tag }}{% endcapture %}
-{% capture slide2 %}{{ 'slide2.jpg' | asset_url | img_tag }}{% endcapture %}
-{% capture slide3 %}{{ 'slide3.jpg' | asset_url | img_tag }}{% endcapture %}
-{% capture slide4 %}{{ 'slide4.jpg' | asset_url | img_tag }}{% endcapture %}
-{% capture slide5 %}{{ 'slide5.jpg' | asset_url | img_tag }}{% endcapture %}
-
-{% capture slide1link %}{{ 'slide1.jpg' | asset_url | img_tag | link_to:settings.link1 }}{% endcapture %}
-{% capture slide2link %}{{ 'slide2.jpg' | asset_url | img_tag | link_to:settings.link2 }}{% endcapture %}
-{% capture slide3link %}{{ 'slide3.jpg' | asset_url | img_tag | link_to:settings.link3 }}{% endcapture %}
-{% capture slide4link %}{{ 'slide4.jpg' | asset_url | img_tag | link_to:settings.link4 }}{% endcapture %}
-{% capture slide5link %}{{ 'slide5.jpg' | asset_url | img_tag | link_to:settings.link5 }}{% endcapture %}
-
 <ul class="bxslider">
-	{% if settings.show1 %}<li>{% if settings.link1.size > 1 %}{{ slide1link }}{% else %}{{ slide1 }}{% endif %}</li>{% endif %}
-	{% if settings.show2 %}<li>{% if settings.link2.size > 1 %}{{ slide2link }}{% else %}{{ slide2 }}{% endif %}</li>{% endif %}
-	{% if settings.show3 %}<li>{% if settings.link3.size > 1 %}{{ slide3link }}{% else %}{{ slide3 }}{% endif %}</li>{% endif %}
-	{% if settings.show4 %}<li>{% if settings.link4.size > 1 %}{{ slide4link }}{% else %}{{ slide4 }}{% endif %}</li>{% endif %}
-	{% if settings.show5 %}<li>{% if settings.link5.size > 1 %}{{ slide5link }}{% else %}{{ slide5 }}{% endif %}</li>{% endif %}
+	{% if settings.show1 %}<li>{% if settings.link1 != blank %}{{ 'slide1.jpg' | asset_url | img_tag:shop.name | link_to:settings.link1 }}{% else %}{{ 'slide1.jpg' | asset_url | img_tag:shop.name }}{% endif %}</li>{% endif %}
+	{% if settings.show2 %}<li>{% if settings.link2 != blank %}{{ 'slide2.jpg' | asset_url | img_tag:shop.name | link_to:settings.link2 }}{% else %}{{ 'slide2.jpg' | asset_url | img_tag:shop.name }}{% endif %}</li>{% endif %}
+	{% if settings.show3 %}<li>{% if settings.link3 != blank %}{{ 'slide3.jpg' | asset_url | img_tag:shop.name | link_to:settings.link3 }}{% else %}{{ 'slide3.jpg' | asset_url | img_tag:shop.name }}{% endif %}</li>{% endif %}
+	{% if settings.show4 %}<li>{% if settings.link4 != blank %}{{ 'slide4.jpg' | asset_url | img_tag:shop.name | link_to:settings.link4 }}{% else %}{{ 'slide4.jpg' | asset_url | img_tag:shop.name }}{% endif %}</li>{% endif %}
+	{% if settings.show5 %}<li>{% if settings.link5 != blank %}{{ 'slide5.jpg' | asset_url | img_tag:shop.name | link_to:settings.link5 }}{% else %}{{ 'slide5.jpg' | asset_url | img_tag:shop.name }}{% endif %}</li>{% endif %}
 </ul>
