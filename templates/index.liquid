@@ -1,9 +1,9 @@
 {% include 'slideshow' %}
 
 {% assign article = pages.frontpage %}
-{% unless article.content == "" %}	
-	{{ article.content }}
-{% endunless %}
+{% if article.content != blank %}	
+	<div class="welcome rte">{{ article.content }}</div>
+{% endif %}
 
 Featured Products
 {% for product in collections.frontpage.products limit:3 %}
