@@ -1,14 +1,22 @@
 <h1>Search Results</h1>
 search: {{ search.terms }}
-{% if search.results_count > 0 %}
-	<ol>
-		{% for item in search.results %}    
-			<li><a href="{{ item.url }}">{{ item.title }} &mdash; {{ item.content | strip_html | truncatewords: 10 }}</a></li>
-		{% endfor %}
-	</ol>
-{% else %}
-	No results found.
-{% endif %}
+
+{% paginate search.results by 10 %}
+	{% if search.results_count > 0 %}
+		<ol>
+			{% for item in search.results %}    
+				<li><a href="{{ item.url }}">{{ item.title }} &mdash; {{ item.content | strip_html | truncatewords: 10 }}</a></li>
+			{% endfor %}
+		</ol>
+	{% else %}
+		No results found.
+	{% endif %}
+	
+	{% if paginate.pages > 1 %}
+	    {{ paginate | default_pagination }}
+	{% endif %}
+	
+{% endpaginate %}
 
 Search again:
 <form id="search-form" name="search" action="/search">
