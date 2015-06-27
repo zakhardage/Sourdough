@@ -1,26 +1,23 @@
-<h1>Search Results</h1>
-search: {{ search.terms }}
-
-{% paginate search.results by 10 %}
+<div class="info">
+<h2>Search results: {{ search.terms }}</h2>
+{% paginate search.results by 50 %}
 	{% if search.results_count > 0 %}
-		<ol>
-			{% for item in search.results %}    
-				<li><a href="{{ item.url }}">{{ item.title }} &mdash; {{ item.content | strip_html | truncatewords: 10 }}</a></li>
+		<table>
+			{% for item in search.results %} 
+				<tr>
+					<td><a href="{{ item.url }}">{{ forloop.index }}. </a></td>
+					<td><a href="{{ item.url }}"><strong>{{ item.title }}</strong><br />{{ item.content | strip_html | truncatewords:30 }}</a></td>
+				</tr>
 			{% endfor %}
-		</ol>
+		</table>
 	{% else %}
-		No results found.
+		<p>No results found.</p>
 	{% endif %}
-	
-	{% if paginate.pages > 1 %}
-	    {{ paginate | default_pagination }}
-	{% endif %}
-	
 {% endpaginate %}
 
-Search again:
+<h2>Search again:</h2>
 <form id="search-form" name="search" action="/search">
-	<input type="hidden" id="type" name="type" value="" />
-	<input type="text" id="q" name="q" value="" class="search replace" title="Search" />
-	<button type="submit" id="search-submit">search</button>
+	<input type="text" name="q" value="" placeholder="Search terms" />
+	<button type="submit">Search</button>
 </form>
+</div> <!-- end .info -->
