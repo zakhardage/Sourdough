@@ -1,7 +1,8 @@
 <div class="info">
 <h2>Account Details and Order History</h2>
 <p>{{ customer.name }}<br />
-{{ customer.email }}</p>
+{{ customer.email }}<br />
+<a href="/account/logout">Logout</a></p>
 {% if customer.default_address != blank %}
 	<p>{{ customer.default_address.address1 }}<br />
 	{% if customer.default_address.address2 != "" %}
