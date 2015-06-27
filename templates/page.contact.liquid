@@ -1,18 +1,18 @@
-<h1>{{ page.title }}</h1>
 <div class="rte">
+	<h1>{{ page.title }}</h1>
 	{{ page.content }}
 </div> <!-- end .rte -->
+<div class="info">
 {% form 'contact' %}
 	{% if form.posted_successfully? %}
-  		Thanks for contacting us! We&rsquo;ll get back to you soon.
+  		<p>Thanks for contacting us! We&rsquo;ll get back to you soon.</p>
 	{% endif %}
 	{% if form.errors %}
-  		{% for field in form.errors %}
-    		{{ field }} - {{ form.errors.messages[field] }}
-  		{% endfor %}
+		<p>{{ form.errors | default_errors }}</p>
 	{% endif %}
-	<input type="text" name="contact[name]" placeholder="name" class="{% if form.errors contains 'name' %}input-error{% endif %}" value="{{ contact.fields.name }}" />
-    <input type="text" name="contact[email]" placeholder="email address" class="{% if form.errors contains 'email' %}input-error{% endif %}" value="{{ contact.fields.email }}" />
-    <textarea name="contact[body]" rows="20" cols="20" placeholder="message" class="{% if form.errors contains 'body' %}input-error{% endif %}">{{ contact.fields.body }}</textarea>
-    <button type="submit">send</button>
+	<input type="text" name="contact[name]" placeholder="Name" value="{{ contact.fields.name }}" />
+	<input type="text" name="contact[email]" placeholder="Email address" value="{{ contact.fields.email }}" />
+	<textarea name="contact[body]" rows="20" cols="20" placeholder="Message">{{ contact.fields.body }}</textarea>
+	<button type="submit">Send</button>
 {% endform %}
+</div> <!-- end .info -->
