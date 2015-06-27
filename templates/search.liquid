@@ -6,6 +6,7 @@
 			{% for item in search.results %} 
 				<tr>
 					<td><a href="{{ item.url }}">{{ forloop.index }}. </a></td>
+					<td><a href="{{ item.url }}">{% if item.featured_image %}{{ item.featured_image | item_img_url:'medium' | img_tag:item.title }}{% endif %}</a></td>
 					<td><a href="{{ item.url }}"><strong>{{ item.title }}</strong><br />{{ item.content | strip_html | truncatewords:30 }}</a></td>
 				</tr>
 			{% endfor %}
