@@ -1,6 +1,6 @@
 use="default"
 
 [default]
-api_key="6b98900af2c94f2eb08a7cc5392d00c4"
-password="7b54902fdf4cdf826351d7b88918ee77"
-store="test-shop-145.myshopify.com"
+api_key="xxx"
+password="xxx"
+store="xxx.myshopify.com"
