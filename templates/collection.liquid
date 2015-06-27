@@ -10,9 +10,9 @@
 		{% for product in collection.products %}
 			<div class="col-1-4 item">
 				<a href="{{ product.url | within:collection }}">
-					{{ product.featured_image | product_img_url:'medium' | img_tag:product.title }}
-					{{ product.title }}
-					{{ product.price | money | remove:' ' }}
+					<span class="img">{{ product.featured_image | product_img_url:'medium' | img_tag:product.title }}</span>
+					<span classs="title">{{ product.title }}</span>
+					<span class="price">{{ product.price | money | remove:' ' }}</span>
 				</a>
 			</div> <!-- end .item -->
 			{% cycle '','','','<div class="clear"></div>' %}
