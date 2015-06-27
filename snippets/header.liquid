@@ -1,18 +1,30 @@
-<a href="{{ shop.url }}"><img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" /></a>
+<div class="logo">
+	{{ 'logo.png' | asset_url | img_tag:shop.name | link_to:shop.url }}
+</div> <!-- end .logo -->
 
-{% if customer %}
-	<a href="/account/logout">sign out</a> | <a href="/account">account</a>
-{% else %}
-	<a href="/account/login">sign in</a> | <a href="/account/register">sign up</a>
-{% endif %}
+<a href="/account">{% if customer %}Account{% else %}Log in{% endif %</a> | <a href="/account/register">sign up</a>
 
-<a href="/cart">{{ cart.item_count }} {{ cart.item_count | pluralize:'item','items' }}</a>
+<a href="/cart">Cart: {{ cart.item_count }} {{ cart.item_count | pluralize:'item','items' }}</a>
 
 <form action="/search" method="get">
 	<input type="text" name="q" placeholder="{% if search.performed %}{{ search.terms | escape | downcase }}{% endif %}" />
-	<button type="submit" id="search_submit">search</button>
+	<button type="submit">Search</button>
 </form>
 
-{% for link in linklists.main-menu.links %}
-	<a href="{{ link.url }}">{{ link.title }}</a>
-{% endfor %}
+<div class="nav">
+<ul>
+	{% for link in linklists.main-menu.links %}
+	{% assign handle = link.title | handle %}
+	<li>
+		<a href="{{ link.url }}" class="{% if link.active %}active{% endif %}">{{ link.title }}</a>
+		{% if linklists[handle].links.size > 0 %}
+			<ul>
+			{% for link in linklists[handle].links %}
+				<li><a href="{{ link.url }}" class="{% if link.active %}active{% endif %}">{{ link.title }}</a></li>
+			{% endfor %}
+			</ul>
+		{% endif %}
+	</li>
+	{% endfor %}
+</ul>
+</div> <!-- end .nav -->
