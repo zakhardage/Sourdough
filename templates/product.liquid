@@ -7,10 +7,10 @@
 		<link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
 		{% include 'product-images' %}
 		<div itemprop="description" class="rte">{{ product.description }}</div> <!-- end .rte itemprop="description" -->
-		<p id="price" itemprop="price">{{ product.price | money }}</p>
+		<p class="price" itemprop="price">{{ product.price | money }}</p>
 		{% include 'product-form' %}
 		{% include 'product-share' %}
-		{% include 'cross-sell' %}
+		<div class="cross-sell"></div>
 	</div> <!-- end itemprop offers -->
 </div> <!-- end itemscope -->
 

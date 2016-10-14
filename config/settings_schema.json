@@ -1,0 +1,40 @@
+[
+	{
+		"name":"Social media",
+		"settings":[
+	        {"type":"text", "id":"twitter", "label":"Twitter URL"},
+	        {"type":"text", "id":"facebook", "label":"Facebook URL"},
+	        {"type":"text", "id":"instagram", "label":"Instagram URL"},
+	        {"type":"text", "id":"pinterest", "label":"Pinterest URL"}
+		]
+	},
+	{
+		"name":"Newsletter",
+		"settings":[
+	        {"type":"text", "id":"mailchimp", "label":"Mailchimp form action URL"},
+	        {"type":"text", "id":"newsletter-label", "label":"Newsletter label text"}
+		]
+	},
+	{
+	    "name":"Homepage Slideshow",
+	    "settings":[
+			{"type":"checkbox", "id":"show1", "label":"Show slide 1"},
+			{"type":"image", "id":"slide1.jpg", "label":"Slide 1", "info":".jpg format at [WIDTH] wide by [HEIGHT] tall"},
+			{"type":"text", "id":"link1", "label":"Slide 1 link"},
+			{"type":"checkbox", "id":"show2", "label":"Show slide 2"},
+			{"type":"image", "id":"slide2.jpg", "label":"Slide 2", "info":".jpg format at [WIDTH] wide by [HEIGHT] tall"},
+			{"type":"text", "id":"link2", "label":"Slide 2 link"},
+			{"type":"checkbox", "id":"show3", "label":"Show slide 3"},
+			{"type":"image", "id":"slide3.jpg", "label":"Slide 3", "info":".jpg format at [WIDTH] wide by [HEIGHT] tall"},
+			{"type":"text", "id":"link3", "label":"Slide 3 link"},
+			{"type":"checkbox", "id":"show4", "label":"Show slide 4"},
+			{"type":"image", "id":"slide4.jpg", "label":"Slide 4", "info":".jpg format at [WIDTH] wide by [HEIGHT] tall"},
+			{"type":"text", "id":"link4", "label":"Slide 4 link"},
+			{"type":"checkbox", "id":"show5", "label":"Show slide 5"},
+			{"type":"image", "id":"slide5.jpg", "label":"Slide 5", "info":".jpg format at [WIDTH] wide by [HEIGHT] tall"},
+			{"type":"text", "id":"link5", "label":"Slide 5 link"},
+			{"type":"text", "id":"speed", "label":"Speed", "info":"Slide transition duration (in ms)"},
+			{"type":"text", "id":"pause", "label":"Pause", "info":"The amount of time (in ms) between each auto transition"}
+		]
+	},
+]

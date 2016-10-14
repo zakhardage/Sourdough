@@ -1,0 +1,38 @@
+<form action="/cart/add" method="post">
+	{% if product.variants.size > 1 %}
+		{% if product.options[0] %}
+			{% capture options %}{% for variant in product.variants %},{{ variant.option1 }}{% endfor %}{% endcapture %}
+			{% assign options = options | remove_first:',' | split:',' | uniq %}
+			<label>{{ product.options[0] }}</label>
+			<select class="option1">
+				{% for option in options %}
+					<option value="{{ option }}">{{ option }}</option>
+				{% endfor %}
+			</select> <!-- end .option1 -->
+		{% endif %}
+		{% if product.options[1] %}
+			{% capture options %}{% for variant in product.variants %},{{ variant.option2 }}{% endfor %}{% endcapture %}
+			{% assign options = options | remove_first:',' | split:',' | uniq %}
+			<label>{{ product.options[1] }}</label>
+			<select class="option2">
+				{% for option in options %}
+					<option value="{{ option }}">{{ option }}</option>
+				{% endfor %}
+			</select> <!-- end .option2 -->
+		{% endif %}
+		{% if product.options[2] %}
+			{% capture options %}{% for variant in product.variants %},{{ variant.option3 }}{% endfor %}{% endcapture %}
+			{% assign options = options | remove_first:',' | split:',' | uniq %}
+			<label>{{ product.options[2] }}</label>
+			<select class="option3">
+				{% for option in options %}
+					<option value="{{ option }}">{{ option }}</option>
+				{% endfor %}
+			</select> <!-- end .option3 -->
+		{% endif %}
+	{% endif %}
+	<input type="hidden" name="id" class="product-select" value="{{ product.variants[0].id }}" />
+	<label>Quantity</label>
+	<input type="text" name="quantity" value="1" />
+	<button type="submit">Add to cart</button>
+</form>

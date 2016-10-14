@@ -1,0 +1,112 @@
+<div class="info rte">
+
+<h1>Addresses</h1>
+
+<p>Shipping Addresses on File</p>
+
+<div class="add-new-address info">
+	{% form 'customer_address', customer.new_address %}
+		<label for="address_first_name_new">First Name</label>
+		<input type="text" id="address_first_name_new" name="address[first_name]" value="{{ form.first_name }}" />
+
+		<label for="address_last_name_new">Last Name</label>
+		<input type="text" id="address_last_name_new" name="address[last_name]" value="{{ form.last_name }}" />
+
+		<label for="address_company_new">Company</label>
+		<input type="text" id="address_company_new" name="address[company]" value="{{ form.company }}" />
+
+		<label for="address_address1_new">Address</label>
+		<input type="text" id="address_address1_new" name="address[address1]" value="{{ form.address1 }}" />
+
+		<label for="address_address2_new">Address 2</label>
+		<input type="text" id="address_address2_new" name="address[address2]" value="{{ form.address2 }}" />
+
+		<label for="address_city_new">City</label>
+		<input type="text" id="address_city_new" name="address[city]" value="{{ form.city }}" />
+
+		<label for="address_country_new">Country</label>
+		<input type="text" id="address_country_new" name="address[country]" value="{{ form.country }}" />
+
+		<label for="address_province_new">State</label>
+		<input type="text" id="address_province_new" name="address[province]" value="{{ form.province }}" />
+
+		<label for="address_zip_new">Zip</label>
+		<input type="text" id="address_zip_new" name="address[zip]" value="{{ form.zip }}" />
+
+		<label for="address_phone_new">Phone</label>
+		<input type="text" id="address_phone_new" name="address[phone]" value="{{ form.phone }}" placeholder="555-555-1234" />
+
+		<div class="default">
+			{{ form.set_as_default_checkbox }}
+			<label for="address_default_address_new">Set as default address</label>
+		</div> <!-- end .default -->
+		<button type="submit">Add address</button>
+	{% endform %}
+</div> <!-- end .add-new-address -->
+
+{% paginate customer.addresses by 50 %}
+	{% if customer.addresses.size > 0 %}
+		{% for address in customer.addresses %}
+			<div class="address">
+				{{ address.first_name }} {{ address.last_name }}{% if address == customer.default_address %} (Default){% endif %}<br />
+				{% if address.company != blank %}{{ address.company }}<br>{% endif %}
+				{{ address.street }}<br>
+				{{ address.city }}, {{ address.province_code }} {{ address.zip }}<br>
+				{{ address.country }}<br>
+				{% if address.phone != blank %}{{ address.phone }}<br />{% endif %}
+				<a href="javascript:void(0)" class="edit" data-id="{{ address.id }}">Edit</a><br />
+				{{ 'Delete' | delete_customer_address_link:address.id }}
+			</div> <!-- end .address -->
+
+			<div id="edit_address_{{ address.id }}">
+				{% form 'customer_address', address %}
+					<p>Edit Address</p>
+					
+					<label for="address_first_name_{{ form.id }}">First Name</label>
+					<input type="text" id="address_first_name_{{ form.id }}" name="address[first_name]" value="{{ form.first_name }}" />
+
+					<label for="address_last_name_{{ form.id }}">Last Name</label>
+					<input type="text" id="address_last_name_{{ form.id }}" name="address[last_name]" value="{{ form.last_name }}" />
+
+					<label for="address_company_{{ form.id }}">Company</label>
+					<input type="text" id="address_company_{{ form.id }}" name="address[company]" value="{{ form.company }}" />
+
+					<label for="address_address1_{{ form.id }}">Address</label>
+					<input type="text" id="address_address1_{{ form.id }}" name="address[address1]" value="{{ form.address1 }}" />
+
+					<label for="address_address2_{{ form.id }}">Address 2</label>
+					<input type="text" id="address_address2_{{ form.id }}" name="address[address2]" value="{{ form.address2 }}" />
+
+					<label for="address_city_{{ form.id }}">City</label>
+					<input type="text" id="address_city_{{ form.id }}" name="address[city]" value="{{ form.city }}" />
+
+					<label for="address_country_{{ form.id }}">Country</label>
+					<input type="text" id="address_country_{{ form.id }}" name="address[country]" value="{{ form.country }}" />
+
+					<label for="address_province_{{ form.id }}">State</label>
+					<input type="text" id="address_province_{{ form.id }}" name="address[province]" value="{{ form.province }}" />
+
+					<label for="address_zip_{{ form.id }}">Zip</label>
+					<input type="text" id="address_zip_{{ form.id }}" name="address[zip]" value="Zip" />
+
+					<label for="address_phone_{{ form.id }}">Phone</label>
+					<input type="text" id="address_phone_{{ form.id }}" name="address[phone]" value="{{ form.phone }}" placeholder="555-555-1234" />
+
+					<div class="default">
+						{{ form.set_as_default_checkbox }}
+						<label for="address_default_address_new">Set as default address</label>
+					</div> <!-- end .default -->
+					<button type="submit">Add address</button>
+				{% endform %}
+			</div><!-- end #edit_address_{{ address.id }} -->
+		{% endfor %}
+		<a href="javascript:void(0)" class="add-new">+ Add new address</a>
+	{% else %}
+		<a href="javascript:void(0)" class="add-new">Add new address</a>
+	{% endif %}
+{% endpaginate %}
+
+</div> <!-- end .info -->
+
+<script>
+</script>

@@ -1,18 +1,15 @@
-<a href="{{ shop.url }}"><img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" /></a>
-
-{% if customer %}
-	<a href="/account/logout">sign out</a> | <a href="/account">account</a>
-{% else %}
-	<a href="/account/login">sign in</a> | <a href="/account/register">sign up</a>
-{% endif %}
-
-<a href="/cart">{{ cart.item_count }} {{ cart.item_count | pluralize:'item','items' }}</a>
+{{ 'logo.png' | asset_url | img_tag:shop.name | link_to:shop.url }}
 
 <form action="/search" method="get">
-	<input type="text" name="q" placeholder="{% if search.performed %}{{ search.terms | escape | downcase }}{% endif %}" />
-	<button type="submit" id="search_submit">search</button>
+	<input type="text" name="q" placeholder="Search" />
+	<button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
 </form>
 
+<a href="/account">{% if customer %}My Account{% else %}Log in{% endif %}</a>
+{% if customer %}<a href="/account/logout">Log out</a>{% else %}<a href="/account/register">Create Account</a>{% endif %}
+
+<a href="/cart">cart: {{ cart.item_count }} {{ cart.item_count | pluralize:'item','items' }}</a>
+
 {% for link in linklists.main-menu.links %}
-	<a href="{{ link.url }}">{{ link.title }}</a>
+	{{ link.title | link_to:link.url }}
 {% endfor %}

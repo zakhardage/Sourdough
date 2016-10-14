@@ -1,7 +1,0 @@
-<ul class="bxslider">
-	{% if settings.show1 %}<li>{% if settings.link1 != blank %}{{ 'slide1.jpg' | asset_url | img_tag:shop.name | link_to:settings.link1 }}{% else %}{{ 'slide1.jpg' | asset_url | img_tag:shop.name }}{% endif %}</li>{% endif %}
-	{% if settings.show2 %}<li>{% if settings.link2 != blank %}{{ 'slide2.jpg' | asset_url | img_tag:shop.name | link_to:settings.link2 }}{% else %}{{ 'slide2.jpg' | asset_url | img_tag:shop.name }}{% endif %}</li>{% endif %}
-	{% if settings.show3 %}<li>{% if settings.link3 != blank %}{{ 'slide3.jpg' | asset_url | img_tag:shop.name | link_to:settings.link3 }}{% else %}{{ 'slide3.jpg' | asset_url | img_tag:shop.name }}{% endif %}</li>{% endif %}
-	{% if settings.show4 %}<li>{% if settings.link4 != blank %}{{ 'slide4.jpg' | asset_url | img_tag:shop.name | link_to:settings.link4 }}{% else %}{{ 'slide4.jpg' | asset_url | img_tag:shop.name }}{% endif %}</li>{% endif %}
-	{% if settings.show5 %}<li>{% if settings.link5 != blank %}{{ 'slide5.jpg' | asset_url | img_tag:shop.name | link_to:settings.link5 }}{% else %}{{ 'slide5.jpg' | asset_url | img_tag:shop.name }}{% endif %}</li>{% endif %}
-</ul>

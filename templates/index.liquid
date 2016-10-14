@@ -1,16 +1,1 @@
-{% include 'slideshow' %}
-
-{% assign article = pages.frontpage %}
-{% if article.content != blank %}	
-	<div class="welcome rte">{{ article.content }}</div>
-{% endif %}
-
-Featured Products
-{% for product in collections.frontpage.products limit:3 %}
-	<a href="{{ product.url | within:collection }}">
-		{{ product.featured_image | product_img_url:'large' | img_tag:product.title }}
-		{{ product.title }}
-		{{ product.price | money }}
-	</a>
-{% endfor %}
-
+{% include 'index-slideshow' %}

@@ -1,46 +1,32 @@
-<div id="customer-login">
-	Customer Login
-	{% form 'customer_login' %}
-		{{ form.errors | default_errors }}
-		<input type="email" placeholder="email address" name="customer[email]" />
+<div class="info rte">
 
-		{% if form.password_needed %}
-			<input type="password" placeholder="password" name="customer[password]" />
-			<a href="#" onclick="show();">Forgot your password?</a>
-		{% endif %}
-		<button type="submit">Sign In</button>
-	{% endform %}
-</div> <!-- end #customer-login -->
+<h1>Customer Login</h1>
+{% form 'customer_login' %}
+	<div>{{ form.errors | default_errors }}</div>
+	<input type="email" placeholder="email address" name="customer[email]" />
+	<input type="password" placeholder="password" name="customer[password]" />
+	<button type="submit">Sign In</button>
+	<a href="javascript">Forgot your password?</a>
+{% endform %}
 
-<div id="recover-password">
-	Reset Password
+<div class="password">
+	<h1>Reset Password</h1>
 	<p>We will send you an email to reset your password.</p>
 	{% form 'recover_customer_password' %}
-		{{ form.errors | default_errors }}
-		<div id="recover-email">
-			<input type="email" placeholder="email address" name="email" />
-		</div>
+		<div>{{ form.errors | default_errors }}</div>
+		<input type="email" placeholder="email address" name="email" />
 		<button type="submit">Submit</button>
-		or <a href="#recoveremail" onclick="hide();">Cancel</a>
 	{% endform %}
-</div> <!-- end #recover-password -->
+</div> <!-- end .password -->
 
 {% if shop.checkout.guest_login %}
-	Guest Login
-	<p>Continue checkout as a guest. No sign-up required.</p>
-	{% form 'guest_login' %}
-		<button type="submit">Continue as Guest</button>
-	{% endform %}
+	<div class="guest">
+		<h1>Guest Login</h1>
+		<p>Continue checkout as a guest. No sign-up required.</p>
+		{% form 'guest_login' %}
+			<button type="submit">Continue as Guest</button>
+		{% endform %}
+	</div> <!-- end .guest -->
 {% endif %}
 
-
-<script type="text/javascript">
-	function show() {
-		document.getElementById('recover-password').style.display = 'block';
-		document.getElementById('customer-login').style.display = 'none';
-	}
-	function hide() {
-		document.getElementById('recover-password').style.display = 'none';
-		document.getElementById('customer-login').style.display = 'block';
-	}
-</script>
+</div> <!-- end .info -->

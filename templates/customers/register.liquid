@@ -1,10 +1,14 @@
-Create Account
+<div class="info rte">
+
+<h1>Create Account</h1>
 
 {% form 'create_customer' %}
-	{{ form.errors | default_errors }}
+	<div>{{ form.errors | default_errors }}</div>
 	<input type="text" value="" name="customer[first_name]" placeholder="first name" />
 	<input type="text" value="" name="customer[last_name]" placeholder="last name" />
-	<input type="email" value="" name="customer[email]" placeholder="email address" class="{% if form.errors contains 'email' %}input-error{% endif %}" />
-	<input type="password" value="" name="customer[password]" placeholder="password" class="{% if form.errors contains 'password' %}input-error{% endif %}" />
+	<input type="email" value="" name="customer[email]" placeholder="email address" />
+	<input type="password" value="" name="customer[password]" placeholder="password" />
 	<button type="submit">Create Account</button>
 {% endform %}
+
+</div> <!-- end .info -->

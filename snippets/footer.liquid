@@ -1,1 +1,7 @@
-&copy; {{ 'now' | date: "%Y" }} {{ shop.name }} | sourdough starter theme by <a href="http://zakhardage.com">Zak Hardage</a>
+<form action="{{ settings.mailchimp }}" method="post" name="mc-embedded-subscribe-form" target="_blank">
+	<label>{{ settings.newsletter-label }}</label>
+	<input type="email" name="EMAIL" placeholder="Email address" />
+	<button type="submit">Sign up</button>
+</form>
+
+&copy; {{ 'now' | date: "%Y" }} {{ shop.name }} | Sourdough starter theme by <a href="http://hardage-hardage.com">Zak Hardage</a>

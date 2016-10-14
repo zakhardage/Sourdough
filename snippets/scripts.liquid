@@ -1,0 +1,9 @@
+{{ '//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js' | script_tag }}
+{% if template == 'index' %}{{ 'jquery.bxslider.min.js' | asset_url | script_tag }}{% endif %}
+{% if template contains 'product' %}{{ 'lightbox.min.js' | asset_url | script_tag }}{% endif %}
+
+<script>
+	{% if template == 'index' %}{% include 'scripts-index' %}{% endif %}
+	{% if template contains 'product' %}{% include 'scripts-product' %}{% endif %}
+	{% if template contains 'addresses' %}{% include 'scripts-address' %}{% endif %}
+</script>

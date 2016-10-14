@@ -1,15 +1,15 @@
-Account Details and Order History
+<div class="info rte">
 
-{{ customer.name }}
-{{ customer.email }}
-{% if customer.default_address != nil %}
-	<p>{{ customer.default_address.address1 }}</p>
-	{% if customer.default_address.address2 != "" %}
-		<p>{{ customer.default_address.address2 }}</p>
-	{% endif %}
-	<p>{{ customer.default_address.city}}, {% if address.province_code %}{{customer.default_address.province_code}}, {% endif %}{{customer.default_address.country}}</p>
-	<p>{{ customer.default_address.zip}}</p>
-	<p>{{ customer.default_address.phone }}</p>
+<h1>Account Details and Order History</h1>
+
+<p>{{ customer.name }}<br />
+{{ customer.email }}</p>
+{% if customer.default_address.address1 != blank %}
+	<p>{{ customer.default_address.address1 }}<br />
+	{% if customer.default_address.address2 != blank %}{{ customer.default_address.address2 }}<br />{% endif %}
+	{{ customer.default_address.city}}, {{customer.default_address.province_code }} {{ customer.default_address.zip }}<br />
+	{{ customer.default_address.country }}<br />
+	{% if customer.default_address.phone != blank %}{{ customer.default_address.phone }}{% endif %}</p>
 {% endif %}
 
 {% if customer.orders.size > 0 %}
@@ -18,23 +18,25 @@ Account Details and Order History
 			<tr>
 				<th>Order</th>
 				<th>Date</th>
-				<th>Payment Status</th>
-				<th>Fulfillment Status</th>
+				<th class="desktop">Payment Status</th>
+				<th><span class="desktop">Fulfillment </span>Status</th>
 				<th>Total</th>
 			</tr>
 		</thead>
 		<tbody>
 			{% for order in customer.orders %}
-				<tr class="{% cycle 'odd', 'even' %} {% if order.cancelled %}cancelled_order{% endif %}">
-					<td>{{ order.name | link_to: order.customer_url }}</td>
-					<td>{{ order.created_at | date: "%b %d, %Y" }}</td>
-					<td>{{ order.financial_status }}</td>
-					<td>{{ order.fulfillment_status }}</td>
-					<td>{{ order.total_price | money }}</td>
+				<tr>
+					<td>{{ order.name | link_to:order.customer_url }}</td>
+					<td><span class="desktop">{{ order.created_at | date:"%b %d, %Y" }}</span><span class="mobile">{{ order.created_at | date:"%m/%d/%y" }}</span></td>
+					<td span class="desktop">{{ order.financial_status }}</td>
+					<td>{{ order.financial_status }} / {{ order.fulfillment_status }}</td>
+					<td>{{ order.total_price | money | remove:' ' }}</td>
 				</tr>
 			{% endfor %}
 		</tbody>
 	</table>
 {% else %}
-	<p>You haven't placed any orders yet.</p>
+	<div class="rte"><p>You haven't placed any orders yet.</p></div>
 {% endif %}
+
+</div> <!-- end .info -->
