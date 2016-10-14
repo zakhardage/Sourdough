@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 <a class="href" href="{{ product.featured_image | product_img_url:'1024x1024' }}" data-lightbox="{{ product.title | handle }}">
 	<img itemprop="image" class="src" src="{{ product.featured_image | product_img_url:'grande' }}" alt="{{ product.title | escape }}" />
+=======
+<a class="featured-link" href="{{ product.featured_image | product_img_url:'1024x1024' }}" data-lightbox="{{ product.title | handle }}">
+	<img itemprop="image" class="featured-img" src="{{ product.featured_image | product_img_url:'grande' }}" alt="{{ product.title | escape }}" />
+>>>>>>> origin/master
 </a>
 
 {% if product.images.size > 1 %}
@@ -9,4 +14,15 @@
 		{% assign small= image | product_img_url:'small' %}
 		<a href="javascript:void(0)" class="alt data-href="{{ href }}" data-src="{{ src }}">{{ small | img_tag:product.title }}</a>
 	{% endfor %}
+<<<<<<< HEAD
 {% endif %}
+=======
+{% endif %}
+
+<script>
+	function alt_images(src,href) {
+		$('.featured-img').attr('src',src);
+		$('.featured-link').attr('href',href);
+	}
+</script>
+>>>>>>> origin/master

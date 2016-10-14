@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {{ 'logo.png' | asset_url | img_tag:shop.name | link_to:shop.url }}
 
 <form action="/search" method="get">
@@ -13,3 +14,35 @@
 {% for link in linklists.main-menu.links %}
 	{{ link.title | link_to:link.url }}
 {% endfor %}
+=======
+<div class="logo">
+	{{ 'logo.png' | asset_url | img_tag:shop.name | link_to:shop.url }}
+</div> <!-- end .logo -->
+
+<a href="/account">{% if customer %}Account{% else %}Log in{% endif %</a> | <a href="/account/register">sign up</a>
+
+<a href="/cart">Cart: {{ cart.item_count }} {{ cart.item_count | pluralize:'item','items' }}</a>
+
+<form action="/search" method="get">
+	<input type="text" name="q" placeholder="{% if search.performed %}{{ search.terms | escape | downcase }}{% endif %}" />
+	<button type="submit">Search</button>
+</form>
+
+<div class="nav">
+<ul>
+	{% for link in linklists.main-menu.links %}
+	{% assign handle = link.title | handle %}
+	<li>
+		<a href="{{ link.url }}" class="{% if link.active %}active{% endif %}">{{ link.title }}</a>
+		{% if linklists[handle].links.size > 0 %}
+			<ul>
+			{% for link in linklists[handle].links %}
+				<li><a href="{{ link.url }}" class="{% if link.active %}active{% endif %}">{{ link.title }}</a></li>
+			{% endfor %}
+			</ul>
+		{% endif %}
+	</li>
+	{% endfor %}
+</ul>
+</div> <!-- end .nav -->
+>>>>>>> origin/master

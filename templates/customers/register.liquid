@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="info rte">
 
 <h1>Create Account</h1>
@@ -12,3 +13,18 @@
 {% endform %}
 
 </div> <!-- end .info -->
+=======
+<div class="info">
+<h2>Create Account</h2>
+{% form 'create_customer' %}
+	{% if form.errors %}
+		{{ form.errors | default_errors }}
+	{% endif %
+	<input type="text" name="customer[first_name]" placeholder="first name" />
+	<input type="text" name="customer[last_name]" placeholder="last name" />
+	<input type="email" name="customer[email]" placeholder="email address" />
+	<input type="password" name="customer[password]" placeholder="password" />
+	<button type="submit">Create account</button>
+{% endform %}
+</div> <!-- end .info -->
+>>>>>>> origin/master

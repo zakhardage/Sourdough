@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="info rte">
 
 <h1>Account Details and Order History</h1>
@@ -10,12 +11,36 @@
 	{{ customer.default_address.city}}, {{customer.default_address.province_code }} {{ customer.default_address.zip }}<br />
 	{{ customer.default_address.country }}<br />
 	{% if customer.default_address.phone != blank %}{{ customer.default_address.phone }}{% endif %}</p>
+=======
+<div class="info">
+<h2>Account Details and Order History</h2>
+<p>{{ customer.name }}<br />
+{{ customer.email }}<br />
+<a href="/account/logout">Logout</a></p>
+{% if customer.default_address != blank %}
+	<p>{{ customer.default_address.address1 }}<br />
+	{% if customer.default_address.address2 != "" %}
+		{{ customer.default_address.address2 }}<br />
+	{% endif %}
+	{{ customer.default_address.city}}, {% if address.province_code %}{{ customer.default_address.province_code }}, {% endif %}{{ customer.default_address.zip }}<br />
+	{{ customer.default_address.country }}<br />
+	{{ customer.default_address.phone }}</p>
+>>>>>>> origin/master
 {% endif %}
 
 {% if customer.orders.size > 0 %}
 	<table>
-		<thead>
+		<tr>
+			<th>Order</th>
+			<th>Date</th>
+			<th class="desktop">Payment Status</th>
+			<th class="desktop">Fulfillment Status</th>
+			<th class="mobile">Status</th>
+			<th>Total</th>
+		</tr>
+		{% for order in customer.orders %}
 			<tr>
+<<<<<<< HEAD
 				<th>Order</th>
 				<th>Date</th>
 				<th class="desktop">Payment Status</th>
@@ -40,3 +65,18 @@
 {% endif %}
 
 </div> <!-- end .info -->
+=======
+				<td>{{ order.name | link_to: order.customer_url }}</td>
+				<td>{{ order.created_at | date: "%b %d, %Y" }}</td>
+				<td class="desktop">{{ order.financial_status }}</td>
+				<td class="desktop">{{ order.fulfillment_status }}</td>
+				<td class="mobile">{{ order.financial_status }}<br />{{ order.fulfillment_status }}</td>
+				<td>{{ order.total_price | money | remove:' ' }}</td>
+			</tr>
+		{% endfor %}
+	</table>
+{% else %}
+	<p>You haven't placed any orders yet.</p>
+{% endif %}
+</div> <!-- end .info -->
+>>>>>>> origin/master

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <h1>Cart</h1>
 <form action="/cart" method="post" id="cartform">
 	<table>
@@ -29,3 +30,42 @@
 	<button type="submit" name="update">Update</button>
 	<button type="submit" name="checkout">Checkout</button>
 </form>
+=======
+<div class="info">
+<h2>Cart</h2>
+{% if cart.item_count == 0 %}
+	<p>You have nothing in your cart.</p>
+{% else %}
+	<form action="/cart" method="post">
+		<table>
+			<tr>
+				<th>Item</th>
+				<th class="desktop"></th>
+				<th class="desktop">Price</th>
+				<th>Qty.</th>
+				<th>Remove</th>
+				<th>Total</th>
+			</tr>
+			{% for item in cart.items %}
+				<tr>
+					<td class="desktop"><a href="{{ item.product.url }}">{{ item.product.images.first | product_img_url: 'thumb' | img_tag: item.title }}</a></td>
+					<td>
+						<a href="{{ item.product.url }}">{{ item.title }}</a>
+						{% for p in item.properties %}
+							{% unless p.last == blank %}<br />{{ p.first }}: {{ p.last }}{% endunless %}
+						{% endfor %}
+					</td>
+					<td class="desktop">{{ item.price | money | remove:' ' }}</td>
+					<td><input type="text" name="updates[{{item.variant.id}}]" id="updates_{{ item.variant.id }}" value="{{ item.quantity }}" onclick="this.select()" /></td>
+					<td><a href="/cart/change?line={{ forloop.index }}&quantity=0">remove</a></td>
+					<td>{{ item.line_price | money | remove:' ' }}</td>
+				</tr>
+			{% endfor %}
+		</table>
+		<h3>Cart Total: {{ cart.total_price | money | remove:' ' }}</h3>
+		<button type="submit" name="update">Update</button>
+		<button type="submit" name="checkout">Checkout</button>
+	</form>
+{% endif %}
+</div> <!-- end .info -->
+>>>>>>> origin/master

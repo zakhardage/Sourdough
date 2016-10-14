@@ -9,8 +9,29 @@
 		<link rel="canonical" href="{{ canonical_url }}" />
 		{{ '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css' | asset_url | stylesheet_tag }}
 		{{ 'stylesheet.css' | asset_url | stylesheet_tag }}
+<<<<<<< HEAD
 		{% if template contains 'product' %}{{ 'lightbox.min.css' | asset_url | stylesheet_tag }}{% endif %}
 		{% include 'social' %}
+=======
+		{{ https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" | script_tag }}
+		{% include 'opengraph' %}
+		{% include 'twitter-card' %}
+		{% if template == 'index' %} {% comment %} BXSLIDER http://bxslider.com/ {% endcomment %}
+			{{ 'jquery.bxslider.min.js' | asset_url | script_tag }}
+			<script type="text/javascript">
+			    $(document).ready(function(){
+				  	jQuery('.bxslider').bxSlider({
+
+					});
+				});
+		    </script>
+		{% endif %}
+		{% if template contains 'product' %} {% comment %} LIGHTBOX http://lokeshdhakar.com/projects/lightbox2 {% endcomment %}
+			{{ 'lightbox.css' | asset_url | stylesheet_tag }}
+			{{ 'jquery-1.10.2.min.js' | asset_url | script_tag }}
+			{{ 'lightbox-2.6.min.js' | asset_url | script_tag }}
+		{% endif %}
+>>>>>>> origin/master
 		{{ content_for_header }}
 	</head>
 	<body class="{{ template | handle }} {% if template contains 'product' %}product{% endif %} {% if template contains 'collection' %}collection{% endif %} {% if template contains 'customer' %}customer{% endif %} {% if template contains 'page' %}page{% endif %} {% if template contains 'article' %}blog{% endif %}">
@@ -19,4 +40,8 @@
 		{% include 'footer' %}
 		{% include 'scripts %}
 	</body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> origin/master
