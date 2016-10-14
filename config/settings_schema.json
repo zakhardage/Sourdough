@@ -1,5 +1,13 @@
 [
 	{
+		"name":"theme_info",
+		"theme_name":"Sourdough",
+		"theme_author":"Zak Hardage",
+		"theme_version":"1.0.0",
+		"theme_documentation_url":"https:\/\/help.shopify.com\/manual\/using-themes\/sections",
+		"theme_support_email":"support@hardage-hardage.com"
+	},
+	{
 		"name":"Social media",
 		"settings":[
 	        {"type":"text", "id":"twitter", "label":"Twitter URL"},
