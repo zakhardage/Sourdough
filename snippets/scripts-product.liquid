@@ -58,7 +58,7 @@ $('.cross-sell').html(crossContent);
 	
 {% comment %}
 // Product form extended
-$('.variant').click(function() {
+$('.options').change(function() {
 	{% if product.options[0] %}var opt1 = $('.option1').val();{% endif %}
 	{% if product.options[1] %}var opt2 = $('.option2').val();{% endif %}
 	{% if product.options[2] %}var opt3 = $('.option3').val();{% endif %}
@@ -74,10 +74,10 @@ $('.variant').click(function() {
 		}
 	{% endfor %}
 	if(id!='') {
-		$('.product.select').val(id);
+		$('.product-select').val(id);
 		$('.price').text(price);
 	} else {
-		$('.product.select').val('');
+		$('.product-select').val('');
 		$('.price').text('Unavailable');
 	}
 });
