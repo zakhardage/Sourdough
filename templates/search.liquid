@@ -18,7 +18,7 @@
 {% endpaginate %}
 
 {% if search.results != blank %}Search again:{% endif %}
-<form id="search-form" name="search" action="/search">
+<form name="search" action="/search">
 	<input type="text" name="q" value="" />
 	<button type="submit">Search</button>
 </form>
