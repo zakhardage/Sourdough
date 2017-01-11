@@ -1,8 +1,9 @@
-// Slideshow
+// BXSlider
 $(document).ready(function(){
 	jQuery('.bxslider').bxSlider({
-		auto:false,
-		speed:{{ settings.speed }},
-		pause:{{ settings.pause }}
+		controls:false,
+		pause:7000,
+		speed:850,
+		pagerCustom:'.pager'
 	});
 });

@@ -1,0 +1,28 @@
+	<ul class="bxslider">
+		{% for block in section.blocks %}
+			{% assign img = block.settings.image | img_url:'1024x1024' | img_tag:shop.name %}
+			<li>{% if block.settings.link != blank %}{{ img | link_to:block.settings.link }}{% else %}{{ img }}{% endif %}</li>
+		{% endfor %}
+	</ul> <!-- end .bxslider -->
+
+	<div class="pager">
+		{% for block in section.blocks %}
+			<a data-slide-index="{{ forloop.index | minus:1 }}"></a>
+		{% endfor %}
+	</div> <!-- end .pager -->
+</div> <!-- end .slideshow -->
+
+{% schema %}
+{
+  "name":"Slideshow",
+  "max_blocks":20,
+  "blocks":[
+    {"type":"slide", "name":"Slide", "settings":[
+        {"type":"image_picker", "id":"image", "label":"Image", "info":".jpg format at [width] wide and [height] tall"},
+				{"type":"url", "id":"link", "label":"Link", "info":"Optional"},
+      ]
+    }
+  ],
+  "presets":[{"name":"Slides", "category":"Image", "blocks":[{"type":"slide"}]}]
+}
+{% endschema %}
