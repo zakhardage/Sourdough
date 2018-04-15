@@ -1,30 +1,17 @@
-<<<<<<< HEAD
 <div class="info rte">
 
 <h1>Create Account</h1>
-
 {% form 'create_customer' %}
-	<div>{{ form.errors | default_errors }}</div>
-	<input type="text" value="" name="customer[first_name]" placeholder="first name" />
-	<input type="text" value="" name="customer[last_name]" placeholder="last name" />
-	<input type="email" value="" name="customer[email]" placeholder="email address" />
-	<input type="password" value="" name="customer[password]" placeholder="password" />
-	<button type="submit">Create Account</button>
-{% endform %}
-
-</div> <!-- end .info -->
-=======
-<div class="info">
-<h2>Create Account</h2>
-{% form 'create_customer' %}
-	{% if form.errors %}
-		{{ form.errors | default_errors }}
-	{% endif %
-	<input type="text" name="customer[first_name]" placeholder="first name" />
-	<input type="text" name="customer[last_name]" placeholder="last name" />
-	<input type="email" name="customer[email]" placeholder="email address" />
-	<input type="password" name="customer[password]" placeholder="password" />
+	{% if form.errors %}{% for field in form.errors %}<p>{{ field }}: {{ form.errors.messages[field] }}</p>{% endfor %}{% endif %}
+	<label for="customer[first_name]">First name</label>
+	<input type="text" value="" name="customer[first_name]" />
+	<label for="customer[last_name]">Last name</label>
+	<input type="text" value="" name="customer[last_name]" />
+	<label for="customer[email]">Email address</label>
+	<input type="email" value="" name="customer[email]" />
+	<label for="customer[password]">Password</label>
+	<input type="password" value="" name="customer[password]" />
 	<button type="submit">Create account</button>
 {% endform %}
+
 </div> <!-- end .info -->
->>>>>>> origin/master

@@ -1,28 +1,9 @@
-<<<<<<< HEAD
-<a class="href" href="{{ product.featured_image | product_img_url:'1024x1024' }}" data-lightbox="{{ product.title | handle }}">
-	<img itemprop="image" class="src" src="{{ product.featured_image | product_img_url:'grande' }}" alt="{{ product.title | escape }}" />
-=======
-<a class="featured-link" href="{{ product.featured_image | product_img_url:'1024x1024' }}" data-lightbox="{{ product.title | handle }}">
-	<img itemprop="image" class="featured-img" src="{{ product.featured_image | product_img_url:'grande' }}" alt="{{ product.title | escape }}" />
->>>>>>> origin/master
+<a class="href" href="{{ product.images[0] | img_url:'1024x1024' }}" data-lightbox="{{ product.title | handle }}">
+	<img itemprop="image" class="src" src="{{ product.images[0] | img_url:'grande' }}" alt="{{ product.title | escape }}" />
 </a>
 
 {% if product.images.size > 1 %}
 	{% for image in product.images %}
-		{% assign href= image | product_img_url:'1024x1024' %}
-		{% assign src= image | product_img_url:'grande' %}
-		{% assign small= image | product_img_url:'small' %}
-		<a href="javascript:void(0)" class="alt data-href="{{ href }}" data-src="{{ src }}">{{ small | img_tag:product.title }}</a>
+		<a href="javascript:void(0)" class="alt data="{{ image | img_url:'1024x1024' }}">{{ image | img_url:'small' | img_tag:product.title }}</a>
 	{% endfor %}
-<<<<<<< HEAD
 {% endif %}
-=======
-{% endif %}
-
-<script>
-	function alt_images(src,href) {
-		$('.featured-img').attr('src',src);
-		$('.featured-link').attr('href',href);
-	}
-</script>
->>>>>>> origin/master

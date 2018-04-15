@@ -1,18 +1,14 @@
 <div class="rte">
-	<h1>{{ page.title }}</h1>
-	{{ page.content }}
-</div> <!-- end .rte -->
-<div class="info">
+  {{ page.content | replace:'<li>','<li><i class="fa fa-circle" aria-hidden="true"></i> &nbsp;' }}
+</div>
 {% form 'contact' %}
-	{% if form.posted_successfully? %}
-  		<p>Thanks for contacting us! We&rsquo;ll get back to you soon.</p>
-	{% endif %}
-	{% if form.errors %}
-		<p>{{ form.errors | default_errors }}</p>
-	{% endif %}
-	<input type="text" name="contact[name]" placeholder="Name" value="{{ contact.fields.name }}" />
-	<input type="text" name="contact[email]" placeholder="Email address" value="{{ contact.fields.email }}" />
-	<textarea name="contact[body]" rows="20" cols="20" placeholder="Message">{{ contact.fields.body }}</textarea>
-	<button type="submit">Send</button>
+	{% if form.posted_successfully? %}<p>Thanks for contacting us! We&rsquo;ll get back to you soon.</p>{% endif %}
+	{% if form.errors %}{% for field in form.errors %}<p>{{ field }}: {{ form.errors.messages[field] }}</p>{% endfor %}{% endif %}
+	<label for="contact[name]">Name</label>
+	<input type="text" name="contact[name]" value="{{ contact.fields.name }}" />
+	<label for="contact[email]">Email</label>
+  <input type="text" name="contact[email]" value="{{ contact.fields.email }}" />
+	<label for="contact[body]">Message</label>
+  <textarea name="contact[body]" rows="20" cols="20">{{ contact.fields.body }}</textarea>
+  <button type="submit">Send</button>
 {% endform %}
-</div> <!-- end .info -->

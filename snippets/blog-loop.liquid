@@ -1,0 +1,3 @@
+<p itemscope itemtype="http://data-vocabulary.org/Person">by <span itemprop="name">{{ article.author }}</span></p>
+<p>Posted on {{ article.created_at | date:"%B %d, '%Y" }}</p>
+<div class="rte">{{ article.content }}</div>

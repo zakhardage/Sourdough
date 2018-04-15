@@ -1,0 +1,8 @@
+{% for product in collection.products %}
+	<a href="{{ product.url | within:collection }}">
+		{{ product.images[0] | img_url:'medium' | img_tag:product.title }}
+		{{ product.title }}
+		{{ product.price | money | remove:' ' }}
+	</a>
+	{% cycle '','<div class="clear mobile"></div>','','<div class="clear"></div>' %}
+{% endfor %}

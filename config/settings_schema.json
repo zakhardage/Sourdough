@@ -1,20 +1,19 @@
 [
 	{
 		"name":"theme_info",
-		"theme_name":"Sourdough",
-		"theme_author":"Zak Hardage",
+		"theme_name":"KB 2017",
+		"theme_author":"H+H",
 		"theme_version":"1.0.0",
 		"theme_documentation_url":"https:\/\/help.shopify.com\/manual\/using-themes\/sections",
 		"theme_support_email":"support@hardage-hardage.com"
 	},
 	{
-		"name":"Social",
+		"name":"Social media",
 		"settings":[
-	    {"type":"text", "id":"twitter", "label":"Twitter URL"},
-	    {"type":"text", "id":"facebook", "label":"Facebook URL"},
-	    {"type":"text", "id":"instagram", "label":"Instagram URL"},
-	    {"type":"text", "id":"pinterest", "label":"Pinterest URL"},
-			{"type":"text", "id":"mailchimp", "label":"Mailchimp form action URL"}
+			{"type":"text", "id":"twitter", "label":"Twitter URL"},
+			{"type":"text", "id":"facebook", "label":"Facebook URL"},
+			{"type":"text", "id":"instagram", "label":"Instagram URL"},
+			{"type":"text", "id":"pinterest", "label":"Pinterest URL"}
 		]
 	}
 ]

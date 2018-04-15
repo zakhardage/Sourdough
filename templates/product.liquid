@@ -1,23 +1,18 @@
 <div itemscope itemtype="http://schema.org/Product">
 	<meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
-	<meta itemprop="image" content="{{ product.featured_image.src | product_img_url: 'grande' }}">
-  	<div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-	    <h1 itemprop="name">{{ product.title }}</h1>
-		<meta itemprop="priceCurrency" content="{{ shop.currency }}">       
+	<meta itemprop="image" content="{{ product.images[0] | img_url:'grande' }}">
+	<div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+		<meta itemprop="priceCurrency" content="{{ shop.currency }}">
 		<link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
+		<h1 itemprop="name">{{ product.title }}</h1>
 		{% include 'product-images' %}
-		<div itemprop="description" class="rte">{{ product.description }}</div> <!-- end .rte itemprop="description" -->
-		<p class="price" itemprop="price">{{ product.price | money }}</p>
+		<div itemprop="description" class="rte">{{ product.description }}</div>
+		<p class="price" itemprop="price">{{ product.price | money | remove:' ' }}</p>
 		{% include 'product-form' %}
 		{% include 'product-share' %}
-		<div class="cross-sell"></div>
-	</div> <!-- end itemprop offers -->
-</div> <!-- end itemscope -->
+	</div>
+</div>
 
-{% comment %}image pre-loader{% endcomment %}
-{% for image in product.images offset:1 %}
-	<a href="{{ image | product_img_url:'master' }}" data-lightbox="{{ product.title | handle }}" class="hidden">
-		<img src="{{ image | product_img_url:'grande' }}" alt="{{ shop.name }}" />
-	</a>
-{% endfor %}
-
+<div class="hidden">
+	{% for image in product.images %}<a href="{{ image | img_url:'1024x1024' }}" data-lightbox="{{ product.title | handle }}">{{ image | img_url:'1024x1024' | img_tag:product.title }}</a>{% endfor %}
+</div>

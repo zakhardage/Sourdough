@@ -1,24 +1,19 @@
 <h1>Search{% if search.results != blank %} results: {{ search.terms }}{% endif %}</h1>
-
-{% paginate search.results by 10 %}
-	{% if search.results_count > 0 %}
-		<ol>
-			{% for item in search.results %}    
-				<li><a href="{{ item.url }}">{{ item.title }} &mdash; {{ item.content | strip_html | truncatewords: 10 }}</a></li>
-			{% endfor %}
-		</ol>
-	{% elsif search.results != blank %}
-		No results found.
-	{% endif %}
-	
-	{% if paginate.pages > 1 %}
-	    {{ paginate | default_pagination }}
-	{% endif %}
-	
+{% paginate search.results by search.results.size %}
+	{% for item in search.results %}
+		<a href="{{ item.url }}">
+			{{ item.images[0] | img_url:'medium' | img_tag:product.title }}
+			{{ item.title }}
+		</a>
+		{% cycle '','<div class="clear mobile"></div>','','<div class="clear"></div>' %}
+	{% endfor %}
 {% endpaginate %}
 
-{% if search.results != blank %}Search again:{% endif %}
+<div class="info rte">
+
 <form name="search" action="/search">
-	<input type="text" name="q" value="" />
+	<input type="text" name="q" />
 	<button type="submit">Search</button>
 </form>
+
+<!-- end .info -->

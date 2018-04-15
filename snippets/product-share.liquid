@@ -1,6 +1,8 @@
-{% assign handle = twitter settings.twitter | split:'twitter.com/' | last | prepend:'@' %}
-
+{% assign handle = settings.twitter | split:'twitter.com/' | last | prepend:'@' %}
 <a href="http://twitter.com/home?status={{ product.title | url_escape }}%20by%20{{ shop.name | url_escape }}%20{{ shop.url }}{{ product.url }}{% if handle != blank %}%20{{ handle }}{% endif %}" target="_blank"><i class="fa fa-twitter"></i></a>
+
 <a href="https://www.facebook.com/sharer/sharer.php?u={{ shop.url }}{{ product.url }}" target="_blank"><i class="fa fa-facebook"></i></a>
-<a href="https://pinterest.com/pin/create/button/?url={{ shop.url }}{{ product.url }}&amp;media=https:{{ product.featured_image | product_img_url:'large' }}&amp;description={{ product.title | url_escape }}%20by%20{{ shop.name | url_escape }}" target="_blank"><i class="fa fa-pinterest"></i></a>
+
+<a href="https://pinterest.com/pin/create/button/?url={{ shop.url }}{{ product.url }}&amp;media=https:{{ product.images[0] | img_url:'large' }}&amp;description={{ product.title | url_escape }}%20by%20{{ shop.name | url_escape }}" target="_blank"><i class="fa fa-pinterest"></i></a>
+
 <a href="mailto:?Subject={{ product.title | url_escape }}%20from%20{{ shop.name | url_escape }}&body=%0D%0A%0D%0A{{ shop.url }}{{ product.url }}%0D%0A%0D%0A{{ product.description | strip_html | url_escape | truncatewords:20 }}" target="_blank"><i class="fa fa-envelope-o"></i></a>

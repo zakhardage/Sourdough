@@ -1,26 +1,9 @@
-{% paginate collection.products by 12 %}
-	<h1>{{ collection.title }}</h1>
-	{% if collection.description != blank %}
-		<div class="rte">{{ collection.description }}</div> <!-- end .rte -->
-	{% endif %}
-	{% if collection.products.size == 0 %}
-		<p>No products in this collection.</p>
-	{% else %}
-		<div class="grid products">
-		{% for product in collection.products %}
-			<div class="col-1-4 item">
-				<a href="{{ product.url | within:collection }}">
-					<span class="img">{{ product.featured_image | product_img_url:'medium' | img_tag:product.title }}</span>
-					<span classs="title">{{ product.title }}</span>
-					<span class="price">{{ product.price | money | remove:' ' }}</span>
-				</a>
-			</div> <!-- end .item -->
-			{% cycle '','','','<div class="clear"></div>' %}
-		{% endfor %}
-		</div> <!-- end .products -->
-		{% if paginate.pages > 1 %}
-			{{ paginate | default_pagination }}
-			<a href="/collections/{{ collection.handle }}?view=all">View all</a>
-		{% endif %}
+<h1>{{ collection.title }}</h1>
+<div class="rte">{{ collection.description }}</div>
+{% paginate collection.products by collection.products.size %}
+	{% include 'collection-loop' %}
+	{% if paginate.pages > 1 %}
+		{{ paginate | default_pagination }}
+		<a href="/collections/{{ collection.handle }}?view=all">view all</a>
 	{% endif %}
 {% endpaginate %}

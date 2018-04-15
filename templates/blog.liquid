@@ -1,23 +1,8 @@
 <h1>{{ page.title }}</h1>
-
-{% paginate blog.articles by 10 %}
-
+{% paginate blog.articles by 3 %}
 	{% for article in blog.articles  %}
 		<h2><a href="{{ article.url }}">{{ article.title }}</a></h2>
-		<span itemscope itemtype="http://data-vocabulary.org/Person">by <span itemprop="name">{{ article.author }}</span></span>
-		Posted on {{ article.created_at | date: "%B %d, '%y" }}
-       	{{ article.content }}
-
-		{% if blog.comments_enabled? %}
-			{% if article.comments_count == 0 %}
-				<a href="{{ article.url }}#comments">Leave a comment</a>
-			{% else %}
-				<a href="{{ article.url }}#comments">{{ article.comments_count }} comments</a>
-			{% endif %}
-			</div>
-       	{% endif %}
-		
-    {% endfor %}
-    
-   	{{ paginate | default_pagination }}
+		{% include 'blog-loop' %}
+	{% endfor %}
+	{{ paginate | default_pagination }}
 {% endpaginate %}

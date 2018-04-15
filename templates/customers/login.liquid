@@ -1,55 +1,30 @@
-<<<<<<< HEAD
 <div class="info rte">
 
-<h1>Customer Login</h1>
+<h1>Customer login</h1>
 {% form 'customer_login' %}
-	<div>{{ form.errors | default_errors }}</div>
-	<input type="email" placeholder="email address" name="customer[email]" />
-	<input type="password" placeholder="password" name="customer[password]" />
+	{% if form.errors %}{% for field in form.errors %}<p>{{ field }}: {{ form.errors.messages[field] }}</p>{% endfor %}{% endif %}
+	<label for="customer[email]">Email address</label>
+	<input type="email" name="customer[email]" />
+	<label for="customer[password]">Password</label>
+	<input type="password" name="customer[password]" />
 	<button type="submit">Sign In</button>
-	<a href="javascript">Forgot your password?</a>
+	<a href="javascript:void(0)" class="forgot">Forgot your password?</a>
 {% endform %}
 
 <div class="password">
-	<h1>Reset Password</h1>
+	<h1>Reset password</h1>
 	<p>We will send you an email to reset your password.</p>
 	{% form 'recover_customer_password' %}
-		<div>{{ form.errors | default_errors }}</div>
-		<input type="email" placeholder="email address" name="email" />
+		{% if form.errors %}{% for field in form.errors %}<p>{{ field }}: {{ form.errors.messages[field] }}</p>{% endfor %}{% endif %}
+		<label for="customer[email]">Email address</label>
+		<input type="email" name="email" />
 		<button type="submit">Submit</button>
-=======
-<div class="info">
-<div class="login">
-	<h2>Customer Login</h2>
-	{% form 'customer_login' %}
-		{% if form.errors %}
-			{{ form.errors | default_errors }}
-		{% endif %
-		<input type="email" placeholder="email address" name="customer[email]" />
-		<input type="password" placeholder="password" name="customer[password]" />
-		<button type="submit">Sign in</button>
-	{% endform %}
-	<a href="javascript:void(0)" onclick="show();">Forgot your password?</a>
-</div> <!-- end .login -->
-
-<div class="password">
-	<h2>Reset Password</h2>
-	<p>We will send you an email to reset your password.</p>
-	{% form 'recover_customer_password' %}
-		{% if form.errors %}
-			{{ form.errors | default_errors }}
-		{% endif %}
-		<input type="email" placeholder="email address" name="email" />
-		<button type="submit">Submit</button>
-		or <a href="javascript:void(0)" onclick="hide();">Cancel</a>
->>>>>>> origin/master
 	{% endform %}
 </div> <!-- end .password -->
 
 {% if shop.checkout.guest_login %}
 	<div class="guest">
-<<<<<<< HEAD
-		<h1>Guest Login</h1>
+		<h1>Guest login</h1>
 		<p>Continue checkout as a guest. No sign-up required.</p>
 		{% form 'guest_login' %}
 			<button type="submit">Continue as Guest</button>
@@ -58,24 +33,3 @@
 {% endif %}
 
 </div> <!-- end .info -->
-=======
-		<h2>Guest Login</h2>
-		<p>Continue checkout as a guest. No sign-up required.</p>
-		{% form 'guest_login' %}
-			<button type="submit">Continue as guest</button>
-		{% endform %}
-	{% endform %}
-{% endif %}
-</div> <!-- end .info -->
-
-<script type="text/javascript">
-	function show() {
-		$('.password').css('display','block');
-		$('.login').css('display','none');
-	}
-	function hide() {
-		$('.password').css('display','none');
-		$('.login').css('display','block');
-	}
-</script>
->>>>>>> origin/master

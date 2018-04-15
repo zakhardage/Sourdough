@@ -1,4 +1,3 @@
 <div class="rte">
-	<h1>{{ page.title }}</h1>
-	{{ page.content }}
-</div> <!-- end .rte -->
+  {{ page.content | replace:'<li>','<li><i class="fa fa-circle" aria-hidden="true"></i> &nbsp;' }}
+</div>
