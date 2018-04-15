@@ -1,3 +1,2 @@
 // Mixins
-@mixin background-file($asset-image-with-extension) {background-image:url('{{ "#{$asset-image-with-extension}" | asset_url }} ')}
-@mixin rotate($deg) {-ms-transform:rotate(#{$deg}deg); -webkit-transform:rotate(#{$deg}deg); transform:rotate(#{$deg}deg);}
+@mixin background-file($asset,$repeat,$position) {background-image:url('{{ "#{$asset}" | asset_url }}') $repeat $position;}
