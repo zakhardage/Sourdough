@@ -1,15 +1,11 @@
 @charset "UTF-8";
-@import url("//hello.myfonts.net/count/330051");
 @import 'styles-mixins';
 @import 'styles-reset';
 @import 'styles-fonts-colors';
 
-
 // Global
 .mobile {display:none;}
 *, *:after, *:before {-webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing:border-box; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;}
-.grid:after {content:""; display:table; clear:both;}
-[class*='col-'] {float:left;}
 
 // Header
 // Footer
