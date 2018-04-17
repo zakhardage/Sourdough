@@ -1,5 +1,5 @@
 {% assign handle = settings.twitter | split:'twitter.com/' | last | prepend:'@' %}
-<a href="http://twitter.com/home?status={{ product.title | url_escape }}%20by%20{{ shop.name | url_escape }}%20{{ shop.url }}{{ product.url }}{% if handle != blank %}%20{{ handle }}{% endif %}" target="_blank"><i class="fa fa-twitter"></i></a>
+<a href="http://twitter.com/home?status={{ product.title | url_escape }}%20by%20{{ shop.name | url_escape }}%20{{ shop.url }}{{ product.url }}{% if settings.twitter != blank %}%20{{ handle }}{% endif %}" target="_blank"><i class="fa fa-twitter"></i></a>
 
 <a href="https://www.facebook.com/sharer/sharer.php?u={{ shop.url }}{{ product.url }}" target="_blank"><i class="fa fa-facebook"></i></a>
 
