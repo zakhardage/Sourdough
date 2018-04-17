@@ -3,7 +3,9 @@
 </a>
 
 {% if product.images.size > 1 %}
-	{% for image in product.images %}
-		<a href="javascript:void(0)" class="alt data="{{ image | img_url:'1024x1024' }}">{{ image | img_url:'small' | img_tag:product.title }}</a>
-	{% endfor %}
+	<div class="images">
+		{% for image in product.images %}
+			<a href="javascript:void(0)" data="{{ image | img_url:'1024x1024' }}">{{ image | img_url:'small' | img_tag:product.title }}</a>
+		{% endfor %}
+	</div> <!-- end .images -->
 {% endif %}
