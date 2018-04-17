@@ -1,2 +1,3 @@
 <h1>{{ article.title }}</h1>
-{% include 'blog-loop' %}
+<p>Posted on {{ article.published_at | date: "%B %d, %Y" }} by {{ article.author }}</p>
+<div class="rte">{{ article.content }}</div>
