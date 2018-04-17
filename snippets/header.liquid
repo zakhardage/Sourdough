@@ -2,13 +2,13 @@
 
 <form action="/search" method="get">
 	<input type="text" name="q" placeholder="Search" />
-	<button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+	<button type="submit">Search</button>
 </form>
 
 <a href="/account">{% if customer %}My Account{% else %}Log in{% endif %}</a>
 {% if customer %}<a href="/account/logout">Log out</a>{% else %}<a href="/account/register">Create Account</a>{% endif %}
 
-<a href="/cart">cart: {{ cart.item_count }} {{ cart.item_count | pluralize:'item','items' }}</a>
+<a href="/cart">Cart: {{ cart.item_count }} {{ cart.item_count | pluralize:'item','items' }}</a>
 
 {% for link in linklists.main-menu.links %}
 	{{ link.title | link_to:link.url }}
