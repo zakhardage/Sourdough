@@ -1,2 +1,2 @@
 // Mixins
-@mixin background-file($asset,$repeat,$position) {background-image:url('{{ "#{$asset}" | asset_url }}') $repeat $position;}
+@mixin bg($asset,$repeat,$position) {background:url('{{ "#{$asset}" | asset_url }}') $repeat $position;}
