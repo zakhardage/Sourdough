@@ -1,11 +1,10 @@
-<h1>Search{% if search.results != blank %} results: {{ search.terms }}{% endif %}</h1>
+<h1>Search{% if search.terms != blank %} results: {{ search.terms }}{% endif %}</h1>
 {% paginate search.results by search.results.size %}
 	{% for item in search.results %}
 		<a href="{{ item.url }}">
 			{{ item.images[0] | img_url:'medium' | img_tag:product.title }}
 			{{ item.title }}
 		</a>
-		{% cycle '','<div class="clear mobile"></div>','','<div class="clear"></div>' %}
 	{% endfor %}
 {% endpaginate %}
 
