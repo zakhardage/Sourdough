@@ -6,6 +6,5 @@
 			{{ img | img_url:'medium' | img_tag:collection.title }}
 			{{ collection.title }}
 		</a>
-		{% cycle '','<div class="clear mobile"></div>','','<div class="clear"></div>' %}
 	{% endfor %}
 {% endpaginate %}
