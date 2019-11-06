@@ -1,7 +1,13 @@
 <h1>{{ collection.title }}</h1>
 <div class="rte">{{ collection.description }}</div>
 {% paginate collection.products by collection.products.size %}
-	{% include 'collection-loop' %}
+	{% for product in collection.products %}
+		<a href="{{ product.url | within:collection }}">
+			{{ product.images[0] | img_url:'medium' | img_tag:product.title }}
+			{{ product.title }}
+			{{ product.price | money | remove:' ' }}
+		</a>
+	{% endfor %}
 	{% if paginate.pages > 1 %}
 		{{ paginate | default_pagination }}
 		<a href="/collections/{{ collection.handle }}?view=all">view all</a>
