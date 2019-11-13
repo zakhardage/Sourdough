@@ -14,7 +14,7 @@
 		{{ content_for_header }}
 	</head>
 	<body class="{{ template | handle }} {{ template | handle | split:'-' | first }}">
-		<a class="skip-link" href="#main-content">Skip to content</a>
+		<a class="visuallyhidden" href="#main-content">Skip to content</a>
 		{% include 'theme-header' %}
 		<div id="main-content">
 			{{ content_for_layout }}
