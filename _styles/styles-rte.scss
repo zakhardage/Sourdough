@@ -1,0 +1,27 @@
+.rte {
+  p {margin:0 0 1em;}
+  a {
+    &:hover {}
+  }
+  strong {}
+  em {}
+  h1 {}
+  h2 {}
+  h3 {}
+  h4 {}
+  h5 {}
+  h6 {}
+  blockquote {display:block; width:75%; margin:0 0 1em;}
+  ul, ol {margin:1em 0;}
+  ul li {list-style:none inside;
+    i {position:relative; top:-3px; width:10px; font-size:4px;}
+  }
+  ol li {list-style:decimal inside;}
+  table {display:table; width:100%;}
+  th {text-transform:uppercase; text-align:left; padding:0 20px 10px 0;}
+  td {padding:10px 20px 10px 0;}
+}
+
+@media screen and (max-width:1200px) {
+
+}
