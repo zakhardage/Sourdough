@@ -1,11 +1,19 @@
-<a class="href" href="{{ product.images[0] | img_url:'1024x1024' }}" data-lightbox="{{ product.title | handle }}">
-	<img itemprop="image" class="src" src="{{ product.images[0] | img_url:'grande' }}" alt="{{ product.title | escape }}" />
-</a>
+{% comment %} Simple product images {% endcomment %}
 
-{% if product.images.size > 1 %}
-	<div class="images">
-		{% for image in product.images %}
-			<a href="javascript:void(0)" data="{{ image | img_url:'1024x1024' }}">{{ image | img_url:'small' | img_tag:product.title }}</a>
-		{% endfor %}
-	</div> <!-- end .images -->
-{% endif %}
+<section class="images">
+	<img itemprop="image" class="main-image" src="{{ product.images[0] | img_url:'1024x' }}" alt="{{ product.images[0].alt }}" />
+	{% if product.images.size > 1 %}
+		<div class="alt-images">
+			{% for image in product.images %}
+				<img src="{{ image | img_url:'100x100' }}" data="{{ image | img_url:'1024x' }}" alt="{{ image.alt }}" />
+			{% endfor %}
+		</div> <!-- end .alt-images -->
+	{% endif %}
+</section> <!-- end .images -->
+
+<script>
+	$('.alt-images img').click(function() {
+		var image = $(this).attr('data');
+		$('.main-image').attr('src',image);
+	});
+</script>
