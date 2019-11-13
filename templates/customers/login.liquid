@@ -1,4 +1,3 @@
-
 <h1>Customer login</h1>
 {% form 'customer_login' %}
 	{% if form.errors %}{% for field in form.errors %}<p>{{ field }}: {{ form.errors.messages[field] }}</p>{% endfor %}{% endif %}
