@@ -1,10 +1,11 @@
 {% comment %} bxSlider
 	https://bxslider.com
+	Activate stylesheet in snippets/theme-styles.liquid
 	Files in _assets folder
 {% endcomment %}
 
 <div class="desktop">
-	<div class="bxslider">
+	<div class="slider">
 		{% for block in section.blocks %}
 			{% assign slide = block.settings %}
 			{% assign image = slide.image | img_url:'1024x1024' | img_tag:slide.alt %}
@@ -14,7 +15,7 @@
 </div> <!-- end .desktop -->
 
 <div class="mobile">
-	<div class="bxslider-mobile">
+	<div class="slider-mobile">
 		{% for block in section.blocks %}
 			{% assign slide = block.settings %}
 			{% assign image = slide.image-mobile | img_url:'1024x1024' | img_tag:slide.alt %}
@@ -22,6 +23,17 @@
 		{% endfor %}
 	</div> <!-- end .bxslider-mobile -->
 </div> <!-- end .mobile -->
+
+<script>
+	$(document).ready(function(){
+		$('.slider').bxSlider({
+
+		});
+		$('.slider-mobile').bxSlider({
+		
+		});
+	});
+</script>
 
 {% schema %}
 	{"name":"Slideshow", "max_blocks":5, "blocks":[
