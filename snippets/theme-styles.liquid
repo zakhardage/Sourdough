@@ -4,6 +4,12 @@
 	https://fontawesome.com/start
 {% endcomment %}
 
+{% comment %} bxSlider
+	{% if template == 'index' %}
+		{{ bxslider.css | asset_url | stylesheet_tag }}
+	{% endif %}
+{% endcomment %}
+
 {% comment %} Lightbox
 	{% if template contains 'product' %}
 		{{ lightbox.css | asset_url | stylesheet_tag }}
