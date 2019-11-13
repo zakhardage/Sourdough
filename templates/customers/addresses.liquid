@@ -1,4 +1,3 @@
-<div class="info rte">
 
 <h1>Addresses</h1>
 <p>Shipping Addresses</p>
@@ -76,4 +75,14 @@
 	<a href="javascript:void(0)" class="add-new">Add new address</a>
 {% endpaginate %}
 
-</div> <!-- end .info -->
+
+
+<script>
+	$('.add-new').click(function() {
+		$('.add-new-address').toggle();
+	});
+	$('.edit').click(function() {
+		var id = $(this).attr('data-id');
+		$('#edit_address_'+id).toggle();
+	});
+</script>
