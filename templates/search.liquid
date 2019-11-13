@@ -1,18 +1,1 @@
-<h1>Search{% if search.terms != blank %} results: {{ search.terms }}{% endif %}</h1>
-{% paginate search.results by search.results.size %}
-	{% for item in search.results %}
-		<a href="{{ item.url }}">
-			{{ item.images[0] | img_url:'medium' | img_tag:product.title }}
-			{{ item.title }}
-		</a>
-	{% endfor %}
-{% endpaginate %}
-
-<div class="info rte">
-
-<form name="search" action="/search">
-	<input type="text" name="q" />
-	<button type="submit">Search</button>
-</form>
-
-<!-- end .info -->
+{% section 'search' %}

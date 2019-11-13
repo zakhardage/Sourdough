@@ -18,7 +18,7 @@
 		</a>
 	{% endfor %}
 	{% if template == 'collection' %}
-		{% include 'collection-pagination' %}
+		{% include 'pagination' %}
 	{% elsif template == 'collection.all' %}
 		<a href="/collections/{{ collection.handle }}">View by {{ section.settings.range }}</a>
 	{% endif %}

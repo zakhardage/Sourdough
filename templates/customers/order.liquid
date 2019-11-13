@@ -1,5 +1,3 @@
-<div class="info rte">
-
 <h1>Order {{ order.name }}</h1>
 {% if order.cancelled %}<p>Order Cancelled on {{ order.cancelled_at | date:"%B %d, %Y %I:%M%p" }}<br />{{ order.cancel_reason }}</p>{% endif %}
 
@@ -85,5 +83,3 @@ Payment Status: {{ order.financial_status }}<br />
 		</tr>
 	</tfoot>
 </table>
-
-</div> <!-- end .info -->

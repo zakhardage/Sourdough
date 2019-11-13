@@ -2,9 +2,10 @@
 {% paginate collections by collections.size %}
 	{% for collection in collections %}
 		<a href="{{ collection.url }}">
-			{% if collection.image %}{% assign img = collection.image.src %}{% else %}{% assign img = collection.products[0].images[0] %}{% endif %}
-			{{ img | img_url:'medium' | img_tag:collection.title }}
+			{% if collection.image %}{% assign image = collection.image.src %}{% else %}{% assign image = collection.products[0].images[0] %}{% endif %}
+			{{ image | image_url:'500x' | image_tag:collection.title }}
 			{{ collection.title }}
 		</a>
 	{% endfor %}
+	{% include 'pagination' %}
 {% endpaginate %}

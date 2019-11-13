@@ -1,3 +1,5 @@
 <h1>{{ article.title }}</h1>
 <p>Posted on {{ article.published_at | date: "%B %d, %Y" }} by {{ article.author }}</p>
-<div class="rte">{{ article.content }}</div>
+<div class="rte">
+  {{ article.content }}
+</div> <!-- end .rte -->

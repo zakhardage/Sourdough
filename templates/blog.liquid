@@ -1,9 +1,10 @@
-<h1>{{ blog.title }}</h1>
 {% paginate blog.articles by 3 %}
 	{% for article in blog.articles  %}
 		<h2><a href="{{ article.url }}">{{ article.title }}</a></h2>
-		<p>Posted on {{ article.published_at | date: "%B %d, %Y" }} by {{ article.author }}</p>
-		<div class="rte">{{ article.content }}</div>
+		<p>Posted on {{ article.published_at | date: "%B %d, %Y" }}</p>
+		<div class="rte">
+			{{ article.content }}
+		</div> <!-- end .rte -->
 	{% endfor %}
-	{{ paginate | default_pagination }}
+	{% include 'pagination' %}
 {% endpaginate %}

@@ -1,0 +1,21 @@
+{% assign part = section.settings %}
+
+<div class="desktop">
+	{% assign image = part.image | img_url:'1024x1024' | img_tag:part.alt %}
+	{% if part.url != blank %}{{ image | link_to:part.url }}{% else %}{{ image }}{% endif %}
+</div> <!-- end .desktop -->
+
+<div class="mobile">
+	{% assign image = part.image-mobile | img_url:'1024x1024' | img_tag:part.alt %}
+	{% if part.url != blank %}{{ image | link_to:part.url }}{% else %}{{ image }}{% endif %}
+</div> <!-- end .mobile -->
+
+{% schema %}
+	{"name":"Hero image", "class":"hero", "settings":[
+		{"type":"image_picker", "id":"image", "label":"Image", "info":"XXXXpx wide and XXXXpx tall"},
+		{"type":"image_picker", "id":"image-mobile", "label":"Mobile image", "info":"XXXXpx wide and XXXXpx tall"},
+		{"type":"text", "id":"alt", "label":"Alt text"},
+		{"type":"url", "id":"url", "label":"Link", "info":"(optional)"}
+  ], "presets":[{"name":"Hero image", "category":"Home page"}]
+}
+{% endschema %}
