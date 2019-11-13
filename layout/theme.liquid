@@ -7,14 +7,20 @@
 		<link rel="canonical" href="{{ canonical_url }}" />
 		<link rel="shortcut icon" href="{{ 'favicon.png' | asset_url }}" type="image/png" />
 		<title>{{ page_title }}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}</title>
-		{{ 'styles.css' | asset_url | stylesheet_tag }}
-		{% include 'social' %}
+		{% include 'theme-styles' %}
+		{{ '//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js' | script_tag }}
+		{% if settings.code-site-header != blank %}{{ settings.code-site-header }}{% endif %}
+		{% include 'theme-social' %}
 		{{ content_for_header }}
 	</head>
-	<body class="{{ template | handle }}">
-		{% include 'header' %}
-		{{ content_for_layout }}
-		{% include 'footer' %}
-		{% include 'scripts' %}
+	<body class="{{ template | handle }} {{ template | handle | split:'-' | first }}">
+		<a class="skip-link" href="#main-content">Skip to content</a>
+		{% include 'theme-header' %}
+		<div id="main-content">
+			{{ content_for_layout }}
+		</div> <!-- end #main-content -->
+		{% include 'theme-footer' %}
+		{% include 'theme-scripts' %}
+		{% if settings.code-site-footer != blank %}{{ settings.code-site-footer }}{% endif %}
 	</body>
 </html>
