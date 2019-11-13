@@ -1,15 +1,15 @@
+<header>
+	{{ 'logo.png' | asset_url | img_tag:shop.name | link_to:shop.url }}
+	<a href="/account">{% if customer %}My {% endif %}Account</a>
+	<a href="/cart">Cart: {{ cart.item_count }} {{ cart.item_count | pluralize:'item','items' }}</a>
+</header>
+
 <section class="minisearch">
 	<form action="/search" method="get">
 		<input type="text" name="q" placeholder="Search" />
 		<button type="submit">Search</button>
 	</form>
 </section> <!-- end .minisearch -->
-
-<header>
-	{{ 'logo.png' | asset_url | img_tag:shop.name | link_to:shop.url }}
-	<a href="/account">{% if customer %}My {% endif %}Account</a>
-	<a href="/cart">Cart: {{ cart.item_count }} {{ cart.item_count | pluralize:'item','items' }}</a>
-</header>
 
 <nav>
 	{% for link in linklists.main-menu.links %}
