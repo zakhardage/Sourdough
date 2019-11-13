@@ -7,6 +7,9 @@
 .mobile {display:none;}
 *, *:after, *:before {box-sizing:border-box; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;}
 
+// Skip link
+.skip-link {position:absolute; top:0; left:0; border:0; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0);}
+
 // Header
 
 // Footer
