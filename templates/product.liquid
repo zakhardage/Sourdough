@@ -1,18 +1,17 @@
 <div itemscope itemtype="http://schema.org/Product">
 	<meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
-	<meta itemprop="image" content="{{ product.images[0] | img_url:'grande' }}">
+	<meta itemprop="image" content="{{ product.images[0] | img_url:'1024x' }}">
+	<meta itemprop="name" content="{{ product.title }}">
 	<div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 		<meta itemprop="priceCurrency" content="{{ shop.currency }}">
 		<link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
 		<h1 itemprop="name">{{ product.title }}</h1>
 		{% include 'product-images' %}
-		<div itemprop="description" class="rte">{{ product.description }}</div>
+		<div itemprop="description" class="rte">
+			{{ product.description }}
+		</div> <!-- end .rte -->
 		<p class="price" itemprop="price">{{ product.price | money | remove:' ' }}</p>
 		{% include 'product-form' %}
 		{% include 'product-share' %}
-	</div>
-</div>
-
-<div class="hidden">
-	{% for image in product.images %}<a href="{{ image | img_url:'1024x1024' }}" data-lightbox="{{ product.title | handle }}">{{ image | img_url:'1024x1024' | img_tag:product.title }}</a>{% endfor %}
-</div>
+	</div> <!-- end itemprop: offers -->
+</div> <!-- end itemscope: product -->
