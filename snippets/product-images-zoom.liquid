@@ -1,0 +1,33 @@
+{% comment %}
+	jQuery Zoom
+	http://www.jacklmoore.com/zoom/
+{% endcomment %}
+
+<section class="images">
+	<div class="zoom-wrap">
+		<span class='zoom' style="position:relative; display:inline-block;">
+			<img itemprop="image" src="{{ product.images[0] | img_url:'1024x' }}" alt="{{ product.images[0].alt }}" />
+		</span> <!-- end .zoom -->
+	</div> <!-- end .zoom-wrap -->
+
+	{% if product.images.size > 1 %}
+		<div class="alt-images">
+			{% for image in product.images %}
+				{{ image | img_url:'1024x' | img_tag:image.alt }}
+			{% endfor %}
+		</div> <!-- end .alt-images -->
+	{% endif %}
+</section> <!-- end .images -->
+
+{{ zoom.js | asset_url | script_tag }}
+<script>
+	$('.alt-images img').click(function() {
+		var image = $(this).attr('src');
+		$('.zoom img').attr('src',image);
+	});
+
+	// Zoom
+	$(document).ready(function() {
+		$('.zoom').zoom();
+	});
+</script>
