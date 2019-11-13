@@ -1,0 +1,33 @@
+{% comment %}
+	Lightbox
+	https://www.lokeshdhakar.com/projects/lightbox2/
+	Activate stylesheet in snippets/theme-styles.liquid
+{% endcomment %}
+
+<section class="images">
+	<a class="href" href="{{ product.images[0] | img_url:'1024x' }}" data-lightbox="{{ product.title | handle }}">
+		<img itemprop="image" class="src" src="{{ product.images[0] | img_url:'1024x' }}" alt="{{ product.images[0].alt }}" />
+	</a>
+	{% if product.images.size > 1 %}
+		<div class="alt-images">
+			{% for image in product.images %}
+				{{ image | img_url:'1024x' | img_tag:image.alt }}
+			{% endfor %}
+		</div> <!-- end .alt-images -->
+	{% endif %}
+</section> <!-- end .images -->
+
+{{ lightbox.js | asset_url | script_tag }}
+<script>
+	$('.alt-images img').click(function() {
+		var image = $(this).attr('src');
+		$('.href').attr('href',image);
+		$('.src').attr('src',image);
+	});
+
+	// Lightbox
+	lightbox.option({
+		'wrapAround':true,
+		'showImageNumberLabel':false
+	});
+</script>
