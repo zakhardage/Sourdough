@@ -1,21 +1,36 @@
-<ul class="bxslider">
-	{% for block in section.blocks %}
-		{% assign img = block.settings.image | img_url:'1024x1024' | img_tag:shop.name %}
-		<li>{% if block.settings.link != blank %}{{ img | link_to:block.settings.link }}{% else %}{{ img }}{% endif %}</li>
-	{% endfor %}
-</ul> <!-- end .bxslider -->
+{% comment %} bxSlider
+	https://bxslider.com
+	Files in _assets folder
+{% endcomment %}
+
+<div class="desktop">
+	<div class="bxslider">
+		{% for block in section.blocks %}
+			{% assign slide = block.settings %}
+			{% assign image = slide.image | img_url:'1024x1024' | img_tag:slide.alt %}
+			<div>{% if slide.url != blank %}{{ image | link_to:slide.url }}{% else %}{{ image }}{% endif %}</div>
+		{% endfor %}
+	</div> <!-- end .bxslider -->
+</div> <!-- end .desktop -->
+
+<div class="mobile">
+	<div class="bxslider-mobile">
+		{% for block in section.blocks %}
+			{% assign slide = block.settings %}
+			{% assign image = slide.image-mobile | img_url:'1024x1024' | img_tag:slide.alt %}
+			<div>{% if slide.url != blank %}{{ image | link_to:slide.url }}{% else %}{{ image }}{% endif %}</div>
+		{% endfor %}
+	</div> <!-- end .bxslider-mobile -->
+</div> <!-- end .mobile -->
 
 {% schema %}
-{
-  "name":"Slideshow",
-  "max_blocks":20,
-  "blocks":[
+	{"name":"Slideshow", "max_blocks":5, "blocks":[
     {"type":"slide", "name":"Slide", "settings":[
-        {"type":"image_picker", "id":"image", "label":"Image", "info":".jpg format at XXXXpx wide and XXXXpx tall"},
-				{"type":"url", "id":"link", "label":"Link", "info":"Optional"}
-      ]
-    }
-  ],
-  "presets":[{"name":"Slides", "category":"Image", "blocks":[{"type":"slide"}]}]
+			{"type":"image_picker", "id":"image", "label":"Image", "info":"XXXXpx wide and XXXXpx tall"},
+			{"type":"image_picker", "id":"image-mobile", "label":"Mobile image", "info":"XXXXpx wide and XXXXpx tall"},
+			{"type":"text", "id":"alt", "label":"Alt text"}
+			{"type":"url", "id":"url", "label":"Link", "info":"(optional)"}
+    ]}
+  ], "presets":[{"name":"Slides", "category":"Home page", "blocks":[{"type":"slide"}]}]
 }
 {% endschema %}
