@@ -13,16 +13,16 @@
 		<tr>
 			<th>Order</th>
 			<th>Date</th>
-			<th class="desktop">Payment Status</th>
-			<th><span class="desktop">Fulfillment </span>Status</th>
+			<th>Payment Status</th>
+			<th>Fulfillment Status</th>
 			<th>Total</th>
 		</tr>
 		{% for order in customer.orders %}
 			<tr>
 				<td>{{ order.name | link_to:order.customer_url }}</td>
-				<td><span class="desktop">{{ order.created_at | date:"%b %d, %Y" }}</span><span class="mobile">{{ order.created_at | date:"%m/%d/%y" }}</span></td>
-				<td span class="desktop">{{ order.financial_status }}</td>
-				<td>{{ order.financial_status }} / {{ order.fulfillment_status }}</td>
+				<td>{{ order.created_at | date:"%b %d, %Y" }}</td>
+				<td>{{ order.financial_status }}</td>
+				<td>{{ order.fulfillment_status }}</td>
 				<td>{{ order.total_price | money | remove:' ' }}</td>
 			</tr>
 		{% endfor %}
