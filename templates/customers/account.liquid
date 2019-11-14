@@ -1,13 +1,20 @@
-<h1>Account Details and Order History</h1>
-<p>{{ customer.name }}<br />{{ customer.email }}</p>
-{% if customer.default_address.address1 != blank %}
-	<p>{{ customer.default_address.address1 }}<br />
-	{% if customer.default_address.address2 != blank %}{{ customer.default_address.address2 }}<br />{% endif %}
-	{{ customer.default_address.city }}, {{customer.default_address.province_code }} {{ customer.default_address.zip }}<br />
-	{{ customer.default_address.country }}<br />
-	{% if customer.default_address.phone != blank %}{{ customer.default_address.phone }}{% endif %}</p>
-	<p><a href="/account/addresses">Addresses</a></p>
+<h1>Account Details and order history</h1>
+
+<p>{{ customer.name }}</p>
+<p>{{ customer.email }}</p>
+
+{% assign default = customer.default_address %}
+{% if default.address1 != blank %}
+	<p>{{ default.address1 }}</p>
+	{% if default.address2 != blank %}<p>{{ default.address2 }}</p>{% endif %}
+	{% if default.city != blank %}
+		<p>{{ default.city }}{% if default.province_code != blank %}, {{ default.province_code }}{% endif %}{% if default.zip != blank %} {{ default.zip }}{% endif %}</p>
+	{% endif %}
+	{% if default.country != blank %}<p>{{ default.country }}</p>{% endif %}
+	{% if default.phone != blank %}<p>{{ default.phone }}</p>{% endif %}
+	<p><a href="/account/addresses">Account addresses</a></p>
 {% endif %}
+
 {% if customer.orders.size > 0 %}
 	<table>
 		<tr>
