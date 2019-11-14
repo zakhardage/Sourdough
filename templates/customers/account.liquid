@@ -26,11 +26,11 @@
 		</tr>
 		{% for order in customer.orders %}
 			<tr>
-				<td>{{ order.name | link_to:order.customer_url }}</td>
-				<td>{{ order.created_at | date:"%b %d, %Y" }}</td>
-				<td>{{ order.financial_status }}</td>
-				<td>{{ order.fulfillment_status }}</td>
-				<td>{{ order.total_price | money | remove:' ' }}</td>
+				<td data-label="order">{{ order.name | link_to:order.customer_url }}</td>
+				<td data-label="date">{{ order.created_at | date:"%b %d, %Y" }}</td>
+				<td data-label="payment status">{{ order.financial_status }}</td>
+				<td data-label="fulfillment status">{{ order.fulfillment_status }}</td>
+				<td data-label="total">{{ order.total_price | money | remove:' ' }}</td>
 			</tr>
 		{% endfor %}
 	</table>
