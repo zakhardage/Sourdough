@@ -14,13 +14,20 @@
 		{{ content_for_header }}
 	</head>
 	<body class="{{ template | handle }} {{ template | handle | split:'-' | first }}">
-		<a class="visuallyhidden" href="#main-content">Skip to content</a>
+		<a class="visuallyhidden" href="#main">Skip to content</a>
 		{% include 'theme-header' %}
-		<div id="main-content">
+		<main id="main">
 			{{ content_for_layout }}
-		</div> <!-- end #main-content -->
+		</main> <!-- end #main -->
 		{% include 'theme-footer' %}
 		{% include 'theme-scripts' %}
 		{% if settings.code-site-footer != blank %}{{ settings.code-site-footer }}{% endif %}
 	</body>
 </html>
+
+{% comment %}
+	// landmarks
+	// headings
+	// aria attributes
+	// focus styles
+{% endcomment %}
