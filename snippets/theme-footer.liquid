@@ -1,9 +1,11 @@
-<form action="{{ settings.mailchimp }}" method="post" name="mc-embedded-subscribe-form" target="_blank">
-	<p>{{ settings.newsletter-label }}</p>
-	<label for="email address">Email address</label>
-	<input type="email" name="EMAIL" />
-	<div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="XXXXXXXXXX" tabindex="-1" value=""></div>
-	<button type="submit">Sign up</button>
-</form>
+<footer>
+	<form action="{{ settings.mailchimp }}" method="post" name="mc-embedded-subscribe-form" target="_blank">
+		<p>{{ settings.newsletter-label }}</p>
+		<label for="email address">Email address</label>
+		<input type="email" name="EMAIL" />
+		<div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="XXXXXXXXXX" tabindex="-1" value=""></div>
+		<button type="submit">Sign up</button>
+	</form>
 
-&copy; {{ 'now' | date: "%Y" }} {{ shop.name }} | Sourdough starter theme by <a href="http://hardage-hardage.com">Zak Hardage</a>
+	&copy; {{ 'now' | date: "%Y" }} {{ shop.name }} | Sourdough starter theme by <a href="http://hardage-hardage.com">Zak Hardage</a>
+</footer>

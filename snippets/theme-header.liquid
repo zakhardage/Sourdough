@@ -4,12 +4,12 @@
 	<a href="/cart">Cart: {{ cart.item_count }} {{ cart.item_count | pluralize:'item','items' }}</a>
 </header>
 
-<section class="minisearch">
+<div class="minisearch">
 	<form action="/search" method="get">
 		<input type="text" name="q" placeholder="Search" />
 		<button type="submit">Search</button>
 	</form>
-</section> <!-- end .minisearch -->
+</div> <!-- end .minisearch -->
 
 <nav>
 	{% for link in linklists.main-menu.links %}
