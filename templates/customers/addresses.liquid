@@ -23,7 +23,7 @@
 		<input type="text" name="address[zip]" value="{{ form.zip }}" />
 		<label for="address[phone]">Phone</label>
 		<input type="text" name="address[phone]" value="{{ form.phone }}" />
-		<label for="address[default_checkbox]">Set as default address</label>
+		<label for="address_default_address_new">Set as default address</label>
 		{{ form.set_as_default_checkbox }}
 		<button type="submit">Add address</button>
 	{% endform %}
@@ -65,7 +65,7 @@
 				<input type="text" name="address[zip]" value="Zip" />
 				<label for="address[phone]">Phone</label>
 				<input type="text" name="address[phone]" value="{{ form.phone }}" />
-				<label for="address[default_checkbox]">Set as default address</label>
+				<label for="address_default_address_{{ address.id }}">Set as default address</label>
 				{{ form.set_as_default_checkbox }}
 				<button type="submit">Add address</button>
 			{% endform %}
