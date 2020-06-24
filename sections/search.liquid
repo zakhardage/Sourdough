@@ -1,7 +1,24 @@
 <h1>Search{% if search.terms != blank %} results: {{ search.terms }}{% endif %}</h1>
 
 {% paginate search.results by section.settings.range %}
+
+	{% if section.settings.default_blank_search_image %}
+		{% assign image = section.settings.default_blank_search_image %}
+	{% elsif settings.logo %}
+		{% assign image = settings.logo %}
+	{% endif %}
+
 	{% for item in search.results %}
+		{% if item.object_type == 'product' %}
+			{% if item.images.size > 0 %}
+				{% assign image = product.images[0] %}
+			{% endif %}
+		{% elsif item.object_type == 'page' %}
+			{% if page.content contains '<img src="' %}{% assign }{% endif %}
+		{% elsif item.object_type == 'article' %}
+			{% when 'article' %}
+		{% endcase %}
+
 		<a href="{{ item.url }}">
 			{{ item.images[0] | img_url:'500x' | img_tag:item.title }}
 			{{ item.title }}
@@ -13,6 +30,6 @@
 
 {% schema %}
 	{"name":"Search", "settings":[
-		{"type":"range", "id":"range", "label":"Number of results to display", "min":3, "max":30, "step":3, "default":12},
+		{"type":"range", "id":"range", "label":"Number of results to display", "min":3, "max":30, "step":3, "default":12}
   ]}
 {% endschema %}
