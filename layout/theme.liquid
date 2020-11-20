@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
 <html>
 	<head>
 		<meta charset="utf-8" />
@@ -8,26 +9,18 @@
 		<link rel="shortcut icon" href="{{ 'favicon.png' | asset_url }}" type="image/png" />
 		<title>{{ page_title }}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}</title>
 		{% include 'theme-styles' %}
-		{{ '//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js' | script_tag }}
-		{% if settings.code-site-header != blank %}{{ settings.code-site-header }}{% endif %}
+		{% include 'theme-scripts-header' %}
 		{% include 'theme-social' %}
 		{{ content_for_header }}
 	</head>
-	<body class="{{ template | handle }} {{ template | handle | split:'-' | first }}">
+	<body class="{{ request.page_type | handle | split:'-' | first }}">
+		{% include 'theme-scripts-body' %}
 		<a class="visuallyhidden" href="#main">Skip to content</a>
 		{% include 'theme-header' %}
 		<main id="main">
 			{{ content_for_layout }}
 		</main> <!-- end #main -->
 		{% include 'theme-footer' %}
-		{% include 'theme-scripts' %}
-		{% if settings.code-site-footer != blank %}{{ settings.code-site-footer }}{% endif %}
+		{% include 'theme-scripts-body' %}
 	</body>
 </html>
-
-{% comment %}
-	// landmarks
-	// headings
-	// aria attributes
-	// focus styles
-{% endcomment %}
