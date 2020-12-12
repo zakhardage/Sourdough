@@ -3,11 +3,14 @@
 <section class="images">
 	<img itemprop="image" class="main-image" src="{{ product.images[0] | img_url:'1024x' }}" alt="{{ product.images[0].alt }}" />
 	{% if product.images.size > 1 %}
-		<div class="alt-images">
+		<figure class="alt-images" role="figure" aria-label="Additional images of {{ product.title }}">
 			{% for image in product.images %}
 				<img src="{{ image | img_url:'100x100' }}" data="{{ image | img_url:'1024x' }}" alt="{{ image.alt }}" />
 			{% endfor %}
-		</div> <!-- end .alt-images -->
+			<figcaption>
+				Additional images of {{ product.title }}
+			</figcaption>
+		</figure> <!-- end .alt-images -->
 	{% endif %}
 </section> <!-- end .images -->
 
