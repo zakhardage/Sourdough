@@ -7,14 +7,9 @@
 		"theme_support_email":"support@shopify.com"
 	},
 	{"name":"Social media", "settings":[
-		{"type":"text", "id":"social_twitter_link", "label":"Twitter URL"},
-		{"type":"text", "id":"social_facebook_link", "label":"Facebook URL"},
-		{"type":"text", "id":"social_instagram_link", "label":"Instagram URL"},
-		{"type":"text", "id":"social_pinterest_link", "label":"Pinterest URL"}
-	]},
-	{"name":"Additional theme scripts", "settings":[
-		{"type": "textarea", "id": "code-site-header", "label": "Site header", "info": "Code here will be added above the \"<\/head>\" tag"},
-		{"type": "textarea", "id": "code-site-body", "label": "Site body", "info": "Code here will be added immediately after \"<body>\" tag"},
-		{"type": "textarea", "id": "code-site-footer", "label": "Site footer", "info": "Code here will be added just above the closing \"<\/body>\" tag"}
+		{"type":"text", "id":"twitter", "label":"Twitter URL"},
+		{"type":"text", "id":"facebook", "label":"Facebook URL"},
+		{"type":"text", "id":"instagram", "label":"Instagram URL"},
+		{"type":"text", "id":"pinterest", "label":"Pinterest URL"}
 	]}
 ]
