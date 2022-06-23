@@ -7,19 +7,16 @@
 		<link rel="canonical" href="{{ canonical_url }}" />
 		<link rel="shortcut icon" href="{{ 'favicon.png' | asset_url }}" type="image/png" />
 		<title>{{ page_title }}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}</title>
-		{% include 'theme-styles' %}
-		{% include 'theme-scripts-header' %}
+		{% include 'theme-styles-scripts' %}
 		{% include 'theme-social' %}
 		{{ content_for_header }}
 	</head>
-	<body class="{{ request.page_type | handle | split:'-' | first }}">
-		{% include 'theme-scripts-body' %}
+	<body class="{{ request.page_type | handle | split:'-' | first }} {{ template | handle }}">
 		<a class="visuallyhidden" href="#main">Skip to content</a>
 		{% include 'theme-header' %}
 		<main id="main">
 			{{ content_for_layout }}
 		</main> <!-- end #main -->
 		{% include 'theme-footer' %}
-		{% include 'theme-scripts-footer' %}
 	</body>
 </html>
