@@ -28,8 +28,7 @@ Payment Status: {{ order.financial_status }}<br />
 		<tr>
 			<th>Product</th>
 			<th>Price</th>
-			<th><span class="desktop">Quantity</span><span class="mobile">Qty</span></th>
-			<th class="desktop">Total</th>
+			<th>Qty</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -40,13 +39,13 @@ Payment Status: {{ order.financial_status }}<br />
 					{% if item.fulfillment %}
 						<br />Fulfilled {{ item.fulfillment.created_at | date:"%b %d" }}
 						{% if item.fulfillment.tracking_number %}
-							<br /><a href="{{ item.fulfillment.tracking_url }}">{{ item.fulfillment.tracking_company }} #{{ item.fulfillment.tracking_number}}</a>
+							<br />
+							<a href="{{ item.fulfillment.tracking_url }}">{{ item.fulfillment.tracking_company }} #{{ item.fulfillment.tracking_number}}</a>
 						{% endif %}
 					{% endif %}
 				</td>
 				<td>{{ item.price | money | remove:' ' }}</td>
 				<td>{{ item.quantity }}</td>
-				<td class="desktop">{{ item.quantity | times:item.price | money | remove:' ' }}</td>
 			</tr>
 		{% endfor %}
 	</tbody>

@@ -1,11 +1,7 @@
 <h1>Activate Account</h1>
 <p>Create your password to activate your account</p>
 {% form 'activate_customer_password' %}
-	{% if form.errors %}
-		{% for field in form.errors %}
-			<p>{{ field }}: {{ form.errors.messages[field] }}</p>
-		{% endfor %}
-	{% endif %}
+	{% if form.errors %}{% for field in form.errors %}<p>{{ field }}: {{ form.errors.messages[field] }}</p>{% endfor %}{% endif %}
 	<label for="password">Password</label>
 	<input id="password" type="password" name="customer[password]" />
 	<label for="password_confirmation">Confirm password</label>

@@ -1,18 +1,17 @@
 <h1>Account Details and order history</h1>
 
-<p>{{ customer.name }}</p>
-<p>{{ customer.email }}</p>
+<p>{{ customer.name }}<br />{{ customer.email }}</p>
 
 {% assign default = customer.default_address %}
 {% if default.address1 != blank %}
-	<p>{{ default.address1 }}</p>
-	{% if default.address2 != blank %}<p>{{ default.address2 }}</p>{% endif %}
+	<p>{{ default.address1 }}<br />
+	{% if default.address2 != blank %}<p>{{ default.address2 }}<br />{% endif %}
 	{% if default.city != blank %}
-		<p>{{ default.city }}{% if default.province_code != blank %}, {{ default.province_code }}{% endif %}{% if default.zip != blank %} {{ default.zip }}{% endif %}</p>
+		<p>{{ default.city }}{% if default.province_code != blank %}, {{ default.province_code }}{% endif %}{% if default.zip != blank %} {{ default.zip }}{% endif %}<br />
 	{% endif %}
-	{% if default.country != blank %}<p>{{ default.country }}</p>{% endif %}
+	{% if default.country != blank %}<p>{{ default.country }}<br />{% endif %}
 	{% if default.phone != blank %}<p>{{ default.phone }}</p>{% endif %}
-	<p><a href="/account/addresses">Account addresses</a></p>
+	<p><a href="{{ routes.account_addresses_url }}">Account addresses</a></p>
 {% endif %}
 
 {% if customer.orders.size > 0 %}
@@ -20,20 +19,16 @@
 		<tr>
 			<th>Order</th>
 			<th>Date</th>
-			<th>Payment Status</th>
-			<th>Fulfillment Status</th>
+			<th>Status</th>
 			<th>Total</th>
 		</tr>
 		{% for order in customer.orders %}
 			<tr>
-				<td data-label="order">{{ order.name | link_to:order.customer_url }}</td>
-				<td data-label="date">{{ order.created_at | date:"%b %d, %Y" }}</td>
-				<td data-label="payment status">{{ order.financial_status }}</td>
-				<td data-label="fulfillment status">{{ order.fulfillment_status }}</td>
-				<td data-label="total">{{ order.total_price | money | remove:' ' }}</td>
+				<td>{{ order.name | link_to:order.customer_url }}</td>
+				<td>{{ order.created_at | date:"%b %d, %Y" }}</td>
+				<td>{{ order.financial_status }}/{{ order.fulfillment_status }}</td>
+				<td>{{ order.total_price | money | remove:' ' }}</td>
 			</tr>
 		{% endfor %}
 	</table>
-{% else %}
-	<p>You haven't placed any orders yet.</p>
 {% endif %}
