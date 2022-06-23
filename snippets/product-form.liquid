@@ -1,4 +1,4 @@
-<form action="/cart/add" method="post">
+{% form "product", product %}
 	{% if product.variants.size > 1 %}
 		<label>{% for option in product.options %}{{ option }}{% unless forloop.last %}/{% endunless %}{% endfor %}</label>
 		<select name="id" class="product-select">
@@ -12,4 +12,4 @@
 	<label>Quantity</label>
 	<input type="text" name="quantity" value="1" />
 	<button type="submit">Add to cart</button>
-</form>
+{% endform %}

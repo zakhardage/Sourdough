@@ -1,16 +1,13 @@
 {% comment %} Simple product images {% endcomment %}
 
 <section class="images">
-	<img itemprop="image" class="main-image" src="{{ product.images[0] | img_url:'1024x' }}" alt="{{ product.images[0].alt }}" />
+	<img class="main-image" src="{{ product.images[0] | img_url:'1024x' }}" alt="{{ product.images[0].alt }}" />
 	{% if product.images.size > 1 %}
-		<figure class="alt-images" role="figure" aria-label="Additional images of {{ product.title }}">
+		<div class="alt-images">
 			{% for image in product.images %}
 				<img src="{{ image | img_url:'100x100' }}" data="{{ image | img_url:'1024x' }}" alt="{{ image.alt }}" />
 			{% endfor %}
-			<figcaption>
-				Additional images of {{ product.title }}
-			</figcaption>
-		</figure> <!-- end .alt-images -->
+		</div> <!-- end .alt-images -->
 	{% endif %}
 </section> <!-- end .images -->
 

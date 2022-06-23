@@ -1,12 +1,13 @@
 <footer>
-	{% form 'customer', novalidate: 'novalidate' %}
-		{%- if form.posted_successfully? -%}
-			<p>{{ 'general.newsletter_form.confirmation' | t }}</p>
-		{%- endif -%}
+	{% form 'customer', novalidate:'novalidate' %}
+		{% if form.posted_successfully? %}
+			<p>Thanks for subscribing!</p>
+		{% endif %}
 		<input type="hidden" name="contact[tags]" value="newsletter">
 
+		<label for="newsletter_email">Subscribe</label>
 		<input type="email" name="contact[email]"
-			id="newsletter-email"
+			id="newsletter_email"
 			value="{{ form.email }}"
 			required
 			autocorrect="off"
@@ -18,9 +19,9 @@
 			<button type="submit">Sign up</button>
 
 		{% if form.errors contains 'email' %}
-			<p>Error: {{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}.</p>
+			<p>Error: {{ form.errors.messages['email'] }}.</p>
 		{% endif %}
 	{% endform %}
 
-	&copy; {{ 'now' | date: "%Y" }} {{ shop.name }} | Sourdough starter theme by <a href="http://hardage-hardage.com">Zak Hardage</a>
+	&copy; {{ 'now' | date:"%Y" }} {{ shop.name }} | Sourdough starter theme by <a href="http://hardage-hardage.com">Zak Hardage</a>
 </footer>

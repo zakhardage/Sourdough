@@ -6,7 +6,7 @@
 
 <section class="images">
 	<a class="href" href="{{ product.images[0] | img_url:'1024x' }}" data-lightbox="{{ product.title | handle }}">
-		<img itemprop="image" class="src" src="{{ product.images[0] | img_url:'1024x' }}" alt="{{ product.images[0].alt }}" />
+		<img class="src" src="{{ product.images[0] | img_url:'1024x' }}" alt="{{ product.images[0].alt }}" />
 	</a>
 	{% if product.images.size > 1 %}
 		<div class="alt-images">

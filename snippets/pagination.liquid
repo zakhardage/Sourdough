@@ -1,56 +1,19 @@
-{%- if paginate.pages > 1 -%}
-  <nav role="navigation">
-    <ol class="pagination">
-      {%- if paginate.previous -%}
-        <li>
-          <a href="{{ paginate.previous.url }}">
-            <span aria-hidden="true">&laquo;</span>
-            Previous <span class="visuallyhidden">page</span>
-          </a>
-        </li>
-      {%- else -%}
-        <li class="disabled">
-          <span aria-hidden="true">&laquo;</span>
-          Previous <span class="visuallyhidden">page</span>
-        </li>
-      {%- endif -%}
+{% if paginate.pages > 1 %}
 
-      {%- for part in paginate.parts -%}
-        {%- if part.is_link -%}
-          <li>
-            <a href="{{ part.url }}">
-              <span class="visuallyhidden">page</span> {{ part.title }}
-            </a>
-          </li>
-        {%- else -%}
-          {%- if part.title == paginate.current_page -%}
-            <li class="active" aria-current="page">
-              <span class="visuallyhidden">page</span> {{ part.title }}
-            </li>
-          {%- else -%}
-            <li>
-              <span class="visuallyhidden">page</span> {{ part.title }}
-            </li>
-          {%- endif -%}
-        {%- endif -%}
-      {%- endfor -%}
+  {% if paginate.previous %}
+    <a href="{{ paginate.previous.url }}">Previous</a>
+  {% endif %}
 
-      {%- if paginate.next -%}
-        <li>
-          <a href="{{ paginate.next.url }}">
-            Next <span class="visuallyhidden">page</span>
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-        </li>
-      {%- else -%}
-        <li class="disabled">
-          Next <span class="visuallyhidden">page</span>
-          <span aria-hidden="true">&raquo;</span>
-        </li>
-      {%- endif -%}
-    </ol>
-    {% if template == 'collection' %}
-    	<a href="/collections/{{ collection.handle }}?view=all">View all</a>
+  {% for part in paginate.parts %}
+    {% if part.is_link %}
+      <a href="{{ part.url }}">{{ part.title }}</a>
+    {% else %}
+      {{ part.title }}
     {% endif %}
-  </nav>
+  {% endfor %}
+
+  {% if paginate.next %}
+    <a href="{{ paginate.next.url }}">Next</a>
+  {% endif %}
+
 {% endif %}

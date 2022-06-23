@@ -1,8 +1,17 @@
-{% assign handle = settings.twitter | split:'twitter.com/' | last | prepend:'@' %}
-<a aria-label="share on Twitter" href="http://twitter.com/intent/tweet?url={{ product.title | url_escape }}%20from%20{% if settings.twitter != blank %}{{ twitter_handle }}{% else %}{{ shop.name | url_escape }}{% endif %}%0D%0A{{ shop.url }}{{ product.url }}" target="_blank"><i class="fa fa-twitter"></i></a>
+{% comment %} using fontawesome icons:https://fontawesome.com/search?s=brands {% endcomment %}
 
-<a href="https://www.facebook.com/sharer/sharer.php?u={{ shop.url }}{{ product.url }}" target="_blank"><i class="fa fa-facebook"></i></a>
+{% assign shop_name = shop.name | url_escape %}
+{% assign product_url = shop.url | append:product.url %}
+{% assign product_title = product.title | url_escape %}
+{% assign product_description = product.description | strip_html | url_escape | truncatewords:20 %}
 
-<a href="https://pinterest.com/pin/create/button/?url={{ shop.url }}{{ product.url }}&amp;media=https:{{ product.images[0] | img_url:'large' }}&amp;description={{ product.title | url_escape }}%20by%20{{ shop.name | url_escape }}" target="_blank"><i class="fa fa-pinterest"></i></a>
 
-<a href="mailto:?Subject={{ product.title | url_escape }}%20from%20{{ shop.name | url_escape }}&body=%0D%0A%0D%0A{{ shop.url }}{{ product.url }}%0D%0A%0D%0A{{ product.description | strip_html | url_escape | truncatewords:20 }}" target="_blank"><i class="fa fa-envelope-o"></i></a>
+{% capture twitter_url %}http://twitter.com/intent/tweet?url={{ product_title }}%20from%20{{ shop_name }}%0D%0A{{ product_url }}{% endcapture %}
+{% capture facebook_url %}https://www.facebook.com/sharer/sharer.php?u={{ product_url }}{% endcapture %}
+{% capture pinterest_url %}https://pinterest.com/pin/create/button/?url={{ product_url }}&amp;media=https:{{ page_image | master }}&amp;description={{ product_title }}%20by%20{{ shop_name }}{% endcapture %}
+{% capture email_url %}mailto:?Subject={{ product_title }}%20from%20{{ shop_name }}&body=%0D%0A%0D%0A{{ product_url }}%0D%0A%0D%0A{{ product_description }}{% endcapture %}
+
+<a aria-label="share on Twitter" href="{{ twitter_url }}" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+<a aria-label="share on Facebook" href="{{ facebook_url }}" target="_blank"><i class="fa fa-facebook"></i></a>
+<a aria-label="share on Pinterest" href="{{ pinterest_url }}" target="_blank"><i class="fa fa-pinterest"></i></a>
+<a aria-label="share via email" href="{{ email_url }}" target="_blank"><i class="fa fa-envelope-o"></i></a>
