@@ -1,6 +1,6 @@
 {% paginate blog.articles by 3 %}
 	{% for article in blog.articles  %}
-		<h2><a href="{{ article.url }}">{{ article.title }}</a></h2>
+		<a href="{{ article.url }}">{{ article.title }}</a>
 		<p>Posted on {{ article.published_at | date: "%B %d, %Y" }}</p>
 		<div class="rte">
 			{{ article.content }}

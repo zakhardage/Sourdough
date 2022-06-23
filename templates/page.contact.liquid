@@ -1,17 +1,8 @@
 <h1>{{ page.title }}</h1>
-<div class="rte">
-  {{ page.content }}
-</div> <!-- end .rte -->
+{{ page.content }}
 
 {% form 'contact' %}
-	{% if form.posted_successfully? %}
-    <p>Thanks for contacting us! We&rsquo;ll get back to you soon.</p>
-  {% endif %}
-	{% if form.errors %}
-    {% for field in form.errors %}
-      <p>{{ field }}: {{ form.errors.messages[field] }}</p>
-    {% endfor %}
-  {% endif %}
+  {% if form.errors %}{% for field in form.errors %}<p>{{ field }}: {{ form.errors.messages[field] }}</p>{% endfor %}{% endif %}
 
 	<label for="name">Name</label>
 	<input id="name" type="text" name="contact[name]" value="{{ contact.fields.name }}" />
@@ -23,4 +14,9 @@
   <textarea id="message" name="contact[body]" rows="20" cols="20">{{ contact.fields.body }}</textarea>
 
   <button type="submit">Send</button>
+
+  {% if form.posted_successfully? %}
+    <p>Thanks for contacting us! We&rsquo;ll get back to you soon.</p>
+  {% endif %}
+
 {% endform %}

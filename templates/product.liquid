@@ -1,9 +1,9 @@
 	<h1>{{ product.title }}</h1>
 	{% include 'product-images' %}
-	<div class="rte">
-		{{ product.description }}
-	</div> <!-- end .rte -->
+	{{ product.description }}
+
 	<p class="price">{{ product.price | money | remove:' ' }}</p>
 	{% include 'product-form' %}
+
 	{% include 'product-share' %}
 	{% include 'product-schema' %}

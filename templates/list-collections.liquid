@@ -2,7 +2,11 @@
 {% paginate collections by collections.size %}
 	{% for collection in collections %}
 		<a href="{{ collection.url }}">
-			{% if collection.image %}{% assign image = collection.image.src %}{% else %}{% assign image = collection.products[0].images[0] %}{% endif %}
+			{% if collection.image %}
+				{% assign image = collection.image.src %}
+			{% else %}
+				{% assign image = collection.products[0].images[0] %}
+			{% endif %}
 			{{ image | image_url:'500x' | image_tag:collection.title }}
 			{{ collection.title }}
 		</a>
