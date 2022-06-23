@@ -1,1 +1,44 @@
-{% section 'search' %}
+<h1>Search{% if search.terms != blank %} results: {{ search.terms }}{% endif %}</h1>
+
+{% paginate search.results by 12 %}
+  {% for item in search.results %}
+    {% assign image = '' %}
+
+    {% if item.object_type == 'article' %}
+      {% if item.image %}
+        {% assign image = item.image | img_url:'300x300', crop:'center' %}
+      {% elsif item.excerpt_or_content contains '<img src' %}
+        {% assign image = item.excerpt_or_content | split:'<img src="' | last | split:'"' | first %}
+        {% if image contains '.gif' %}{% assign image = image | replace:'.gif','_300x300_crop_center.gif' %}{% endif %}
+        {% if image contains '.png' %}{% assign image = image | replace:'.png','_300x300_crop_center.png' %}{% endif %}
+        {% if image contains '.jpg' %}{% assign image = image | replace:'.jpg','_300x300_crop_center.jpg' %}{% endif %}
+      {% endif %}
+    {% elsif item.object_type == 'page' %}
+      {% if item.content contains '<img src' %}
+        {% assign image = item.content | split:'<img src="' | last | split:'"' | first %}
+        {% if image contains '.gif' %}{% assign image = image | replace:'.gif','_300x300_crop_center.gif' %}{% endif %}
+        {% if image contains '.png' %}{% assign image = image | replace:'.png','_300x300_crop_center.png' %}{% endif %}
+        {% if image contains '.jpg' %}{% assign image = image | replace:'.jpg','_300x300_crop_center.jpg' %}{% endif %}
+      {% endif %}
+    {% elsif item.object_type == 'product' %}
+      {% assign image = item.images[0] | img_url:'300x300', crop:'center' %}
+    {% endif %}
+
+    {% if image == blank %}
+      {% assign image = 'logo.png' | asset_url %}
+    {% endif %}
+
+    <a href="{{ item.url }}">
+      {{ image | img_tag:item.title }}
+      {{ item.title }}
+    </a>
+  {% endfor %}
+
+  {% include 'pagination' %}
+{% endpaginate %}
+
+<form action="/search" method="get">
+  <label for="search-page-search" class="visuallyhidden">Search{% if search.terms != blank %} again{% endif %}</label>
+  <input type="text" name="q" id="search-page-search" placeholder="Search{% if search.terms != blank %} again{% endif %}" />
+  <button type="submit"><span class="material-icons">search</span></button>
+</form>
