@@ -1,28 +1,29 @@
 {% comment %} bxSlider
 	https://bxslider.com
-	Files in _assets folder
 {% endcomment %}
 
 <div class="slider">
 	{% for block in section.blocks %}
 
-		{% assign slide = block.settings %}
-		{% assign image = section.settings.image | img_url:'1200x', scale:2 %}
-		{% assign image_mobile = section.settings.image-mobile | img_url:'600x', scale:2 %}
+		{% assign image = block.settings.image | img_url:'1200x' | scale:2 %}
+		{% assign image_mobile = block.settings.image-mobile | img_url:'600x' | scale:2 %}
 
-		{% if slide.url != blank %}<a href="{{ slide.url }}">{% endif %}
+		{% if block.settings.url != blank %}<a href="{{ block.settings.url }}">{% endif %}
+
 		<picture>
-		  <source media="(max-width: 600px)" srcset="{% if section.settings.image_mobile != blank %}{{ image_mobile }}{% else %}{{ image }}{% endif %}">
-		  <source media="(min-width: 601px)" srcset="{{ image }}">
-		  <img src="{{ image }}" alt="{{ section.settings.image.alt }}">
+			<source srcset="{{ image }}" media="(min-width: 600px)" />
+			<img 
+				src="{% if block.settings.image-mobile != blank %}{{ image_mobile }}{% else %}{{ image }}{% endif %}" 
+				alt="{{ block.settings.image.alt }}" />
 		</picture>
-		{% if slide.url != blank %}</a>{% endif %}
+
+		{% if block.settings.url != blank %}</a>{% endif %}
 
 	{% endfor %}
 </div> <!-- end .slider -->
 
 {% if section.blocks.size > 1 %}
-	<div class="pager {% if section.settings.background %}background{% endif %}">
+	<div class="pager">
 		{% for block in section.blocks %}
 			<a data-slide-index="{{ forloop.index | minus:1 }}" aria-label="slide {{ forloop.index }}"></a>
 		{% endfor %}
@@ -33,7 +34,7 @@
 <script>
 	$(document).ready(function(){
 		$('.slider').bxSlider({
-			mode:'fade',
+			mode:'horizontal',
 			auto:{{ section.settings.auto }},
 			speed:{{ section.settings.speed | times:1000 }},
 			pause:{{ section.settings.pause | times:1000 }},
