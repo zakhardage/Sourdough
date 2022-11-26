@@ -47,8 +47,8 @@
 {% schema %}
 	{"name":"Slideshow", "max_blocks":5, "blocks":[
     {"type":"slide", "name":"Slide", "settings":[
-			{"type":"image_picker", "id":"image", "label":"Image", "info":"1200px wide and consistent height"},
-			{"type":"image_picker", "id":"image-mobile", "label":"Mobile image", "info":"600px wide and consistent height"},
+			{"type":"image_picker", "id":"image", "label":"Image", "info":"1200px wide and consistent height (2400px for 2x"},
+			{"type":"image_picker", "id":"image-mobile", "label":"Mobile image", "info":"600px wide and consistent height (1200px for 2x"},
 			{"type":"url", "id":"url", "label":"Link", "info":"(optional)"}
     ]}
   ], "settings":[
@@ -57,7 +57,7 @@
 		{"type":"range", "id":"speed", "label":"Speed", "step":0.1, "min":0.5, "max":1, "info":"Slide transition duration (in seconds)", "default":0.7},
 		{"type":"range", "id":"pause", "label":"Duration", "step":1, "min":1, "max":10, "info":"The amount of time (in seconds) between each auto transition", "default":6}
 	], 
-	"presets":[{"name":"Slides", "category":"Home page", "blocks":[{"type":"slide"}]}],
+	"presets":[{"name":"Slideshow", "category":"Home page", "blocks":[{"type":"slide"}]}],
 	"templates":["index"]
 }
 {% endschema %}
