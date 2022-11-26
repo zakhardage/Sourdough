@@ -1,17 +1,25 @@
 <h1>{{ page.title }}</h1>
-{{ page.content }}
+
+<div class="rte">
+  {{ page.content }}
+</div> <!-- end .rte -->
 
 {% form 'contact' %}
-  {% if form.errors %}{% for field in form.errors %}<p>{{ field }}: {{ form.errors.messages[field] }}</p>{% endfor %}{% endif %}
+  
+  {% if form.errors %}
+    {% for field in form.errors %}
+      <p>{{ field }}: {{ form.errors.messages[field] }}</p>
+    {% endfor %}
+  {% endif %}
 
-	<label for="name">Name</label>
-	<input id="name" type="text" name="contact[name]" value="{{ contact.fields.name }}" />
+	<label for="contact_name">Name</label>
+	<input id="contact_name" type="text" name="contact[name]" value="{{ contact.fields.name }}" />
 
-	<label for="email">Email</label>
-  <input id="email" type="text" name="contact[email]" value="{{ contact.fields.email }}" />
+	<label for="contact_email">Email</label>
+  <input id="contact_email" type="text" name="contact[email]" value="{{ contact.fields.email }}" />
 
-	<label for="message">Message</label>
-  <textarea id="message" name="contact[body]" rows="20" cols="20">{{ contact.fields.body }}</textarea>
+	<label for="contact_message">Message</label>
+  <textarea id="contact_message" name="contact[body]" rows="20" cols="20">{{ contact.fields.body }}</textarea>
 
   <button type="submit">Send</button>
 
