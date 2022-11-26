@@ -1,15 +1,52 @@
 [
-	{"name":"theme_info",
-		"theme_name":"Sourdough",
-		"theme_author":"H+H",
-		"theme_version":"1.0.0",
-		"theme_documentation_url":"https:\/\/help.shopify.com",
-		"theme_support_email":"support@shopify.com"
-	},
-	{"name":"Social media", "settings":[
-		{"type":"text", "id":"twitter", "label":"Twitter URL"},
-		{"type":"text", "id":"facebook", "label":"Facebook URL"},
-		{"type":"text", "id":"instagram", "label":"Instagram URL"},
-		{"type":"text", "id":"pinterest", "label":"Pinterest URL"}
-	]}
+  {
+    "name": "theme_info",
+    "theme_name": "Sourdough",
+    "theme_author": "H+H",
+    "theme_version": "1.0.0",
+    "theme_documentation_url": "https:\/\/help.shopify.com",
+    "theme_support_email": "support@shopify.com"
+  },
+  {
+    "name": "Social media",
+    "settings": [
+      {
+        "type": "text",
+        "id": "twitter",
+        "label": "Twitter URL"
+      },
+      {
+        "type": "text",
+        "id": "facebook",
+        "label": "Facebook URL"
+      },
+      {
+        "type": "text",
+        "id": "instagram",
+        "label": "Instagram URL"
+      },
+      {
+        "type": "text",
+        "id": "pinterest",
+        "label": "Pinterest URL"
+      }
+    ]
+  },
+  {
+    "name": "Code injection",
+    "settings": [
+      {
+        "type": "textarea",
+        "id": "code-site-header",
+        "label": "Site header",
+        "info": "Code here will be injected into the <head><\/head> section on every page of the site"
+      },
+      {
+        "type": "textarea",
+        "id": "code-site-footer",
+        "label": "Site footer",
+        "info": "Code here will be injected into every page of the site above the <\/body> tag"
+      }
+    ]
+  }
 ]

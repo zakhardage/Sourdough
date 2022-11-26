@@ -24,9 +24,9 @@
       "address1": "Address",
       "address2": "Apartment, suite, etc.",
       "city": "City",
-      "country": "Country/Region",
+      "country": "Country\/Region",
       "province": "Province",
-      "zip": "Postal/Zip Code"
+      "zip": "Postal\/Zip Code"
     }
   },
   "products": {
