@@ -1,127 +1,140 @@
-<h1>Addresses</h1>
-<p>Shipping Addresses</p>
+<div class="accounts">
 
-<div class="add-new-address">
-	{% form 'customer_address', customer.new_address %}
+	<h1>Shipping Addresses</h1>
+	<br />
+	{% paginate customer.addresses by 20 %}
+		{% for address in customer.addresses %}
+			<div class="address">
+				<p>
+					{{ address.first_name }} {{ address.last_name }}{% if address == customer.default_address %} (Default){% endif %}
+					<br />
+					{% if address.company != blank %}
+						{{ address.company }}
+						<br>
+					{% endif %}
+					{% if address.street != blank %}
+					{{ address.street }}
+					<br>
+					{% endif %}
+					{% if address.city != blank or address.province_code != blank or address.zip != blank %}
+						{% if address.city != blank %}{{ address.city }}, {% endif %}
+						{% if address.province_code != blank %}{{ address.province_code }} {% endif %}
+						{% if address.zip != blank %}{{ address.zip }}{% endif %}
+						<br>
+					{% endif %}
+					{% if address.country != blank %}
+						{{ address.country }}
+						<br>
+					{% endif %}
+					{% if address.phone != blank %}
+						{{ address.phone }}
+						<br />
+					{% endif %}
 
-		<label for="address_first_name_add">First Name</label>
-		<input id="address_first_name_add" type="text" name="address[first_name]" value="{{ form.first_name }}" />
+					<button type="button" class="edit" data-id="{{ address.id }}">Edit</button>
+					<br />
+					{{ 'Delete' | delete_customer_address_link:address.id }}
+					</p>
+			</div> <!-- end .address -->
 
-		<label for="address_last_name_add">Last Name</label>
-		<input id="address_last_name_add" id="address_first_name_add" type="text" name="address[last_name]" value="{{ form.last_name }}" />
+			<div class="edit-address" id="edit_address_{{ address.id }}">
+				{% form 'customer_address', address %}
+					<p class="heading left">Edit Address</p>
+					<label for="address-first_name_{{ address.id }}">First Name</label>
+					<input id="address-first_name_{{ address.id }}" type="text" name="address[first_name]" value="{{ form.first_name }}" />
 
-		<label for="address_company_add">Company</label>
-		<input id="address_company_add" id="address_first_name_add" type="text" name="address[company]" value="{{ form.company }}" />
+					<label for="address-last_name_{{ address.id }}">Last Name</label>
+					<input id="address-last_name_{{ address.id }}" type="text" name="address[last_name]" value="{{ form.last_name }}" />
 
-		<label for="address_address1_add">Address</label>
-		<input id="address_address1_add" id="address_first_name_add" type="text" name="address[address1]" value="{{ form.address1 }}" />
+					<label for="address-company_{{ address.id }}">Company</label>
+					<input id="address-company_{{ address.id }}" type="text" name="address[company]" value="{{ form.company }}" />
 
-		<label for="address_address2_add">Address 2</label>
-		<input id="address_address2_add" type="text" name="address[address2]" value="{{ form.address2 }}" />
+					<label for="address-address1_{{ address.id }}">Address</label>
+					<input id="address-address1_{{ address.id }}" type="text" name="address[address1]" value="{{ form.address1 }}" />
 
-		<label for="address_city_add">City</label>
-		<input id="address_city_add" type="text" name="address[city]" value="{{ form.city }}" />
+					<label for="address-address2_{{ address.id }}">Address 2</label>
+					<input id="address-address2_{{ address.id }}" type="text" name="address[address2]" value="{{ form.address2 }}" />
 
-		<label for="address_country_add">Country</label>
-		<input id="address_country_add" type="text" name="address[country]" value="{{ form.country }}" />
+					<label for="address-city_{{ address.id }}">City</label>
+					<input id="address-city_{{ address.id }}" type="text" name="address[city]" value="{{ form.city }}" />
 
-		<label for="address_state_add">State</label>
-		<input id="address_state_add" type="text" name="address[province]" value="{{ form.province }}" />
+					<label for="address-country_{{ address.id }}">Country</label>
+					<input id="address-country_{{ address.id }}" type="text" name="address[country]" value="{{ form.country }}" />
 
-		<label for="address_zip_add">Zip</label>
-		<input id="address_zip_add" type="text" name="address[zip]" value="{{ form.zip }}" />
+					<label for="address-province_{{ address.id }}">State</label>
+					<input id="address-province_{{ address.id }}" type="text" name="address[province]" value="{{ form.province }}" />
 
-		<label for="address_phone_add">Phone</label>
-		<input id="address_phone_add" type="text" name="address[phone]" value="{{ form.phone }}" />
+					<label for="address-zip_{{ address.id }}">Zip</label>
+					<input id="address-zip_{{ address.id }}" type="text" name="address[zip]" value="Zip" />
 
-		<p class="checkbox">
-			{{ form.set_as_default_checkbox }}
-			<label for="address_default_address_new">Set as default address</label>
-		</p> <!-- end p.checkbox -->
+					<label for="address-phone_{{ address.id }}">Phone</label>
+					<input id="address-phone_{{ address.id }}" type="text" name="address[phone]" value="{{ form.phone }}" />
 
-		<button type="submit">Add address</button>
-	{% endform %}
-</div> <!-- end .add-new-address -->
+					<p class="checkbox">
+						{{ form.set_as_default_checkbox }}
+						<label for="address_default_address_{{ address.id }}">Set as default address</label>
+					</p>
+					<div class="single-button left">
+						<button type="submit" class="submit wide">Add address</button>
+					</div> <!-- end .single-button -->
+				{% endform %}
+			</div><!-- end #edit_address_{{ address.id }} -->
+		{% endfor %}
+		<p><button type="button" class="add-new">Add new address</button></p>
+	{% endpaginate %}
 
-{% paginate customer.addresses by customer.addresses.size %}
-	{% for address in customer.addresses %}
-		<div class="address">
-			{{ address.first_name }} {{ address.last_name }}{% if address == customer.default_address %} (Default){% endif %}<br />
-			{% if address.company != blank %}{{ address.company }}<br>{% endif %}
-			{{ address.street }}<br>
-			{{ address.city }}, {{ address.province_code }} {{ address.zip }}<br>
-			{{ address.country }}<br>
-			{% if address.phone != blank %}{{ address.phone }}<br />{% endif %}
+	<div class="add-new-address">
+		<p class="heading left">Add new address</p>
+		{% form 'customer_address', customer.new_address %}
+			<label for="address-first_name">First Name</label>
+			<input id="address-first_name" type="text" name="address[first_name]" value="{{ form.first_name }}" />
 
-			<button type="button" class="edit" data-id="{{ address.id }}">Edit</button>
-			<button type="button" class="address-delete" data-target="{{ address.url }}">Delete</button>
+			<label for="address-last_name">Last Name</label>
+			<input id="address-last_name" type="text" name="address[last_name]" value="{{ form.last_name }}" />
 
-		</div> <!-- end .address -->
+			<label for="address-company">Company</label>
+			<input id="address-company" type="text" name="address[company]" value="{{ form.company }}" />
 
-		<div class="edit-address" id="edit_address_{{ address.id }}">
-			{% form 'customer_address', address %}
-				<p>Edit Address</p>
+			<label for="address-address1">Address</label>
+			<input id="address-address1" type="text" name="address[address1]" value="{{ form.address1 }}" />
 
-				<label for="address_first_name_{{ address.id }}">First Name</label>
-				<input id="address_first_name_{{ address.id }}" type="text" name="address[first_name]" value="{{ form.first_name }}" />
+			<label for="address-address2">Address 2</label>
+			<input id="address-address2" type="text" name="address[address2]" value="{{ form.address2 }}" />
 
-				<label for="address_last_name_{{ address.id }}">Last Name</label>
-				<input id="address_last_name_{{ address.id }}" type="text" name="address[last_name]" value="{{ form.last_name }}" />
+			<label for="address-city">City</label>
+			<input id="address-city" type="text" name="address[city]" value="{{ form.city }}" />
 
-				<label for="address_company_{{ address.id }}">Company</label>
-				<input id="address_company_{{ address.id }}" type="text" name="address[company]" value="{{ form.company }}" />
+			<label for="address-country">Country</label>
+			<input id="address-country" type="text" name="address[country]" value="{{ form.country }}" />
 
-				<label for="address_address1_{{ address.id }}">Address</label>
-				<input id="address_address1_{{ address.id }}" type="text" name="address[address1]" value="{{ form.address1 }}" />
+			<label for="address-state">State</label>
+			<input id="address-state" type="text" name="address[province]" value="{{ form.province }}" />
 
-				<label for="address_address2_{{ address.id }}">Address 2</label>
-				<input id="address_address2_{{ address.id }}" type="text" name="address[address2]" value="{{ form.address2 }}" />
+			<label for="address-zip">Zip</label>
+			<input id="address-zip" type="text" name="address[zip]" value="{{ form.zip }}" />
 
-				<label for="address_city_{{ address.id }}">City</label>
-				<input id="address_city_{{ address.id }}" type="text" name="address[city]" value="{{ form.city }}" />
+			<label for="address-phone">Phone</label>
+			<input id="address-phone" type="text" name="address[phone]" value="{{ form.phone }}" />
 
-				<label for="address_country_{{ address.id }}">Country</label>
-				<input id="address_country_{{ address.id }}" type="text" name="address[country]" value="{{ form.country }}" />
-
-				<label for="address_province_{{ address.id }}">State</label>
-				<input id="address_province_{{ address.id }}" type="text" name="address[province]" value="{{ form.province }}" />
-
-				<label for="address_zip_{{ address.id }}">Zip</label>
-				<input id="address_zip_{{ address.id }}" type="text" name="address[zip]" value="Zip" />
-
-				<label for="address_phone_{{ address.id }}">Phone</label>
-				<input id="address_phone_{{ address.id }}" type="text" name="address[phone]" value="{{ form.phone }}" />
-
-				<p class="checkbox">
-					{{ form.set_as_default_checkbox }}
-					<label for="address_default_address_{{ address.id }}">Set as default address</label>
-				</p> <!-- end p.checkbox -->
-
-				<button type="submit">Edit address</button>
-			{% endform %}
-		</div><!-- end #edit_address_{{ address.id }} -->
-	{% endfor %}
-	<a href="javascript:void(0)" class="add-new">Add new address</a>
-{% endpaginate %}
+			<p class="checkbox">
+				{{ form.set_as_default_checkbox }}
+				<label for="address_default_address_new">Set as default address</label>
+			</p>
+			<div class="single-button">
+				<button type="submit" class="submit wide">Add address</button>
+			</div> <!-- end .single-button -->
+		{% endform %}
+	</div> <!-- end .add-new-address -->
 
 
-<script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer="defer"></script>
+</div> <!-- end .accounts -->
+
+
 <script>
-
-	// delete address
-	$('.address-delete').click(function() {
-		var target = $(this).attr('data-target');
-		Shopify.postLink(target, {
-			parameters: { _method: 'delete' }
-		});
-	});
-
-	// toggle add-address fields
 	$('.add-new').click(function() {
+		console.log('hello world');
 		$('.add-new-address').toggleClass('active');
 	});
-
-	// toggle edit-address fields
 	$('.edit').click(function() {
 		var id = $(this).attr('data-id');
 		$('#edit_address_'+id).toggleClass('active');

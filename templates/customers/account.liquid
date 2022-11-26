@@ -1,34 +1,84 @@
-<h1>Account Details and order history</h1>
+<div class="accounts">
 
-<p>{{ customer.name }}<br />{{ customer.email }}</p>
+	<h1>Account details and order history</h1>
 
-{% assign default = customer.default_address %}
-{% if default.address1 != blank %}
-	<p>{{ default.address1 }}<br />
-	{% if default.address2 != blank %}<p>{{ default.address2 }}<br />{% endif %}
-	{% if default.city != blank %}
-		<p>{{ default.city }}{% if default.province_code != blank %}, {{ default.province_code }}{% endif %}{% if default.zip != blank %} {{ default.zip }}{% endif %}<br />
+	<p>
+		{{ customer.name }}
+		<br />
+		{{ customer.email }}
+	</p>
+
+	{% assign default = customer.default_address %}
+	{% if default.address1 != blank 
+		or default.address2 != blank 
+		or default.city != blank 
+		or default.province_code != blank 
+		or default.zip != blank 
+		or default.country != blank 
+		or default.phone != blank %}
+		<p>
+			{% if default.address1 != blank %}
+				{{ default.address1 }}
+				<br />
+			{% endif %}
+			{% if default.address2 != blank %}
+				{{ default.address2 }}
+				<br />
+			{% endif %}
+			{% if default.city != blank or default.province_code != blank or default.zip != blank %}
+				{% if default.city != blank %}{{ default.city }} {% endif %}
+				{% if default.province_code != blank %}, {{ default.province_code }}{% endif %}
+				{% if default.zip != blank %} {{ default.zip }}{% endif %}
+				<br />
+			{% endif %}
+			{% if default.country != blank %}
+				{{ default.country }}
+				<br />
+			{% endif %}
+			{% if default.phone != blank %}
+				{{ default.phone }}
+				<br />
+			{% endif %}
+
+			<p>
+				<a href="{{ routes.account_addresses_url }}">Account addresses</a>
+			</p>
+			<p>
+				<a href="{{ routes.account_logout_url }}">Log out</a>
+			</p>
 	{% endif %}
-	{% if default.country != blank %}<p>{{ default.country }}<br />{% endif %}
-	{% if default.phone != blank %}<p>{{ default.phone }}</p>{% endif %}
-	<p><a href="{{ routes.account_addresses_url }}">Account addresses</a></p>
-{% endif %}
 
-{% if customer.orders.size > 0 %}
-	<table>
-		<tr>
-			<th>Order</th>
-			<th>Date</th>
-			<th>Status</th>
-			<th>Total</th>
-		</tr>
-		{% for order in customer.orders %}
+	{% if customer.orders.size > 0 %}
+		<table>
 			<tr>
-				<td>{{ order.name | link_to:order.customer_url }}</td>
-				<td>{{ order.created_at | date:"%b %d, %Y" }}</td>
-				<td>{{ order.financial_status }}/{{ order.fulfillment_status }}</td>
-				<td>{{ order.total_price | money | remove:' ' }}</td>
+				<th>Order</th>
+				<th>Date</th>
+				<th>Status</th>
+				<th>Total</th>
 			</tr>
-		{% endfor %}
-	</table>
-{% endif %}
+			{% for order in customer.orders %}
+				<tr>
+					<td data-label="order">
+						{{ order.name | link_to:order.customer_url }}
+					</td>
+					<td data-label="date">
+						{{ order.created_at | date:"%m/%d/%Y" }}
+					</td>
+					<td data-label="payment status">
+						{{ order.financial_status }} / {{ order.fulfillment_status }}
+					</td>
+					<td data-label="total">
+						{{ order.total_price | money | remove:' ' }}
+					</td>
+				</tr>
+			{% endfor %}
+		</table>
+	{% else %}
+
+		<div class="rte">
+			<p>You haven't placed any orders yet.</p>
+		</div> <!-- end .rte -->
+
+	{% endif %}
+
+</div> <!-- end .accounts -->

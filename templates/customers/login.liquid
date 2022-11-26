@@ -1,40 +1,60 @@
-<h1>Customer login</h1>
+<div class="accounts">
 
-{% form 'customer_login', return_to:routes.account_url %}
-	{% if form.errors %}{% for field in form.errors %}<p>{{ field }}: {{ form.errors.messages[field] }}</p>{% endfor %}{% endif %}
-	<label for="customer_email">Email address</label>
-	<input type="email" name="customer[email]" id="customer_email" />
-	<label for="customer_password">Password</label>
-	<input type="password" name="customer[password]" id="customer_password" />
-	<button type="submit">Sign In</button>
-	<button type="button" class="forgot">Forgot your password?</button>
-{% endform %}
+	<h1>Welcome back!</h1>
 
-<div class="password">
-	<h1>Reset password</h1>
-	<p>We will send you an email to reset your password.</p>
-	{% form 'recover_customer_password' %}
-		{% if form.errors %}{% for field in form.errors %}<p>{{ field }}: {{ form.errors.messages[field] }}</p>{% endfor %}{% endif %}
-		<label for="customer_email_reset">Email address</label>
-		<input type="email" name="email" id="customer_email_reset" />
-		<button type="submit">Submit</button>
+	{% form 'customer_login' %}
+		{% if form.errors %}
+			{% for field in form.errors %}
+				<p>{{ field }}: {{ form.errors.messages[field] }}</p>
+			{% endfor %}
+		{% endif %}
+
+		<label for="customer_email">Email address</label>
+		<input type="email" name="customer[email]" id="customer_email" />
+
+		<label for="customer_password">Password</label>
+		<input type="password" name="customer[password]" id="customer_password" />
+
+		<button type="submit" class="submit">Sign In</button>
+		<button type="button" class="forgot">forgot password?</button>
+
 	{% endform %}
-</div> <!-- end .password -->
 
-{% if shop.checkout.guest_login %}
-	<div class="guest">
-		<h1>Guest login</h1>
-		<p>Continue checkout as a guest. No sign-up required.</p>
-		{% form 'guest_login' %}
-			<button type="submit">Continue as Guest</button>
-		{% endform %}
-	</div> <!-- end .guest -->
-{% endif %}
+		<div class="password">
+			<p>Reset password</p>
+			<p>We will send you an email to reset your password.</p>
+			{% form 'recover_customer_password' %}
+				{% if form.errors %}
+					{% for field in form.errors %}
+						<p>{{ field }}: {{ form.errors.messages[field] }}</p>
+					{% endfor %}
+				{% endif %}
+				<label for="recover_customer_email">Email address</label>
+				<input type="email" name="email" id="recover_customer_email" />
+				<button type="submit">Submit</button>
+			{% endform %}
+		</div> <!-- end .password -->
 
+		{% if shop.checkout.guest_login %}
+			<div class="guest">
+				<p>Guest login</p>
+				<p>Continue checkout as a guest. No sign-up required.</p>
+				{% form 'guest_login' %}
+					<button type="submit">Continue as Guest</button>
+				{% endform %}
+			</div> <!-- end .guest -->
+		{% endif %}
+
+	</div> <!-- end .box -->
+
+	<div class="register">
+		<p>New customer?</p>
+		<a href="{{ routes.account_register_url }}">Create an account</a>
+	</div> <!-- end .register -->
+
+</div> <!-- end .accounts -->
 
 <script>
-
-	// toggle reset password fields
 	$('.forgot').click(function() {
 		$('.password').toggleClass('active');
 	});

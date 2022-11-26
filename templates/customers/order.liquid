@@ -1,84 +1,130 @@
-<h1>Order {{ order.name }}</h1>
-{% if order.cancelled %}<p>Order Cancelled on {{ order.cancelled_at | date:"%B %d, %Y %I:%M%p" }}<br />{{ order.cancel_reason }}</p>{% endif %}
+<div class="accounts">
 
-<p>Placed on {{ order.created_at | date:"%B %d, %Y %I:%M%p" }}</p>
+	<h1>Order {{ order.name }}</h1>
 
-<p><strong>Billing Address</strong><br />
-Payment Status: {{ order.financial_status }}<br />
-{{ order.billing_address.name }}<br />
-{% if order.billing_address.company != blank %}{{ order.billing_address.company }}<br />{% endif %}
-{{ order.billing_address.street }}<br />
-{{ order.billing_address.city }}, {{ order.billing_address.province }} {{ order.billing_address.zip }}<br />
-{{ order.billing_address.country }}<br />
-{% if order.billing_address.phone != blank %}{{ order.billing_address.phone }}{% endif %}</p>
+	{% if order.cancelled %}
+		<p>
+			Order Cancelled on {{ order.cancelled_at | date:"%B %d, %Y %I:%M%p" }}
+			<br />
+			{{ order.cancel_reason }}
+		</p>
+	{% endif %}
 
-{% if order.shipping_address %}
-	<p><strong>Shipping Address</strong><br />
-	Fulfillment Status: {{ order.fulfillment_status }}<br />
-	{{ order.shipping_address.name }}<br />
-	{% if order.shipping_address.company != blank %}{{ order.shipping_address.company }}<br />{% endif %}
-	{{ order.shipping_address.street }}<br />
-	{{ order.shipping_address.city }}, {{ order.shipping_address.province }} {{ order.shipping_address.zip }}<br />
-	{{ order.shipping_address.country }}<br />
-	{% if order.shipping_address.phone != blank %}{{ order.shipping_address.phone }}{% endif %}</p>
-{% endif %}
+	<p>Placed on {{ order.created_at | date:"%B %d, %Y %I:%M%p" }}</p>
 
-<table>
-	<thead>
-		<tr>
-			<th>Product</th>
-			<th>Price</th>
-			<th>Qty</th>
-		</tr>
-	</thead>
-	<tbody>
-		{% for item in order.line_items %}
+	<p>
+		Payment Status: {{ order.financial_status }}
+		<br />
+		Fulfillment Status: {{ order.fulfillment_status }}
+	</p>
+
+	<p>
+		<strong>Billing Address</strong>
+		<br />
+		{{ order.billing_address.name }}
+		<br />
+		{% if order.billing_address.company != blank %}
+			{{ order.billing_address.company }}
+			<br />
+		{% endif %}
+		{{ order.billing_address.street }}
+		<br />
+		{{ order.billing_address.city }}, {{ order.billing_address.province }} {{ order.billing_address.zip }}
+		<br />
+		{{ order.billing_address.country }}
+		<br />
+		{% if order.billing_address.phone != blank %}
+			{{ order.billing_address.phone }}
+		{% endif %}
+	</p>
+
+	{% if order.shipping_address %}
+		<p>
+			<strong>Shipping Address</strong>
+			<br />
+			{{ order.shipping_address.name }}
+			<br />
+			{% if order.shipping_address.company != blank %}
+				{{ order.shipping_address.company }}
+				<br />
+			{% endif %}
+			{{ order.shipping_address.street }}
+			<br />
+			{{ order.shipping_address.city }}, {{ order.shipping_address.province }} {{ order.shipping_address.zip }}
+			<br />
+			{{ order.shipping_address.country }}
+			<br />
+			{% if order.shipping_address.phone != blank %}
+				{{ order.shipping_address.phone }}
+			{% endif %}
+		</p>
+	{% endif %}
+
+	<table>
+
+		<thead>
 			<tr>
-				<td>
-					{{ item.title | link_to:item.product.url }}
-					{% if item.fulfillment %}
-						<br />Fulfilled {{ item.fulfillment.created_at | date:"%b %d" }}
-						{% if item.fulfillment.tracking_number %}
+				<th>Product</th>
+				<th>Price</th>
+				<th>Qty</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			{% for item in order.line_items %}
+				<tr>
+					<td>
+						{{ item.title | link_to:item.product.url }}
+						{% if item.fulfillment %}
 							<br />
-							<a href="{{ item.fulfillment.tracking_url }}">{{ item.fulfillment.tracking_company }} #{{ item.fulfillment.tracking_number}}</a>
+							Fulfilled {{ item.fulfillment.created_at | date:"%b %d" }}
+							{% if item.fulfillment.tracking_number %}
+								<br />
+								<a href="{{ item.fulfillment.tracking_url }}">
+									{{ item.fulfillment.tracking_company }} #{{ item.fulfillment.tracking_number}}
+								</a>
+							{% endif %}
 						{% endif %}
-					{% endif %}
-				</td>
-				<td>{{ item.price | money | remove:' ' }}</td>
-				<td>{{ item.quantity }}</td>
-			</tr>
-		{% endfor %}
-	</tbody>
-	<tfoot>
-		<tr>
-			<td>Subtotal</td>
-			<td>{{ order.subtotal_price | money | remove:' ' }}</td>
-		</tr>
+					</td>
+					<td>{{ item.price | money | remove:' ' }}</td>
+					<td>{{ item.quantity }}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
 
-		{% for discount in order.discounts %}
+		<tfoot>
 			<tr>
-				<td>{{ discount.code }}</td>
-				<td>{{ discount.savings | money | remove:' ' }}</td>
+				<td>Subtotal</td>
+				<td>{{ order.subtotal_price | money | remove:' ' }}</td>
 			</tr>
-		{% endfor %}
 
-		{% for shipping_method in order.shipping_methods %}
+			{% for discount in order.discounts %}
+				<tr>
+					<td>{{ discount.code }}</td>
+					<td>{{ discount.savings | money | remove:' ' }}</td>
+				</tr>
+			{% endfor %}
+
+			{% for shipping_method in order.shipping_methods %}
+				<tr>
+					<td>Shipping: {{ shipping_method.title }}</td>
+					<td>{{ shipping_method.price | money | remove:' ' }}</td>
+				</tr>
+			{% endfor %}
+
+			{% for tax_line in order.tax_lines %}
+				<tr>
+					<td>{{ tax_line.title }} &ndash; {{ tax_line.rate | times:100 }}%</td>
+					<td>{{ tax_line.price | money | remove:' ' }}</td>
+				</tr>
+			{% endfor %}
+
 			<tr>
-				<td>{{ shipping_method.title }}</td>
-				<td>{{ shipping_method.price | money | remove:' ' }}</td>
+				<td>Total</td>
+				<td>{{ order.total_price | money | remove:' ' }}</td>
 			</tr>
-		{% endfor %}
+		</tfoot>
 
-		{% for tax_line in order.tax_lines %}
-			<tr>
-				<td>{{ tax_line.title }} &ndash; {{ tax_line.rate | times:100 }}%</td>
-				<td>{{ tax_line.price | money | remove:' ' }}</td>
-			</tr>
-		{% endfor %}
+	</table>
 
-		<tr>
-			<td>Total</td>
-			<td>{{ order.total_price | money | remove:' ' }}</td>
-		</tr>
-	</tfoot>
-</table>
+</div> <!-- end .accounts -->
