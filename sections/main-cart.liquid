@@ -1,5 +1,6 @@
 <h1>Cart</h1>
-<form action="{{ routes.cart_url }}" method="post" id="cart">
+
+{% form 'cart', cart %}
 	<table>
 		<thead>
 			<tr>
@@ -12,10 +13,12 @@
 		</thead>
 		<tbody>
 			{% for item in cart.items %}
+
 				<tr>
+
 					<td data-label="item">
 						<a href="{{ item.url }}">
-							{{ item.image | img_url:'medium', scale:2, crop:'center' | img_tag:item.image.alt }}
+							{{ item.image | img_url:'500x', scale:2, crop:'center' | img_tag:item.image.alt }}
 							{{ item.title }}
 						</a>
 						<a href="{{ item.url }}"></a>
@@ -25,16 +28,29 @@
 								{{ p.first }}: {{ p.last }}
 							{% endunless %}
 						{% endfor %}
-					</td>
-					<td>{{ item.price | money | remove:' ' }}</td>
-					<td><input type="text" name="updates[{{ item.id }}]" id="updates_{{ item.id }}" value="{{ item.quantity }}" /></td>
-					<td><a href="/cart/change?line={{ forloop.index }}&quantity=0">Remove</a></td>
-					<td>{{ item.line_price | money | remove:' ' }}</td>
+					</td> <!-- end td:item -->
+
+					<td>
+            {{ item.price | money | remove:' ' }}
+          </td>
+
+					<td>
+            <input type="text" name="updates[{{ item.id }}]" id="updates_{{ item.id }}" value="{{ item.quantity }}" />
+          </td>
+
+					<td>
+            <a href="/cart/change?line={{ forloop.index }}&quantity=0">Remove</a>
+          </td>
+
+					<td>
+            {{ item.line_price | money | remove:' ' }}
+          </td>
 				</tr>
+
 			{% endfor %}
 		</tbody>
 	</table>
 	<p>Cart Total: {{ cart.total_price | money | remove:' ' }}</p>
 	<button type="submit" name="update">Update</button>
 	<button type="submit" name="checkout">Checkout</button>
-</form>
+{% endform %}

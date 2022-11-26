@@ -1,0 +1,26 @@
+{% paginate blog.articles by 3 %}
+	{% for article in blog.articles  %}
+
+    <a href="{{ article.url }}" class="post">
+      {% if article.image %}
+        {{ article.image.src | img_url:'600x600', crop:'center' | img_tag:article.image.alt }}
+      {% elsif article.content contains '<img src' %}
+        {% assign src = article.content | split:'<img src="' %}
+        {% assign src = src[1] | split:'"' | first %}
+        {% if src contains '.jpg' %}{% assign suffix = '.jpg' %}{% endif %}
+        {% if src contains '.png' %}{% assign suffix = '.png' %}{% endif %}
+        {% if src contains '.gif' %}{% assign suffix = '.gif' %}{% endif %}
+        {% assign src = src | split:suffix | first %}
+        {% assign remove = src | split:'_' | last | prepend:'_' %}
+        {% assign src = src | remove:remove | append:'_600x600_crop_center' | append:suffix %}
+        <img src="{{ src }}" alt="{{ article.title }}" />
+      {% endif %}
+      <p class="date">{{ article.published_at | date:'%b %-d, %Y' }}</p>
+      <p class="title"><span>{{ article.title }}</span></p>
+    </a> <!-- end a.post -->
+
+	{% endfor %}
+	{% include 'pagination' %}
+{% endpaginate %}
+
+

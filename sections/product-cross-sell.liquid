@@ -1,0 +1,61 @@
+{%- assign count = 0 -%}
+{%- assign displayCount = 5 -%}
+{%- assign current = product.handle -%}
+
+{% comment %} determine the source collection {% endcomment %}
+{%- if collection and collection.all_products_count > 4 -%}
+  {%- assign cross_sell_collection = collection -%}
+{%- else -%}
+  {%- assign cross_sell_collection = collections.all -%}
+{%- endif -%}
+
+<h2>{{ section.settings.title }}</h2>
+<div class="products"></div>
+
+<script>
+
+  $(document).ready(function() {
+  	crossSell();
+  });
+
+  function fisherYates (myArray) {var i=myArray.length,j,temp; if (i===0) return false; while (--i) {j=Math.floor(Math.random()*(i+1)); temp = myArray[i]; myArray[i] = myArray[j]; myArray[j] = temp;}}
+
+  function crossSell() {
+  	var products = new Array();
+
+  	{%- paginate cross_sell_collection.products by 500 -%}
+  		{%- for product in cross_sell_collection.products -%}
+  			{%- unless product.images.size == 0 or product.handle == current or product.handle contains 'gift-card' -%}
+          {%- assign url = product.url | within:collection -%}
+          {% capture title %}<p class="title">{{ product.title | escape }}</p>{% endcapture %}
+          {%- assign img = product.images[0] | img_url:'600x600', crop:'center', scale:2 | img_tag:title -%}
+					{%- if product.compare_at_price > product.price -%}
+						{%- capture price -%}<p class="price"><del>{{ product.compare_at_price | money | remove:' ' }}</del> {{ product.price | money | remove:' ' }}</p>{%- endcapture -%}
+					{%- else -%}
+						{%- capture price -%}<p class="price">{{ product.price | money | remove:' ' }}</p>{%- endcapture -%}
+					{%- endif -%}
+  				products[{{ count }}] = '<a href="{{ url }}">{{ img }}{{ title }}{{ price }}</a>';
+          {%- assign count = count | plus:1 -%}
+  			{%- endunless -%}
+  		{%- endfor -%}
+  	{%- endpaginate -%}
+
+  	{%- if count > displayCount -%}
+      {%- assign count = displayCount -%}
+    {%- endif -%}
+  	fisherYates(products);
+  	for(var i=0; i<{{ count }}; i++) {
+  		$('.cross-sell .products').append(products[i]);
+  	}
+  }
+
+</script>
+
+
+{%- schema -%}
+	{"name":"Product Cross Sell", "class":"cross-sell", "settings":[
+		{"type":"text", "id":"title", "label":"Section title", "default":"More items you&rsquo;ll love&hellip;"}
+  ], "presets":[{"name":"Product Cross Sell", "category":"Product template"}],
+  "templates":["product"]
+}
+{%- endschema -%}

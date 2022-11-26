@@ -1,4 +1,7 @@
-<h1>Search{% if search.terms != blank %} results: {{ search.terms }}{% endif %}</h1>
+<h1>
+  Search
+  {% if search.terms != blank %} results: {{ search.terms }}{% endif %}
+</h1>
 
 {% paginate search.results by 12 %}
   {% for item in search.results %}
@@ -20,7 +23,7 @@
         {% if image contains '.png' %}{% assign image = image | replace:'.png','_300x300_crop_center.png' %}{% endif %}
         {% if image contains '.jpg' %}{% assign image = image | replace:'.jpg','_300x300_crop_center.jpg' %}{% endif %}
       {% endif %}
-    {% elsif item.object_type == 'product' %}
+    {% elsif item.object_type == 'product' and item.images.size > 0 %}
       {% assign image = item.images[0] | img_url:'300x300', crop:'center' %}
     {% endif %}
 
@@ -38,7 +41,17 @@
 {% endpaginate %}
 
 <form action="/search" method="get">
-  <label for="search-page-search" class="visuallyhidden">Search{% if search.terms != blank %} again{% endif %}</label>
-  <input type="text" name="q" id="search-page-search" placeholder="Search{% if search.terms != blank %} again{% endif %}" />
-  <button type="submit"><span class="material-icons">search</span></button>
+  <label for="search-page-search">
+    Search
+    {% if search.terms != blank %} again{% endif %}
+  </label>
+  <input 
+    type="text" 
+    name="q" 
+    id="search-page-search" 
+    placeholder="Search{% if search.terms != blank %} again{% endif %}" />
+  <button type="submit">
+    Search
+    <span class="material-icons">search</span>
+  </button>
 </form>

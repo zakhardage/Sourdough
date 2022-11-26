@@ -1,0 +1,16 @@
+{
+	"sections": {
+		"main": {
+			"type": "main-product",
+			"settings": {}
+		},
+		"secondary": {
+			"type": "product-cross-sell",
+			"settings": {}
+		}
+	},
+	"order": [
+		"main",
+		"secondary"
+	]
+}

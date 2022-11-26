@@ -1,0 +1,44 @@
+<div class="meta">
+  <h1>{{ collection.title }}</h1>
+
+  {% if collection.image %}
+    {{ collection.image.src | img_url:'2480x800', scale:2 | img_tag:collection.image.alt }}
+  {% endif %}
+</div> <!-- end .meta -->
+
+<div class="rte description">
+	{{ collection.description }}
+</div> <!-- end .rte.description -->
+
+{% if template == 'collection' %}
+	{% assign paginate_by = section.settings.range %}
+{% elsif template == 'collection.all' %}
+	{% assign paginate_by = collection.all_products_count %}
+{% endif %}
+
+{% paginate collection.products by paginate_by %}
+	{% for product in collection.products %}
+		<a href="{{ product.url | within:collection }}">
+			{{ product.featured_image | img_url:'500x', scale:2 | img_tag:product.featured_image.alt }}
+			<p class="title">{{ product.title }}</p>
+			<p class="price">
+        {% if product.compare_at_price > product.price %}
+          <del>{{ product.compare_at_price | money | remove:' ' }}</del> 
+          <span>{{ product.price | money | remove:' ' }}</span>
+        {% else %}
+          {{ product.price | money | remove:' ' }}
+        {% endif %}
+      </p>
+		</a>
+	{% endfor %}
+
+	{% render 'pagination' %}
+
+{% endpaginate %}
+
+
+{% schema %}
+	{"name":"Main Collection", "settings":[
+		{"type":"range", "id":"range", "label":"Number of products to display", "min":3, "max":30, "step":3, "default":12}
+  ]}
+{% endschema %}

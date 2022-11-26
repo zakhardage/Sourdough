@@ -1,22 +1,113 @@
 <!doctype html>
 <html lang="{{ request.locale.iso_code }}">
 	<head>
+
 		<meta charset="utf-8" />
 		<meta name="description" content="{% if page_description %}{{ page_description }}{% else %}{{ shop.name }}{% endif %}" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 		<link rel="canonical" href="{{ canonical_url }}" />
 		<link rel="shortcut icon" href="{{ 'favicon.png' | asset_url }}" type="image/png" />
+
 		<title>{{ page_title }}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}</title>
-		{% include 'theme-styles-scripts' %}
+
+		{{ 'styles.css' | asset_url | stylesheet_tag }}
+		{% comment %} Font awesome: https://fontawesome.com {% endcomment %}
+		{% comment %} Material icons https://fonts.google.com/icons {% endcomment %}
+		{{ '//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js' | script_tag }}
+
 		{% include 'theme-social' %}
+
 		{{ content_for_header }}
+
 	</head>
 	<body class="{{ request.page_type | handle | split:'-' | first }} {{ template | handle }}">
+
 		<a class="visuallyhidden" href="#main">Skip to content</a>
-		{% include 'theme-header' %}
+
+		<form action="/search" method="get">
+			<label for="header_search">Search</label>
+			<input id="header_search" type="text" name="q" placeholder="Search" />
+			<button type="submit">Search</button>
+		</form>
+
+
+		<header>
+			{{ 'logo.png' | asset_url | img_tag:shop.name | link_to:shop.url }}
+
+			{% if customer %}
+				{{ 'My account' | link_to:routes.account_url }}
+				{{ 'Log out' | link_to:routes.account_logout_url }}
+			{% else %}
+				{{ 'Log in' | link_to:routes.account_login_url }}
+				{{ 'Register' | link_to:routes.account_register_url }}
+			{% endif %}
+			<a href="{{ routes.cart_url }}">
+				Cart: {{ cart.item_count }} {{ cart.item_count | pluralize:'item','items' }}
+			</a>
+		</header>
+
+
+		<nav>
+			<ul>
+				{% for link in linklists.main-menu.links %}
+					<li>
+						{{ link.title | link_to:link.url }}
+						{% if link.links.size > 0 %}
+							<ul>
+								{% for sublink in link.links %}
+									<li>
+										{{ sublink.title | link_to:sublink.url }}
+										{% if sublink.links.size > 0 %}
+											<ul>
+												{% for subsublink in sublink.links %}
+													<li>
+														{{ subsublink.title | link_to:subsublink.url }}
+													</li>
+												{% endfor %}
+											</ul>
+										{% endif %}
+									</li>
+								{% endfor %}
+							</ul>
+						{% endif %}
+					</li>
+				{% endfor %}
+			</ul>
+		</nav>
+
 		<main id="main">
 			{{ content_for_layout }}
 		</main> <!-- end #main -->
-		{% include 'theme-footer' %}
+
+		<footer>
+			{% form 'customer', novalidate:'novalidate' %}
+				{% if form.posted_successfully? %}
+					<p>Thanks for subscribing!</p>
+				{% endif %}
+				<input type="hidden" name="contact[tags]" value="newsletter">
+
+				<label for="newsletter_email">Subscribe</label>
+				<input type="email" name="contact[email]"
+					id="newsletter_email"
+					value="{{ form.email }}"
+					required
+					autocorrect="off"
+					autocapitalize="off"
+					{% if form.errors %}
+						aria-invalid="true"
+						aria-describedby="newsletter-email-error"
+					{% endif %}>
+					<button type="submit">Sign up</button>
+
+				{% if form.errors contains 'email' %}
+					<p>Error: {{ form.errors.messages['email'] }}.</p>
+				{% endif %}
+			{% endform %}
+
+			&copy; {{ 'now' | date:"%Y" }} {{ shop.name }} &mdash; Sourdough starter theme by <a href="http://zakhardage.com">Zak Hardage</a>
+		</footer>
+
+
 	</body>
 </html>

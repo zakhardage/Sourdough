@@ -8,7 +8,7 @@
     {% if part.is_link %}
       <a href="{{ part.url }}">{{ part.title }}</a>
     {% else %}
-      {{ part.title }}
+      <span>{{ part.title }}</span>
     {% endif %}
   {% endfor %}
 

@@ -1,0 +1,13 @@
+<div class="rte">
+  {%- for block in section.blocks -%}
+    {% render block %}
+  {%- endfor -%}
+</div> <!-- end .rte -->
+
+{% schema %}
+  {"name": "Apps", "settings": [], "blocks": [
+    {"type": "@app"}
+  ], "presets": [
+    {"name": "Apps"}
+  ]}
+{% endschema %}
