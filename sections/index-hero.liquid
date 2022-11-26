@@ -1,17 +1,16 @@
+{% assign image = section.settings.image | img_url:'1200x' | scale:2 %}
+{% assign image_mobile = section.settings.image-mobile | img_url:'600x' | scale:2 %}
 
-{% assign image = section.settings.image | img_url:'1200x', scale:2 %}
-{% assign image_mobile = section.settings.image-mobile | img_url:'600x', scale:2 %}
-{% assign url = section.settings.url %}
-
-{% if url != blank %}<a href="{{ url }}">{% endif %}
+{% if section.settings.url != blank %}<a href="{{ section.settings.url }}">{% endif %}
 
 <picture>
-  <source media="(max-width: 600px)" srcset="{% if section.settings.image_mobile != blank %}{{ image_mobile }}{% else %}{{ image }}{% endif %}">
-  <source media="(min-width: 601px)" srcset="{{ image }}">
-  <img src="{{ image }}" alt="{{ section.settings.image.alt }}">
+  <source srcset="{{ image }}" media="(min-width: 600px)" />
+  <img 
+    src="{% if section.settings.image-mobile != blank %}{{ image_mobile }}{% else %}{{ image }}{% endif %}" 
+    alt="{{ section.settings.image.alt }}" />
 </picture>
 
-{% if url != blank %}</a>{% endif %}
+{% if section.settings.url != blank %}</a>{% endif %}
 
 
 {% schema %}
