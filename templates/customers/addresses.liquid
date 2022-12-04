@@ -33,7 +33,7 @@
 
 					<button type="button" class="edit" data-id="{{ address.id }}">Edit</button>
 					<br />
-					{{ 'Delete' | delete_customer_address_link:address.id }}
+					<button type="button" class="delete-address" data-id="{{ address.id }}" data-target="{{ address.url }}">Delete</button>
 					</p>
 			</div> <!-- end .address -->
 
@@ -130,12 +130,24 @@
 </div> <!-- end .accounts -->
 
 
+<script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer="defer"></script>
 <script>
-	$('.add-new').click(function() {
-		console.log('hello world');
+
+	// delete address
+	$('.delete-address').click(function() {
+		var target = $(this).attr('data-target');
+		Shopify.postLink(target, {
+			parameters: { _method: 'delete' }
+		});
+	});
+
+	// add new address
+	$('.button-add-new-address').click(function() {
 		$('.add-new-address').toggleClass('active');
 	});
-	$('.edit').click(function() {
+
+	// edit address
+	$('.edit-this-address').click(function() {
 		var id = $(this).attr('data-id');
 		$('#edit_address_'+id).toggleClass('active');
 	});
