@@ -2,63 +2,31 @@
 
 	<h1>Order {{ order.name }}</h1>
 
-	{% if order.cancelled %}
-		<p>
-			Order Cancelled on {{ order.cancelled_at | date:"%B %d, %Y %I:%M%p" }}
-			<br />
-			{{ order.cancel_reason }}
-		</p>
-	{% endif %}
-
-	<p>Placed on {{ order.created_at | date:"%B %d, %Y %I:%M%p" }}</p>
-
+{% if order.cancelled %}
 	<p>
-		Payment Status: {{ order.financial_status }}
+		Order Cancelled on {{ order.cancelled_at | date:"%B %d, %Y %I:%M%p" }}
 		<br />
-		Fulfillment Status: {{ order.fulfillment_status }}
+		{{ order.cancel_reason }}
 	</p>
+{% endif %}
 
-	<p>
-		<strong>Billing Address</strong>
-		<br />
-		{{ order.billing_address.name }}
-		<br />
-		{% if order.billing_address.company != blank %}
-			{{ order.billing_address.company }}
-			<br />
-		{% endif %}
-		{{ order.billing_address.street }}
-		<br />
-		{{ order.billing_address.city }}, {{ order.billing_address.province }} {{ order.billing_address.zip }}
-		<br />
-		{{ order.billing_address.country }}
-		<br />
-		{% if order.billing_address.phone != blank %}
-			{{ order.billing_address.phone }}
-		{% endif %}
-	</p>
+<p>
+	<strong>Placed on {{ order.created_at | date:"%B %d, %Y %I:%M%p" }}</strong>
+	<br />
+	Payment Status: {{ order.financial_status }}
+	<br />
+	Fulfillment Status: {{ order.fulfillment_status }}
+</p>
 
-	{% if order.shipping_address %}
-		<p>
-			<strong>Shipping Address</strong>
-			<br />
-			{{ order.shipping_address.name }}
-			<br />
-			{% if order.shipping_address.company != blank %}
-				{{ order.shipping_address.company }}
-				<br />
-			{% endif %}
-			{{ order.shipping_address.street }}
-			<br />
-			{{ order.shipping_address.city }}, {{ order.shipping_address.province }} {{ order.shipping_address.zip }}
-			<br />
-			{{ order.shipping_address.country }}
-			<br />
-			{% if order.shipping_address.phone != blank %}
-				{{ order.shipping_address.phone }}
-			{% endif %}
-		</p>
-	{% endif %}
+<p>
+	<strong>Billing address</strong>
+</p>
+{{ order.billing_address | format_address }}
+
+<p>
+	<strong>Shipping address</strong>
+</p>
+{{ order.shipping_address | format_address }}
 
 	<table>
 

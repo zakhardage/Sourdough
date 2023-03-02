@@ -2,51 +2,14 @@
 
 	<h1>Account details and order history</h1>
 
-	<p>
-		{{ customer.name }}
-		<br />
-		{{ customer.email }}
-	</p>
+{{ customer.default_address | format_address }}
+<p>
+	<a href="{{ routes.account_addresses_url }}">Account addresses</a>
+</p>
+<p>
+	<a href="{{ routes.account_logout_url }}">Log out</a>
+</p>
 
-	{% assign default = customer.default_address %}
-	{% if default.address1 != blank 
-		or default.address2 != blank 
-		or default.city != blank 
-		or default.province_code != blank 
-		or default.zip != blank 
-		or default.country != blank 
-		or default.phone != blank %}
-		<p>
-			{% if default.address1 != blank %}
-				{{ default.address1 }}
-				<br />
-			{% endif %}
-			{% if default.address2 != blank %}
-				{{ default.address2 }}
-				<br />
-			{% endif %}
-			{% if default.city != blank or default.province_code != blank or default.zip != blank %}
-				{% if default.city != blank %}{{ default.city }} {% endif %}
-				{% if default.province_code != blank %}, {{ default.province_code }}{% endif %}
-				{% if default.zip != blank %} {{ default.zip }}{% endif %}
-				<br />
-			{% endif %}
-			{% if default.country != blank %}
-				{{ default.country }}
-				<br />
-			{% endif %}
-			{% if default.phone != blank %}
-				{{ default.phone }}
-				<br />
-			{% endif %}
-
-			<p>
-				<a href="{{ routes.account_addresses_url }}">Account addresses</a>
-			</p>
-			<p>
-				<a href="{{ routes.account_logout_url }}">Log out</a>
-			</p>
-	{% endif %}
 
 	{% if customer.orders.size > 0 %}
 		<table>
