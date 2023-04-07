@@ -1,0 +1,91 @@
+<div
+  class="product-recommendations"
+  data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit=4&intent=related"
+>
+  {%- if recommendations.performed? and recommendations.products_count > 0 -%}
+    <h2>{{ section.settings.title }}</h2>
+
+    <div class="items">
+      {%- for product in recommendations.products -%}
+        <div class="item" data="{{ product.handle }}">
+          <div class="desktop">
+            <div class="details details-{{ product.handle }}">
+              <a href="{{ product.url | within:collection }}{% if current_tags %}?tagged={{ current_tags | handle }}{% endif %}">
+                <p>{{ product.title }}</p>
+                <p>{{ product.price | money | remove:' ' }}</p>
+              </a>
+              {% if product.variants[0].available %}
+                <button class="collection-add-to-cart button-{{ product.handle }}" onclick="collectionAddToCart('{{ product.handle }}','{{ product.variants[0].id }}')"; type="button"><span>Add to Cart</span></button>
+                <button class="button-success-{{ product.handle }}"><span><i class="fa fa-check" aria-hidden="true" type="button"></i> Added</span></button>
+              {% else %}
+                <button type="button"><span>Unavailable</span></button>
+              {% endif %}
+            </div> <!-- end .details -->
+          </div> <!-- end .desktop -->
+          <a href="{{ product.url | within:collection }}{% if current_tags %}?tagged={{ current_tags | handle }}{% endif %}">
+            <img src="{{ product.images[0] | img_url:'450x450', crop:'center' }}" alt="{{ product.images[0].alt }}" />
+            <div class="mobile">
+              <p>{{ product.title }}</p>
+              <p>{{ product.price | money | remove:' ' }}</p>
+            </div> <!-- end .mobile -->
+          </a>
+        </div> <!-- end .item -->
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</div>
+
+<script>
+  const handleIntersection = (entries, observer) => {
+    if (!entries[0].isIntersecting) return;
+
+    observer.unobserve(productRecommendationsSection);
+
+    const url = productRecommendationsSection.dataset.url;
+
+    fetch(url)
+      .then(response => response.text())
+      .then(text => {
+        const html = document.createElement('div');
+        html.innerHTML = text;
+        const recommendations = html.querySelector('.product-recommendations');
+
+        if (recommendations && recommendations.innerHTML.trim().length) {
+          productRecommendationsSection.innerHTML = recommendations.innerHTML;
+        }
+      })
+      .catch(e => {
+        console.error(e);
+      });
+  };
+
+  const productRecommendationsSection = document.querySelector('.product-recommendations');
+  const observer = new IntersectionObserver(handleIntersection, {rootMargin: '0px 0px 200px 0px'});
+
+  observer.observe(productRecommendationsSection);
+
+	// Add to cart
+  function collectionAddToCart(handle,id,qty) {
+    console.log('click');
+		var qty = 1;
+		$.post('/cart/add.js', {quantity:qty, id:id});
+		$.getJSON( "/cart.js", function( json ) {
+			var cartPrice = (json.total_price/100).toFixed(2);
+			var count = json.item_count;
+			$('.minicart .count').text(count);
+		});
+		$('.button-'+handle).hide();
+		$('.button-success-'+handle).show();
+	}
+
+</script>
+
+{% schema %}
+	{"name":"Product Recommendations", "class":"main-content", "settings":[
+    {"type":"text", "id":"title", "label":"Title", "default":"Selected for You"}
+  ], "presets":[
+		{"name":"Product Recommendations"}
+	], "templates":[
+		"product"
+	]}
+{% endschema %}
