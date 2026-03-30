@@ -33,12 +33,6 @@
   <meta property="og:price:currency" content="{{ cart.currency.iso_code }}">
 {%- endif -%}
 
-{%- if settings.twitter != blank -%}
-  <meta name="twitter:site" content="{{ settings.twitter | split: 'twitter.com/' | last | prepend: '@' }}">
-{%- endif -%}
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{{ og_title | escape }}">
-<meta name="twitter:description" content="{{ og_description | escape }}">
 
 <script type="application/ld+json">
   {
